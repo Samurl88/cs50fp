@@ -57,8 +57,30 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="grid-todo" style="color: white; border:solid">
-            Todo Here
+        <div class="grid-board" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white;">
+            <div class="grid-in-board" style="border:solid">
+                e
+            </div>
+        </div>
+        <div class="grid-todo" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white;">
+            <div style="font-size:1.1em; font-weight:500;">
+                Unfinished
+                <ul style="font-size:0.7em;">
+                {% for dict in bingo_tasks %}
+                    {% if dict.completion != 100 %}
+                        <li>{{ dict.name }}</li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+                Completed
+                <ul style="font-size:0.7em;">
+                    {% for dict in bingo_tasks %}
+                        {% if dict.completion == 100 %}
+                            <li>{{ dict.name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 
