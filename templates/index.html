@@ -5,17 +5,59 @@
 {% endblock %}
 
 {% block main %}
-    <div class="grid-container">
-        <div class="grid-select" style="border:solid; color:white">
+    <div class="grid-container" style="color:white;">
+        <div class="grid-select" style="color: white; border:solid">
             Select Menu Here
         </div>
-        <div class="grid-input" style="border:solid; color:white">
-            Input IGN Here
+        <div class="grid-input">
+            <div class="header">Bingo Data For</div>
+            <div class="subheader" style="margin-bottom:0em !important">
+                <div class="input-group mb-3" style="padding-left:2.5em; padding-right:2.5em; padding-top:0.8rem">
+                    <input type="text" class="form-control form-control-sm shadow-none" style="background-color:rgba(0, 0, 0, 0); color:white; border: 1.5px solid" placeholder="Username" aria-label="Username" aria-describedby="button-addon2">
+                    <button class="btn btn-sm btn-outline-light shadow-none" type="button" id="button-addon2" style="border: 1.5px solid white;">BINGO</button>
+                </div>
+            </div>
         </div>
-        <div class="grid-tasks" style="border:solid; color:white">
-            Tasks Here
+        <div class="grid-tasks" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5)">
+            <div class="grid-tasks-container">
+                {% for dict in bingo_tasks %}
+                    <div class="grid-tasks-item">
+                        <div class="header">
+                            {{ dict.name }}
+                        </div>
+                        <div class="subheader grid-subheader-container">
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    TASK
+                                </div>
+                                <div>
+                                    {{ dict.lore }}
+                                </div>
+                            </div>
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    METHOD
+                                </div>
+                                <div>
+                                    X Type Minions
+                                    <br>
+                                    Unloads: X
+                                </div>
+                            </div>
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    ETA
+                                </div>
+                                <div>
+                                    {{ dict.eta }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-        <div class="grid-todo" style="border:solid; color:white">
+        <div class="grid-todo" style="color: white; border:solid">
             Todo Here
         </div>
     </div>
