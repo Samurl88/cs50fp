@@ -7,7 +7,7 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from datetime import datetime
-from cs50fp.helpers import *
+from helpers import *
 
 # Configure application
 app = Flask(__name__)
