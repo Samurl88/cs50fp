@@ -1,0 +1,634 @@
+type,tierR,tierA,id,name,ugMaterial,ugCost,ugDisplay,ugMaterial2,ugCost2,ugDispray2,ugCostadd,delay,storage
+Wheat,I,1,101,Wheat I,Wheat,80,Wheat 10 x 8,,,,,15,128
+Wheat,II,2,102,Wheat II,Wheat,160,Wheat 20 x 8,,,,,15,256
+Wheat,III,3,103,Wheat III,Wheat,320,Wheat 40 x 8,,,,,13,256
+Wheat,IV,4,104,Wheat IV,Wheat,512,Wheat 64 x 8,,,,,13,384
+Wheat,V,5,105,Wheat V,Hay Bale,96,Hay Bale 12 x 8,,,,,11,384
+Wheat,VI,6,106,Wheat VI,Hay Bale,192,Hay Bale 24 x 8,,,,,11,576
+Wheat,VII,7,107,Wheat VII,Hay Bale,384,Hay Bale 48 x 8,,,,,10,576
+Wheat,VIII,8,108,Wheat VIII,Hay Bale,512,Hay Bale 64 x 8,,,,,10,768
+Wheat,IX,9,109,Wheat IX,Enchanted Hay Bale,8,E. Hay Bale 1 x 8,,,,,9,768
+Wheat,X,10,110,Wheat X,Enchanted Hay Bale,16,E. Hay Bale 2 x 8,,,,,9,960
+Wheat,XI,11,111,Wheat XI,Enchanted Hay Bale,32,E. Hay Bale 4 x 8,,,,,8,960
+Wheat,XII,12,112,Wheat XII,Enchanted Hay Bale,64,E. Hay Bale x 64,,,,75 Pelts,7,960
+Carrot,I,1,201,Carrot I,Carrot,128,Carrot 16 x 8,,,,,20,64
+Carrot,II,2,202,Carrot II,Carrot,256,Carrot 32 x 8,,,,,20,192
+Carrot,III,3,203,Carrot III,Carrot,512,Carrot 64 x 8,,,,,18,192
+Carrot,IV,4,204,Carrot IV,Enchanted Carrot,8,E. Carrot 1 x 8,,,,,18,384
+Carrot,V,5,205,Carrot V,Enchanted Carrot,24,E. Carrot 3 x 8,,,,,16,384
+Carrot,VI,6,206,Carrot VI,Enchanted Carrot,64,E. Carrot 8 x 8,,,,,16,576
+Carrot,VII,7,207,Carrot VII,Enchanted Carrot,128,E. Carrot 16 x 8,,,,,14,576
+Carrot,VIII,8,208,Carrot VIII,Enchanted Carrot,256,E. Carrot 32 x 8,,,,,14,768
+Carrot,IX,9,209,Carrot IX,Enchanted Carrot,512,E. Carrot 64 x 8,,,,,12,768
+Carrot,X,10,210,Carrot X,Enchanted Golden Carrot,8,E. Golden Carrot 1 x 8,,,,,12,960
+Carrot,XI,11,211,Carrot XI,Enchanted Golden Carrot,16,E. Golden Carrot 2 x 8,,,,,10,960
+Carrot,XII,12,212,Carrot XII,Enchanted Golden Carrot,32,E. Golden Carrot x 32,,,,75 Pelts,8,960
+Potato,I,1,301,Potato I,Potato,128,Potato 16 x 8,,,,,20,64
+Potato,II,2,302,Potato II,Potato,256,Potato 32 x 8,,,,,20,192
+Potato,III,3,303,Potato III,Potato,512,Potato 64 x 8,,,,,18,192
+Potato,IV,4,304,Potato IV,Enchanted Potato,8,E. Potato 1 x 8,,,,,18,384
+Potato,V,5,305,Potato V,Enchanted Potato,24,E. Potato 3 x 8,,,,,16,384
+Potato,VI,6,306,Potato VI,Enchanted Potato,64,E. Potato 8 x 8,,,,,16,576
+Potato,VII,7,307,Potato VII,Enchanted Potato,128,E. Potato 16 x 8,,,,,14,576
+Potato,VIII,8,308,Potato VIII,Enchanted Potato,256,E. Potato 32 x 8,,,,,14,768
+Potato,IX,9,309,Potato IX,Enchanted Potato,512,E. Potato 64 x 8,,,,,12,768
+Potato,X,10,310,Potato X,Enchanted Baked Potato,8,E. Baked Potato 1 x 8,,,,,12,960
+Potato,XI,11,311,Potato XI,Enchanted Baked Potato,16,E. Baked Potato 2 x 8,,,,,10,960
+Potato,XII,12,312,Potato XII,Enchanted Baked Potato,32,E. Baked Potato x 32,,,,75 Pelts,8,960
+Pumpkin,I,1,401,Pumpkin I,Pumpkin,80,Pumpkin 10 x 8,,,,,32,64
+Pumpkin,II,2,402,Pumpkin II,Pumpkin,160,Pumpkin 20 x 8,,,,,32,192
+Pumpkin,III,3,403,Pumpkin III,Pumpkin,320,Pumpkin 40 x 8,,,,,30,192
+Pumpkin,IV,4,404,Pumpkin IV,Pumpkin,512,Pumpkin 64 x 8,,,,,30,384
+Pumpkin,V,5,405,Pumpkin V,Enchanted Pumpkin,8,E. Pumpkin 1 x 8,,,,,27,384
+Pumpkin,VI,6,406,Pumpkin VI,Enchanted Pumpkin,16,E. Pumpkin 2 x 8,,,,,27,576
+Pumpkin,VII,7,407,Pumpkin VII,Enchanted Pumpkin,32,E. Pumpkin 4 x 8,,,,,24,576
+Pumpkin,VIII,8,408,Pumpkin VIII,Enchanted Pumpkin,64,E. Pumpkin 8 x 8,,,,,24,768
+Pumpkin,IX,9,409,Pumpkin IX,Enchanted Pumpkin,128,E. Pumpkin 16 x 8,,,,,20,768
+Pumpkin,X,10,410,Pumpkin X,Enchanted Pumpkin,256,E. Pumpkin 32 x 8,,,,,20,960
+Pumpkin,XI,11,411,Pumpkin XI,Enchanted Pumpkin,512,E. Pumpkin 64 x 8,,,,,16,960
+Pumpkin,XII,12,412,Pumpkin XII,Enchanted Pumpkin,"1,024",E. Pumpkin x 1024,,,,75 Pelts,12,960
+Melon,I,1,501,Melon I,Melon,256,Melon 32 x 8,,,,,24,64
+Melon,II,2,502,Melon II,Melon,512,Melon 64 x 8,,,,,24,192
+Melon,III,3,503,Melon III,Melon,1152,Melon 144 x 8,,,,,22.5,192
+Melon,IV,4,504,Melon IV,Melon,2304,Melon 288 x 8,,,,,22.5,384
+Melon,V,5,505,Melon V,Melon,4608,Melon 576 x 8,,,,,21,384
+Melon,VI,6,506,Melon VI,Enchanted Melon,64,E. Melon 8 x 8,,,,,21,576
+Melon,VII,7,507,Melon VII,Enchanted Melon,128,E. Melon 16 x 8,,,,,18.5,576
+Melon,VIII,8,508,Melon VIII,Enchanted Melon,256,E. Melon 32 x 8,,,,,18.5,768
+Melon,IX,9,509,Melon IX,Enchanted Melon,512,E. Melon 64 x 8,,,,,16,768
+Melon,X,10,510,Melon X,Enchanted Melon Block,8,E. Melon Block 1 x 8,,,,,16,960
+Melon,XI,11,511,Melon XI,Enchanted Melon Block,16,E. Melon Block 2 x 8,,,,,13,960
+Melon,XII,12,512,Melon XII,Enchanted Melon Block,32,E. Melon Block x 32,,,,75 Pelts,10,960
+Mushroom,I,1,601,Mushroom I,Mushroom,80,Mushroom 10 x 8,,,,,30,64
+Mushroom,II,2,602,Mushroom II,Mushroom,160,Mushroom 20 x 8,,,,,30,192
+Mushroom,III,3,603,Mushroom III,Mushroom,320,Mushroom 40 x 8,,,,,28,192
+Mushroom,IV,4,604,Mushroom IV,Mushroom,512,Mushroom 64 x 8,,,,,28,384
+Mushroom,V,5,605,Mushroom V,Enchanted Mushroom,8,E. Mushroom 1 x 8,,,,,26,384
+Mushroom,VI,6,606,Mushroom VI,Enchanted Mushroom,16,E. Mushroom 2 x 8,,,,,26,576
+Mushroom,VII,7,607,Mushroom VII,Enchanted Mushroom,32,E. Mushroom 4 x 8,,,,,23,576
+Mushroom,VIII,8,608,Mushroom VIII,Enchanted Mushroom,64,E. Mushroom 8 x 8,,,,,23,768
+Mushroom,IX,9,609,Mushroom IX,Enchanted Mushroom,128,E. Mushroom 16 x 8,,,,,20,768
+Mushroom,X,10,610,Mushroom X,Enchanted Mushroom,256,E. Mushroom 32 x 8,,,,,20,960
+Mushroom,XI,11,611,Mushroom XI,Enchanted Mushroom,512,E. Mushroom 64 x 8,,,,,16,960
+Mushroom,XII,12,612,Mushroom XII,Enchanted Brown Mushroom,512,E. Brown Mushroom x 512,Enchanted Red Mushroom,512,E. Red Mushroom x 512,75 Pelts,12,960
+Cocoa Beans,I,1,701,Cocoa Beans I,Cocoa Beans,80,Cocoa Beans 10 x 8,,,,,27,64
+Cocoa Beans,II,2,702,Cocoa Beans II,Cocoa Beans,160,Cocoa Beans 20 x 8,,,,,27,192
+Cocoa Beans,III,3,703,Cocoa Beans III,Cocoa Beans,320,Cocoa Beans 40 x 8,,,,,25,192
+Cocoa Beans,IV,4,704,Cocoa Beans IV,Cocoa Beans,512,Cocoa Beans 64 x 8,,,,,25,384
+Cocoa Beans,V,5,705,Cocoa Beans V,Enchanted Cocoa Bean,8,E. Cocoa Bean 1 x 8,,,,,23,384
+Cocoa Beans,VI,6,706,Cocoa Beans VI,Enchanted Cocoa Bean,24,E. Cocoa Bean 3 x 8,,,,,23,576
+Cocoa Beans,VII,7,707,Cocoa Beans VII,Enchanted Cocoa Bean,64,E. Cocoa Bean 8 x 8,,,,,21,576
+Cocoa Beans,VIII,8,708,Cocoa Beans VIII,Enchanted Cocoa Bean,128,E. Cocoa Bean 16 x 8,,,,,21,768
+Cocoa Beans,IX,9,709,Cocoa Beans IX,Enchanted Cocoa Bean,256,E. Cocoa Bean 32 x 8,,,,,18,768
+Cocoa Beans,X,10,710,Cocoa Beans X,Enchanted Cocoa Bean,512,E. Cocoa Bean 64 x 8,,,,,18,960
+Cocoa Beans,XI,11,711,Cocoa Beans XI,Enchanted Cookie,8,E. Cookie 1 x 8,,,,,15,960
+Cocoa Beans,XII,12,712,Cocoa Beans XII,Enchanted Cookie,16,E. Cookie x 16,,,,75 Pelts,12,960
+Cactus,I,1,801,Cactus I,Cactus,128,Cactus 16 x 8,,,,,27,64
+Cactus,II,2,802,Cactus II,Cactus,256,Cactus 32 x 8,,,,,27,192
+Cactus,III,3,803,Cactus III,Cactus,512,Cactus 64 x 8,,,,,25,192
+Cactus,IV,4,804,Cactus IV,Enchanted Cactus Green,8,E. Cactus Green 1 x 8,,,,,25,384
+Cactus,V,5,805,Cactus V,Enchanted Cactus Green,24,E. Cactus Green 3 x 8,,,,,23,384
+Cactus,VI,6,806,Cactus VI,Enchanted Cactus Green,64,E. Cactus Green 8 x 8,,,,,23,576
+Cactus,VII,7,807,Cactus VII,Enchanted Cactus Green,128,E. Cactus Green 16 x 8,,,,,21,576
+Cactus,VIII,8,808,Cactus VIII,Enchanted Cactus Green,256,E. Cactus Green 32 x 8,,,,,21,768
+Cactus,IX,9,809,Cactus IX,Enchanted Cactus Green,512,E. Cactus Green 64 x 8,,,,,18,768
+Cactus,X,10,810,Cactus X,Enchanted Cactus,8,E. Cactus 1 x 8,,,,,18,960
+Cactus,XI,11,811,Cactus XI,Enchanted Cactus,16,E. Cactus 2 x 8,,,,,15,960
+Cactus,XII,12,812,Cactus XII,Enchanted Cactus,32,E. Cactus x 32,,,,75 Pelts,12,960
+Sugar Cane,I,1,901,Sugar Cane I,Sugar Cane,128,Sugar Cane 16 x 8,,,,,22,64
+Sugar Cane,II,2,902,Sugar Cane II,Sugar Cane,256,Sugar Cane 32 x 8,,,,,22,192
+Sugar Cane,III,3,903,Sugar Cane III,Sugar Cane,512,Sugar Cane 64 x 8,,,,,20,192
+Sugar Cane,IV,4,904,Sugar Cane IV,Enchanted Sugar,8,E. Sugar 1 x 8,,,,,20,384
+Sugar Cane,V,5,905,Sugar Cane V,Enchanted Sugar,24,E. Sugar 3 x 8,,,,,18,384
+Sugar Cane,VI,6,906,Sugar Cane VI,Enchanted Sugar,64,E. Sugar 8 x 8,,,,,18,576
+Sugar Cane,VII,7,907,Sugar Cane VII,Enchanted Sugar,128,E. Sugar 16 x 8,,,,,16,576
+Sugar Cane,VIII,8,908,Sugar Cane VIII,Enchanted Sugar,256,E. Sugar 32 x 8,,,,,16,768
+Sugar Cane,IX,9,909,Sugar Cane IX,Enchanted Sugar,512,E. Sugar 64 x 8,,,,,14.5,768
+Sugar Cane,X,10,910,Sugar Cane X,Enchanted Sugar Cane,8,E. Sugar Cane 1 x 8,,,,,14.5,960
+Sugar Cane,XI,11,911,Sugar Cane XI,Enchanted Sugar Cane,16,E. Sugar Cane 2 x 8,,,,,12,960
+Sugar Cane,XII,12,912,Sugar Cane XII,Enchanted Sugar Cane,32,E. Sugar Cane x 32,,,,75 Pelts,9,960
+Cow,I,1,1001,Cow I,Raw Beef,64,Raw Beef 8 x 8,,,,,26,128
+Cow,II,2,1002,Cow II,Raw Beef,128,Raw Beef 16 x 8,,,,,26,256
+Cow,III,3,1003,Cow III,Raw Beef,256,Raw Beef 32 x 8,,,,,24,256
+Cow,IV,4,1004,Cow IV,Raw Beef,512,Raw Beef 64 x 8,,,,,24,384
+Cow,V,5,1005,Cow V,Enchanted Raw Beef,8,E. Raw Beef 1 x 8,,,,,22,384
+Cow,VI,6,1006,Cow VI,Enchanted Raw Beef,24,E. Raw Beef 3 x 8,,,,,22,576
+Cow,VII,7,1007,Cow VII,Enchanted Raw Beef,64,E. Raw Beef 8 x 8,,,,,20,576
+Cow,VIII,8,1008,Cow VIII,Enchanted Raw Beef,128,E. Raw Beef 16 x 8,,,,,20,768
+Cow,IX,9,1009,Cow IX,Enchanted Raw Beef,256,E. Raw Beef 32 x 8,,,,,17,768
+Cow,X,10,1010,Cow X,Enchanted Raw Beef,512,E. Raw Beef 64 x 8,,,,,17,960
+Cow,XI,11,1011,Cow XI,Enchanted Leather,256,E. Leather 32 x 8,,,,,13,960
+Cow,XII,12,1012,Cow XII,Enchanted Leather,512,E. Leather x 512,,,,75 Pelts,10,960
+Pig,I,1,1101,Pig I,Raw Porkchop,64,Raw Porkchop 8 x 8,,,,,26,64
+Pig,II,2,1102,Pig II,Raw Porkchop,128,Raw Porkchop 16 x 8,,,,,26,192
+Pig,III,3,1103,Pig III,Raw Porkchop,256,Raw Porkchop 32 x 8,,,,,24,192
+Pig,IV,4,1104,Pig IV,Raw Porkchop,512,Raw Porkchop 64 x 8,,,,,24,384
+Pig,V,5,1105,Pig V,Enchanted Pork,8,E. Pork 1 x 8,,,,,22,384
+Pig,VI,6,1106,Pig VI,Enchanted Pork,24,E. Pork 3 x 8,,,,,22,576
+Pig,VII,7,1107,Pig VII,Enchanted Pork,64,E. Pork 8 x 8,,,,,20,576
+Pig,VIII,8,1108,Pig VIII,Enchanted Pork,128,E. Pork 16 x 8,,,,,20,768
+Pig,IX,9,1109,Pig IX,Enchanted Pork,256,E. Pork 32 x 8,,,,,17,768
+Pig,X,10,1110,Pig X,Enchanted Pork,512,E. Pork 64 x 8,,,,,17,960
+Pig,XI,11,1111,Pig XI,Enchanted Grilled Pork,8,E. Grilled Pork 1 x 8,,,,,13,960
+Pig,XII,12,1112,Pig XII,Enchanted Grilled Pork,16,E. Grilled Pork x 16,,,,75 Pelts,10,960
+Chicken,I,1,1201,Chicken I,Raw Chicken,64,Raw Chicken 8 x 8,,,,,26,192
+Chicken,II,2,1202,Chicken II,Raw Chicken,128,Raw Chicken 16 x 8,,,,,26,320
+Chicken,III,3,1203,Chicken III,Raw Chicken,256,Raw Chicken 32 x 8,,,,,24,320
+Chicken,IV,4,1204,Chicken IV,Raw Chicken,512,Raw Chicken 64 x 8,,,,,24,384
+Chicken,V,5,1205,Chicken V,Enchanted Raw Chicken,8,E. Raw Chicken 1 x 8,,,,,22,384
+Chicken,VI,6,1206,Chicken VI,Enchanted Raw Chicken,16,E. Raw Chicken 2 x 8,,,,,22,576
+Chicken,VII,7,1207,Chicken VII,Enchanted Raw Chicken,32,E. Raw Chicken 4 x 8,,,,,20,576
+Chicken,VIII,8,1208,Chicken VIII,Enchanted Raw Chicken,64,E. Raw Chicken 8 x 8,,,,,20,768
+Chicken,IX,9,1209,Chicken IX,Enchanted Raw Chicken,128,E. Raw Chicken 16 x 8,,,,,18,768
+Chicken,X,10,1210,Chicken X,Enchanted Raw Chicken,256,E. Raw Chicken 32 x 8,,,,,18,960
+Chicken,XI,11,1211,Chicken XI,Enchanted Raw Chicken,512,E. Raw Chicken 64 x 8,,,,,15,960
+Chicken,XII,12,1212,Chicken XII,Enchanted Raw Chicken,"1,024",E. Raw Chicken x 1024,,,,75 Pelts,12,960
+Sheep,I,1,1301,Sheep I,Mutton,64,Mutton 8 x 8,,,,,24,128
+Sheep,II,2,1302,Sheep II,Mutton,128,Mutton 16 x 8,,,,,24,256
+Sheep,III,3,1303,Sheep III,Mutton,256,Mutton 32 x 8,,,,,22,256
+Sheep,IV,4,1304,Sheep IV,Mutton,512,Mutton 64 x 8,,,,,22,384
+Sheep,V,5,1305,Sheep V,Enchanted Mutton,8,E. Mutton 1 x 8,,,,,20,384
+Sheep,VI,6,1306,Sheep VI,Enchanted Mutton,24,E. Mutton 3 x 8,,,,,20,576
+Sheep,VII,7,1307,Sheep VII,Enchanted Mutton,64,E. Mutton 8 x 8,,,,,18,576
+Sheep,VIII,8,1308,Sheep VIII,Enchanted Mutton,128,E. Mutton 16 x 8,,,,,18,768
+Sheep,IX,9,1309,Sheep IX,Enchanted Mutton,256,E. Mutton 32 x 8,,,,,16,768
+Sheep,X,10,1310,Sheep X,Enchanted Mutton,512,E. Mutton 64 x 8,,,,,16,960
+Sheep,XI,11,1311,Sheep XI,Enchanted Cooked Mutton,8,E. Cooked Mutton 1 x 8,,,,,12,960
+Sheep,XII,12,1312,Sheep XII,Enchanted Cooked Mutton,16,E. Cooked Mutton x 16,,,,75 Pelts,9,960
+Rabbit,I,1,1401,Rabbit I,Raw Rabbit,64,Raw Rabbit 8 x 8,,,,,26,192
+Rabbit,II,2,1402,Rabbit II,Raw Rabbit,128,Raw Rabbit 16 x 8,,,,,26,320
+Rabbit,III,3,1403,Rabbit III,Raw Rabbit,256,Raw Rabbit 32 x 8,,,,,24,320
+Rabbit,IV,4,1404,Rabbit IV,Raw Rabbit,512,Raw Rabbit 64 x 8,,,,,24,448
+Rabbit,V,5,1405,Rabbit V,Enchanted Rabbit Foot,32,E. Rabbit Foot 4 x 8,,,,,22,448
+Rabbit,VI,6,1406,Rabbit VI,Enchanted Rabbit Foot,64,E. Rabbit Foot 8 x 8,,,,,22,576
+Rabbit,VII,7,1407,Rabbit VII,Enchanted Rabbit Foot,128,E. Rabbit Foot 16 x 8,,,,,20,576
+Rabbit,VIII,8,1408,Rabbit VIII,Enchanted Rabbit Foot,256,E. Rabbit Foot 32 x 8,,,,,20,768
+Rabbit,IX,9,1409,Rabbit IX,Enchanted Rabbit Foot,512,E. Rabbit Foot 64 x 8,,,,,17,768
+Rabbit,X,10,1410,Rabbit X,Enchanted Rabbit Hide,256,E. Rabbit Hide 32 x 8,,,,,17,960
+Rabbit,XI,11,1411,Rabbit XI,Enchanted Rabbit Hide,512,E. Rabbit Hide 64 x 8,,,,,13,960
+Rabbit,XII,12,1412,Rabbit XII,Enchanted Rabbit Hide,"1,024",E. Rabbit Hide x 1024,,,,75 Pelts,10,960
+Nether Wart,I,1,1501,Nether Wart I,Nether Wart,80,Nether Wart 10 x 8,,,,,50,64
+Nether Wart,II,2,1502,Nether Wart II,Nether Wart,160,Nether Wart 20 x 8,,,,,50,192
+Nether Wart,III,3,1503,Nether Wart III,Nether Wart,320,Nether Wart 40 x 8,,,,,47,192
+Nether Wart,IV,4,1504,Nether Wart IV,Nether Wart,512,Nether Wart 64 x 8,,,,,47,384
+Nether Wart,V,5,1505,Nether Wart V,Enchanted Nether Wart,8,E. Nether Wart 1 x 8,,,,,44,384
+Nether Wart,VI,6,1506,Nether Wart VI,Enchanted Nether Wart,16,E. Nether Wart 2 x 8,,,,,44,576
+Nether Wart,VII,7,1507,Nether Wart VII,Enchanted Nether Wart,32,E. Nether Wart 4 x 8,,,,,41,576
+Nether Wart,VIII,8,1508,Nether Wart VIII,Enchanted Nether Wart,64,E. Nether Wart 8 x 8,,,,,41,768
+Nether Wart,IX,9,1509,Nether Wart IX,Enchanted Nether Wart,128,E. Nether Wart 16 x 8,,,,,38,768
+Nether Wart,X,10,1510,Nether Wart X,Enchanted Nether Wart,256,E. Nether Wart 32 x 8,,,,,38,960
+Nether Wart,XI,11,1511,Nether Wart XI,Enchanted Nether Wart,512,E. Nether Wart 64 x 8,,,,,32,960
+Nether Wart,XII,12,1512,Nether Wart XII,Enchanted Nether Wart,"1,024",E. Nether Wart x 1024,,,,75 Pelts,27,960
+Cobblestone,I,1,1601,Cobblestone I,Cobblestone,80,Cobblestone 10 x 8,,,,,14,64
+Cobblestone,II,2,1602,Cobblestone II,Cobblestone,160,Cobblestone 20 x 8,,,,,14,192
+Cobblestone,III,3,1603,Cobblestone III,Cobblestone,320,Cobblestone 40 x 8,,,,,12,192
+Cobblestone,IV,4,1604,Cobblestone IV,Cobblestone,512,Cobblestone 64 x 8,,,,,12,384
+Cobblestone,V,5,1605,Cobblestone V,Enchanted Cobblestone,8,E. Cobblestone 1 x 8,,,,,10,384
+Cobblestone,VI,6,1606,Cobblestone VI,Enchanted Cobblestone,16,E. Cobblestone 2 x 8,,,,,10,576
+Cobblestone,VII,7,1607,Cobblestone VII,Enchanted Cobblestone,32,E. Cobblestone 4 x 8,,,,,9,576
+Cobblestone,VIII,8,1608,Cobblestone VIII,Enchanted Cobblestone,64,E. Cobblestone 8 x 8,,,,,9,768
+Cobblestone,IX,9,1609,Cobblestone IX,Enchanted Cobblestone,128,E. Cobblestone 16 x 8,,,,,8,768
+Cobblestone,X,10,1610,Cobblestone X,Enchanted Cobblestone,256,E. Cobblestone 32 x 8,,,,,8,960
+Cobblestone,XI,11,1611,Cobblestone XI,Enchanted Cobblestone,512,E. Cobblestone 64 x 8,,,,,7,960
+Cobblestone,XII,12,1612,Cobblestone XII,Enchanted Cobblestone,"1,024",E. Cobblestone x 1024,,,,2M coins,6,960
+Coal,I,1,1701,Coal I,Coal,80,Coal 10 x 8,,,,,15,64
+Coal,II,2,1702,Coal II,Coal,160,Coal 20 x 8,,,,,15,192
+Coal,III,3,1703,Coal III,Coal,320,Coal 40 x 8,,,,,13,192
+Coal,IV,4,1704,Coal IV,Coal,512,Coal 64 x 8,,,,,13,384
+Coal,V,5,1705,Coal V,Enchanted Coal,8,E. Coal 1 x 8,,,,,12,384
+Coal,VI,6,1706,Coal VI,Enchanted Coal,24,E. Coal 3 x 8,,,,,12,576
+Coal,VII,7,1707,Coal VII,Enchanted Coal,64,E. Coal 8 x 8,,,,,10,576
+Coal,VIII,8,1708,Coal VIII,Enchanted Coal,128,E. Coal 16 x 8,,,,,10,768
+Coal,IX,9,1709,Coal IX,Enchanted Coal,256,E. Coal 32 x 8,,,,,9,768
+Coal,X,10,1710,Coal X,Enchanted Coal,512,E. Coal 64 x 8,,,,,9,960
+Coal,XI,11,1711,Coal XI,Enchanted Block of Coal,8,E. Block of Coal 1 x 8,,,,,7,960
+Coal,XII,12,1712,Coal XII,Enchanted Block of Coal,16,E. Block of Coal x 16,,,,2M coins,6,960
+Iron,I,1,1801,Iron I,Iron Ingot,80,Iron Ingot 10 x 8,,,,,17,64
+Iron,II,2,1802,Iron II,Iron Ingot,160,Iron Ingot 20 x 8,,,,,17,192
+Iron,III,3,1803,Iron III,Iron Ingot,320,Iron Ingot 40 x 8,,,,,15,192
+Iron,IV,4,1804,Iron IV,Iron Ingot,512,Iron Ingot 64 x 8,,,,,15,384
+Iron,V,5,1805,Iron V,Enchanted Iron,8,E. Iron 1 x 8,,,,,14,384
+Iron,VI,6,1806,Iron VI,Enchanted Iron,24,E. Iron 3 x 8,,,,,14,576
+Iron,VII,7,1807,Iron VII,Enchanted Iron,64,E. Iron 8 x 8,,,,,12,576
+Iron,VIII,8,1808,Iron VIII,Enchanted Iron,128,E. Iron 16 x 8,,,,,12,768
+Iron,IX,9,1809,Iron IX,Enchanted Iron,256,E. Iron 32 x 8,,,,,10,768
+Iron,X,10,1810,Iron X,Enchanted Iron,512,E. Iron 64 x 8,,,,,10,960
+Iron,XI,11,1811,Iron XI,Enchanted Iron Block,8,E. Iron Block 1 x 8,,,,,8,960
+Iron,XII,12,1812,Iron XII,Enchanted Iron Block,16,E. Iron Block x 16,,,,2M coins,7,960
+Gold,I,1,1901,Gold I,Gold Ingot,80,Gold Ingot 10 x 8,,,,,22,64
+Gold,II,2,1902,Gold II,Gold Ingot,160,Gold Ingot 20 x 8,,,,,22,192
+Gold,III,3,1903,Gold III,Gold Ingot,320,Gold Ingot 40 x 8,,,,,20,192
+Gold,IV,4,1904,Gold IV,Gold Ingot,512,Gold Ingot 64 x 8,,,,,20,384
+Gold,V,5,1905,Gold V,Enchanted Gold,8,E. Gold 1 x 8,,,,,18,384
+Gold,VI,6,1906,Gold VI,Enchanted Gold,24,E. Gold 3 x 8,,,,,18,576
+Gold,VII,7,1907,Gold VII,Enchanted Gold,64,E. Gold 8 x 8,,,,,16,576
+Gold,VIII,8,1908,Gold VIII,Enchanted Gold,128,E. Gold 16 x 8,,,,,16,768
+Gold,IX,9,1909,Gold IX,Enchanted Gold,256,E. Gold 32 x 8,,,,,14,768
+Gold,X,10,1910,Gold X,Enchanted Gold,512,E. Gold 64 x 8,,,,,14,960
+Gold,XI,11,1911,Gold XI,Enchanted Gold Block,8,E. Gold Block 1 x 8,,,,,11,960
+Gold,XII,12,1912,Gold XII,Enchanted Gold Block,16,E. Gold Block x 16,,,,2M coins,9,960
+Diamond,I,1,2001,Diamond I,Diamond,80,Diamond 10 x 8,,,,,29,64
+Diamond,II,2,2002,Diamond II,Diamond,160,Diamond 20 x 8,,,,,29,192
+Diamond,III,3,2003,Diamond III,Diamond,320,Diamond 40 x 8,,,,,27,192
+Diamond,IV,4,2004,Diamond IV,Diamond,512,Diamond 64 x 8,,,,,27,384
+Diamond,V,5,2005,Diamond V,Enchanted Diamond,8,E. Diamond 1 x 8,,,,,25,384
+Diamond,VI,6,2006,Diamond VI,Enchanted Diamond,24,E. Diamond 3 x 8,,,,,25,576
+Diamond,VII,7,2007,Diamond VII,Enchanted Diamond,64,E. Diamond 8 x 8,,,,,22,576
+Diamond,VIII,8,2008,Diamond VIII,Enchanted Diamond,128,E. Diamond 16 x 8,,,,,22,768
+Diamond,IX,9,2009,Diamond IX,Enchanted Diamond,256,E. Diamond 32 x 8,,,,,19,768
+Diamond,X,10,2010,Diamond X,Enchanted Diamond,512,E. Diamond 64 x 8,,,,,19,960
+Diamond,XI,11,2011,Diamond XI,Enchanted Diamond Block,8,E. Diamond Block 1 x 8,,,,,15,960
+Diamond,XII,12,2012,Diamond XII,Enchanted Diamond Block,16,E. Diamond Block x 16,,,,2M coins,12,960
+Lapis,I,1,2101,Lapis I,Lapis Lazuli,256,Lapis Lazuli 32 x 8,,,,,29,64
+Lapis,II,2,2102,Lapis II,Lapis Lazuli,512,Lapis Lazuli 64 x 8,,,,,29,192
+Lapis,III,3,2103,Lapis III,Enchanted Lapis Lazuli,8,E. Lapis Lazuli 1 x 8,,,,,27,192
+Lapis,IV,4,2104,Lapis IV,Enchanted Lapis Lazuli,24,E. Lapis Lazuli 3 x 8,,,,,27,384
+Lapis,V,5,2105,Lapis V,Enchanted Lapis Lazuli,64,E. Lapis Lazuli 8 x 8,,,,,25,384
+Lapis,VI,6,2106,Lapis VI,Enchanted Lapis Lazuli,128,E. Lapis Lazuli 16 x 8,,,,,25,576
+Lapis,VII,7,2107,Lapis VII,Enchanted Lapis Lazuli,256,E. Lapis Lazuli 32 x 8,,,,,23,576
+Lapis,VIII,8,2108,Lapis VIII,Enchanted Lapis Lazuli,512,E. Lapis Lazuli 64 x 8,,,,,23,768
+Lapis,IX,9,2109,Lapis IX,Enchanted Lapis Block,8,E. Lapis Block 1 x 8,,,,,21,768
+Lapis,X,10,2110,Lapis X,Enchanted Lapis Block,16,E. Lapis Block 2 x 8,,,,,21,960
+Lapis,XI,11,2111,Lapis XI,Enchanted Lapis Block,32,E. Lapis Block 4 x 8,,,,,18,960
+Lapis,XII,12,2112,Lapis XII,Enchanted Lapis Block,64,E. Lapis Block x 64,,,,2M coins,16,960
+Emerald,I,1,2201,Emerald I,Emerald,80,Emerald 10 x 8,,,,,28,64
+Emerald,II,2,2202,Emerald II,Emerald,160,Emerald 20 x 8,,,,,28,192
+Emerald,III,3,2203,Emerald III,Emerald,320,Emerald 40 x 8,,,,,26,192
+Emerald,IV,4,2204,Emerald IV,Emerald,512,Emerald 64 x 8,,,,,26,384
+Emerald,V,5,2205,Emerald V,Enchanted Emerald,8,E. Emerald 1 x 8,,,,,24,384
+Emerald,VI,6,2206,Emerald VI,Enchanted Emerald,24,E. Emerald 3 x 8,,,,,24,576
+Emerald,VII,7,2207,Emerald VII,Enchanted Emerald,64,E. Emerald 8 x 8,,,,,21,576
+Emerald,VIII,8,2208,Emerald VIII,Enchanted Emerald,128,E. Emerald 16 x 8,,,,,21,768
+Emerald,IX,9,2209,Emerald IX,Enchanted Emerald,256,E. Emerald 32 x 8,,,,,18,768
+Emerald,X,10,2210,Emerald X,Enchanted Emerald,512,E. Emerald 64 x 8,,,,,18,960
+Emerald,XI,11,2211,Emerald XI,Enchanted Emerald Block,8,E. Emerald Block 1 x 8,,,,,14,960
+Emerald,XII,12,2212,Emerald XII,Enchanted Emerald Block,16,E. Emerald Block x 16,,,,2M coins,12,960
+Redstone,I,1,2301,Redstone I,Redstone,128,Redstone 16 x 8,,,,,29,64
+Redstone,II,2,2302,Redstone II,Redstone,256,Redstone 32 x 8,,,,,29,192
+Redstone,III,3,2303,Redstone III,Redstone,512,Redstone 64 x 8,,,,,27,192
+Redstone,IV,4,2304,Redstone IV,Enchanted Redstone,8,E. Redstone 1 x 8,,,,,27,384
+Redstone,V,5,2305,Redstone V,Enchanted Redstone,24,E. Redstone 3 x 8,,,,,25,384
+Redstone,VI,6,2306,Redstone VI,Enchanted Redstone,64,E. Redstone 8 x 8,,,,,25,576
+Redstone,VII,7,2307,Redstone VII,Enchanted Redstone,128,E. Redstone 16 x 8,,,,,23,576
+Redstone,VIII,8,2308,Redstone VIII,Enchanted Redstone,256,E. Redstone 32 x 8,,,,,23,768
+Redstone,IX,9,2309,Redstone IX,Enchanted Redstone,512,E. Redstone 64 x 8,,,,,21,768
+Redstone,X,10,2310,Redstone X,Enchanted Redstone Block,8,E. Redstone Block 1 x 8,,,,,21,960
+Redstone,XI,11,2311,Redstone XI,Enchanted Redstone Block,16,E. Redstone Block 2 x 8,,,,,18,960
+Redstone,XII,12,2312,Redstone XII,Enchanted Redstone Block,32,E. Redstone Block x 32,,,,2M coins,16,960
+Quartz,I,1,2401,Quartz I,Nether Quartz,80,Nether Quartz 10 x 8,,,,,22.5,64
+Quartz,II,2,2402,Quartz II,Nether Quartz,160,Nether Quartz 20 x 8,,,,,22.5,192
+Quartz,III,3,2403,Quartz III,Nether Quartz,320,Nether Quartz 40 x 8,,,,,21,192
+Quartz,IV,4,2404,Quartz IV,Nether Quartz,512,Nether Quartz 64 x 8,,,,,21,384
+Quartz,V,5,2405,Quartz V,Enchanted Quartz,8,E. Quartz 1 x 8,,,,,19,384
+Quartz,VI,6,2406,Quartz VI,Enchanted Quartz,24,E. Quartz 3 x 8,,,,,19,576
+Quartz,VII,7,2407,Quartz VII,Enchanted Quartz,64,E. Quartz 8 x 8,,,,,17,576
+Quartz,VIII,8,2408,Quartz VIII,Enchanted Quartz,128,E. Quartz 16 x 8,,,,,17,768
+Quartz,IX,9,2409,Quartz IX,Enchanted Quartz,256,E. Quartz 32 x 8,,,,,14.5,768
+Quartz,X,10,2410,Quartz X,Enchanted Quartz,512,E. Quartz 64 x 8,,,,,14.5,960
+Quartz,XI,11,2411,Quartz XI,Enchanted Quartz Block,8,E. Quartz Block 1 x 8,,,,,11.5,960
+Obsidian,I,1,2501,Obsidian I,Obsidian,80,Obsidian 10 x 8,,,,,45,64
+Obsidian,II,2,2502,Obsidian II,Obsidian,160,Obsidian 20 x 8,,,,,45,192
+Obsidian,III,3,2503,Obsidian III,Obsidian,320,Obsidian 40 x 8,,,,,42,192
+Obsidian,IV,4,2504,Obsidian IV,Obsidian,512,Obsidian 64 x 8,,,,,42,384
+Obsidian,V,5,2505,Obsidian V,Enchanted Obsidian,8,E. Obsidian 1 x 8,,,,,39,384
+Obsidian,VI,6,2506,Obsidian VI,Enchanted Obsidian,16,E. Obsidian 2 x 8,,,,,39,576
+Obsidian,VII,7,2507,Obsidian VII,Enchanted Obsidian,32,E. Obsidian 4 x 8,,,,,35,576
+Obsidian,VIII,8,2508,Obsidian VIII,Enchanted Obsidian,64,E. Obsidian 8 x 8,,,,,35,768
+Obsidian,IX,9,2509,Obsidian IX,Enchanted Obsidian,128,E. Obsidian 16 x 8,,,,,30,768
+Obsidian,X,10,2510,Obsidian X,Enchanted Obsidian,256,E. Obsidian 32 x 8,,,,,30,960
+Obsidian,XI,11,2511,Obsidian XI,Enchanted Obsidian,512,E. Obsidian 64 x 8,,,,,24,960
+Obsidian,XII,12,2512,Obsidian XII,Enchanted Obsidian,"1,024",E. Obsidian x 1024,,,,2M coins,21,960
+Glowstone,I,1,2601,Glowstone I,Glowstone Dust,128,Glowstone Dust 16 x 8,,,,,25,64
+Glowstone,II,2,2602,Glowstone II,Glowstone Dust,256,Glowstone Dust 32 x 8,,,,,25,192
+Glowstone,III,3,2603,Glowstone III,Glowstone Dust,512,Glowstone Dust 64 x 8,,,,,23,192
+Glowstone,IV,4,2604,Glowstone IV,Enchanted Glowstone Dust,8,E. Glowstone Dust 1 x 8,,,,,23,384
+Glowstone,V,5,2605,Glowstone V,Enchanted Glowstone Dust,24,E. Glowstone Dust 3 x 8,,,,,21,384
+Glowstone,VI,6,2606,Glowstone VI,Enchanted Glowstone Dust,64,E. Glowstone Dust 8 x 8,,,,,21,576
+Glowstone,VII,7,2607,Glowstone VII,Enchanted Glowstone Dust,128,E. Glowstone Dust 16 x 8,,,,,19,576
+Glowstone,VIII,8,2608,Glowstone VIII,Enchanted Glowstone Dust,256,E. Glowstone Dust 32 x 8,,,,,19,768
+Glowstone,IX,9,2609,Glowstone IX,Enchanted Glowstone Dust,512,E. Glowstone Dust 64 x 8,,,,,16,768
+Glowstone,X,10,2610,Glowstone X,Enchanted Glowstone,8,E. Glowstone 1 x 8,,,,,16,960
+Glowstone,XI,11,2611,Glowstone XI,Enchanted Glowstone,16,E. Glowstone 2 x 8,,,,,13,960
+Gravel,I,1,2701,Gravel I,Gravel,80,Gravel 10 x 8,,,,,26,128
+Gravel,II,2,2702,Gravel II,Gravel,160,Gravel 20 x 8,,,,,26,256
+Gravel,III,3,2703,Gravel III,Gravel,320,Gravel 40 x 8,,,,,24,256
+Gravel,IV,4,2704,Gravel IV,Gravel,512,Gravel 64 x 8,,,,,24,384
+Gravel,V,5,2705,Gravel V,Enchanted Flint,8,E. Flint 1 x 8,,,,,22,384
+Gravel,VI,6,2706,Gravel VI,Enchanted Flint,16,E. Flint 2 x 8,,,,,22,576
+Gravel,VII,7,2707,Gravel VII,Enchanted Flint,32,E. Flint 4 x 8,,,,,19,576
+Gravel,VIII,8,2708,Gravel VIII,Enchanted Flint,64,E. Flint 8 x 8,,,,,19,768
+Gravel,IX,9,2709,Gravel IX,Enchanted Flint,128,E. Flint 16 x 8,,,,,16,768
+Gravel,X,10,2710,Gravel X,Enchanted Flint,256,E. Flint 32 x 8,,,,,16,960
+Gravel,XI,11,2711,Gravel XI,Enchanted Flint,512,E. Flint 64 x 8,,,,,13,960
+Ice,I,1,2801,Ice I,Ice,80,Ice 10 x 8,,,,,14,64
+Ice,II,2,2802,Ice II,Ice,160,Ice 20 x 8,,,,,14,192
+Ice,III,3,2803,Ice III,Ice,320,Ice 40 x 8,,,,,12,192
+Ice,IV,4,2804,Ice IV,Ice,512,Ice 64 x 8,,,,,12,384
+Ice,V,5,2805,Ice V,Packed Ice,128,Packed Ice 16 x 8,,,,,10,384
+Ice,VI,6,2806,Ice VI,Packed Ice,256,Packed Ice 32 x 8,,,,,10,576
+Ice,VII,7,2807,Ice VII,Packed Ice,512,Packed Ice 64 x 8,,,,,9,576
+Ice,VIII,8,2808,Ice VIII,Enchanted Ice,64,E. Ice 8 x 8,,,,,9,768
+Ice,IX,9,2809,Ice IX,Enchanted Ice,128,E. Ice 16 x 8,,,,,8,768
+Ice,X,10,2810,Ice X,Enchanted Ice,256,E. Ice 32 x 8,,,,,8,960
+Ice,XI,11,2811,Ice XI,Enchanted Ice,512,E. Ice 64 x 8,,,,,7,960
+Sand,I,1,2901,Sand I,Sand,80,Sand 10 x 8,,,,,26,64
+Sand,II,2,2902,Sand II,Sand,160,Sand 20 x 8,,,,,26,192
+Sand,III,3,2903,Sand III,Sand,320,Sand 40 x 8,,,,,24,192
+Sand,IV,4,2904,Sand IV,Sand,512,Sand 64 x 8,,,,,24,384
+Sand,V,5,2905,Sand V,Enchanted Sand,8,E. Sand 1 x 8,,,,,22,384
+Sand,VI,6,2906,Sand VI,Enchanted Sand,16,E. Sand 2 x 8,,,,,22,576
+Sand,VII,7,2907,Sand VII,Enchanted Sand,32,E. Sand 4 x 8,,,,,19,576
+Sand,VIII,8,2908,Sand VIII,Enchanted Sand,64,E. Sand 8 x 8,,,,,19,768
+Sand,IX,9,2909,Sand IX,Enchanted Sand,128,E. Sand 16 x 8,,,,,16,768
+Sand,X,10,2910,Sand X,Enchanted Sand,256,E. Sand 32 x 8,,,,,16,960
+Sand,XI,11,2911,Sand XI,Enchanted Sand,512,E. Sand 64 x 8,,,,,13,960
+End Stone,I,1,3001,End Stone I,End Stone,80,End Stone 10 x 8,,,,,26,64
+End Stone,II,2,3002,End Stone II,End Stone,160,End Stone 20 x 8,,,,,26,192
+End Stone,III,3,3003,End Stone III,End Stone,320,End Stone 40 x 8,,,,,24,192
+End Stone,IV,4,3004,End Stone IV,End Stone,512,End Stone 64 x 8,,,,,24,384
+End Stone,V,5,3005,End Stone V,Enchanted End Stone,8,E. End Stone 1 x 8,,,,,22,384
+End Stone,VI,6,3006,End Stone VI,Enchanted End Stone,16,E. End Stone 2 x 8,,,,,22,576
+End Stone,VII,7,3007,End Stone VII,Enchanted End Stone,32,E. End Stone 4 x 8,,,,,19,576
+End Stone,VIII,8,3008,End Stone VIII,Enchanted End Stone,64,E. End Stone 8 x 8,,,,,19,768
+End Stone,IX,9,3009,End Stone IX,Enchanted End Stone,128,E. End Stone 16 x 8,,,,,16,768
+End Stone,X,10,3010,End Stone X,Enchanted End Stone,256,E. End Stone 32 x 8,,,,,16,960
+End Stone,XI,11,3011,End Stone XI,Enchanted End Stone,512,E. End Stone 64 x 8,,,,,13,960
+Mithril,I,1,3101,Mithril I,Mithril,80,Mithril 10 x 8,,,,,80,64
+Mithril,II,2,3102,Mithril II,Mithril,160,Mithril 20 x 8,,,,,80,192
+Mithril,III,3,3103,Mithril III,Mithril,320,Mithril 40 x 8,,,,,75,192
+Mithril,IV,4,3104,Mithril IV,Mithril,512,Mithril 64 x 8,,,,,75,384
+Mithril,V,5,3105,Mithril V,Enchanted Mithril,8,E. Mithril 1 x 8,,,,,70,384
+Mithril,VI,6,3106,Mithril VI,Enchanted Mithril,24,E. Mithril 3 x 8,,,,,70,576
+Mithril,VII,7,3107,Mithril VII,Enchanted Mithril,64,E. Mithril 8 x 8,,,,,65,576
+Mithril,VIII,8,3108,Mithril VIII,Enchanted Mithril,128,E. Mithril 16 x 8,,,,,65,768
+Mithril,IX,9,3109,Mithril IX,Enchanted Mithril,256,E. Mithril 32 x 8,,,,,60,768
+Mithril,X,10,3110,Mithril X,Enchanted Mithril,512,E. Mithril 64 x 8,,,,,60,960
+Mithril,XI,11,3111,Mithril XI,Refined Mithril,8,Refined Mithril 1 x 8,,,,,55,960
+Mithril,XII,12,3112,Mithril XII,Refined Mithril,16,Refined Mithril x 16,,,,2M coins,50,960
+Hard Stone,I,1,3201,Hard Stone I,Hard Stone,256,Hard Stone 32 x 8,,,,,14,64
+Hard Stone,II,2,3202,Hard Stone II,Hard Stone,512,Hard Stone 64 x 8,,,,,14,192
+Hard Stone,III,3,3203,Hard Stone III,Enchanted Hard Stone,8,E. Hard Stone 1 x 8,,,,,12,192
+Hard Stone,IV,4,3204,Hard Stone IV,Enchanted Hard Stone,16,E. Hard Stone 2 x 8,,,,,12,384
+Hard Stone,V,5,3205,Hard Stone V,Enchanted Hard Stone,32,E. Hard Stone 4 x 8,,,,,10,384
+Hard Stone,VI,6,3206,Hard Stone VI,Enchanted Hard Stone,64,E. Hard Stone 8 x 8,,,,,10,576
+Hard Stone,VII,7,3207,Hard Stone VII,Enchanted Hard Stone,128,E. Hard Stone 16 x 8,,,,,9,576
+Hard Stone,VIII,8,3208,Hard Stone VIII,Enchanted Hard Stone,256,E. Hard Stone 32 x 8,,,,,9,768
+Hard Stone,IX,9,3209,Hard Stone IX,Enchanted Hard Stone,512,E. Hard Stone 64 x 8,,,,,8,768
+Hard Stone,X,10,3210,Hard Stone X,Concentrated Stone,8,Concentrated Stone 1 x 8,,,,,8,960
+Hard Stone,XI,11,3211,Hard Stone XI,Concentrated Stone,16,Concentrated Stone 2 x 8,,,,,7,960
+Hard Stone,XII,12,3212,Hard Stone XII,Concentrated Stone,32,Concentrated Stone x 32,,,,2M coins,6,960
+Zombie,I,1,3301,Zombie I,Rotten Flesh,80,Rotten Flesh 10 x 8,,,,,26,64
+Zombie,II,2,3302,Zombie II,Rotten Flesh,160,Rotten Flesh 20 x 8,,,,,26,192
+Zombie,III,3,3303,Zombie III,Rotten Flesh,320,Rotten Flesh 40 x 8,,,,,24,192
+Zombie,IV,4,3304,Zombie IV,Rotten Flesh,512,Rotten Flesh 64 x 8,,,,,24,384
+Zombie,V,5,3305,Zombie V,Enchanted Rotten Flesh,8,E. Rotten Flesh 1 x 8,,,,,22,384
+Zombie,VI,6,3306,Zombie VI,Enchanted Rotten Flesh,16,E. Rotten Flesh 2 x 8,,,,,22,576
+Zombie,VII,7,3307,Zombie VII,Enchanted Rotten Flesh,32,E. Rotten Flesh 4 x 8,,,,,20,576
+Zombie,VIII,8,3308,Zombie VIII,Enchanted Rotten Flesh,64,E. Rotten Flesh 8 x 8,,,,,20,768
+Zombie,IX,9,3309,Zombie IX,Enchanted Rotten Flesh,128,E. Rotten Flesh 16 x 8,,,,,17,768
+Zombie,X,10,3310,Zombie X,Enchanted Rotten Flesh,256,E. Rotten Flesh 32 x 8,,,,,17,960
+Zombie,XI,11,3311,Zombie XI,Enchanted Rotten Flesh,512,E. Rotten Flesh 64 x 8,,,,,13,960
+Skeleton,I,1,3401,Skeleton I,Bone,80,Bone 10 x 8,,,,,26,64
+Skeleton,II,2,3402,Skeleton II,Bone,160,Bone 20 x 8,,,,,26,192
+Skeleton,III,3,3403,Skeleton III,Bone,320,Bone 40 x 8,,,,,24,192
+Skeleton,IV,4,3404,Skeleton IV,Bone,512,Bone 64 x 8,,,,,24,384
+Skeleton,V,5,3405,Skeleton V,Enchanted Bone,8,E. Bone 1 x 8,,,,,22,384
+Skeleton,VI,6,3406,Skeleton VI,Enchanted Bone,16,E. Bone 2 x 8,,,,,22,576
+Skeleton,VII,7,3407,Skeleton VII,Enchanted Bone,32,E. Bone 4 x 8,,,,,20,576
+Skeleton,VIII,8,3408,Skeleton VIII,Enchanted Bone,64,E. Bone 8 x 8,,,,,20,768
+Skeleton,IX,9,3409,Skeleton IX,Enchanted Bone,128,E. Bone 16 x 8,,,,,17,768
+Skeleton,X,10,3410,Skeleton X,Enchanted Bone,256,E. Bone 32 x 8,,,,,17,960
+Skeleton,XI,11,3411,Skeleton XI,Enchanted Bone,512,E. Bone 64 x 8,,,,,13,960
+Spider,I,1,3501,Spider I,String,80,String 10 x 8,,,,,26,64
+Spider,II,2,3502,Spider II,String,160,String 20 x 8,,,,,26,192
+Spider,III,3,3503,Spider III,String,320,String 40 x 8,,,,,24,192
+Spider,IV,4,3504,Spider IV,String,512,String 64 x 8,,,,,24,384
+Spider,V,5,3505,Spider V,Enchanted String,8,E. String 1 x 8,,,,,22,384
+Spider,VI,6,3506,Spider VI,Enchanted String,16,E. String 2 x 8,,,,,22,576
+Spider,VII,7,3507,Spider VII,Enchanted String,32,E. String 4 x 8,,,,,20,576
+Spider,VIII,8,3508,Spider VIII,Enchanted String,64,E. String 8 x 8,,,,,20,768
+Spider,IX,9,3509,Spider IX,Enchanted String,128,E. String 16 x 8,,,,,17,768
+Spider,X,10,3510,Spider X,Enchanted String,256,E. String 32 x 8,,,,,17,960
+Spider,XI,11,3511,Spider XI,Enchanted String,512,E. String 64 x 8,,,,,13,960
+Cave Spider,I,1,3601,Cave Spider I,Spider Eye,80,Spider Eye 10 x 8,,,,,26,128
+Cave Spider,II,2,3602,Cave Spider II,Spider Eye,160,Spider Eye 20 x 8,,,,,26,256
+Cave Spider,III,3,3603,Cave Spider III,Spider Eye,320,Spider Eye 40 x 8,,,,,24,256
+Cave Spider,IV,4,3604,Cave Spider IV,Spider Eye,512,Spider Eye 64 x 8,,,,,24,384
+Cave Spider,V,5,3605,Cave Spider V,Enchanted Spider Eye,8,E. Spider Eye 1 x 8,,,,,22,384
+Cave Spider,VI,6,3606,Cave Spider VI,Enchanted Spider Eye,24,E. Spider Eye 3 x 8,,,,,22,576
+Cave Spider,VII,7,3607,Cave Spider VII,Enchanted Spider Eye,64,E. Spider Eye 8 x 8,,,,,20,576
+Cave Spider,VIII,8,3608,Cave Spider VIII,Enchanted Spider Eye,128,E. Spider Eye 16 x 8,,,,,20,768
+Cave Spider,IX,9,3609,Cave Spider IX,Enchanted Spider Eye,256,E. Spider Eye 32 x 8,,,,,17,768
+Cave Spider,X,10,3610,Cave Spider X,Enchanted Spider Eye,512,E. Spider Eye 64 x 8,,,,,17,960
+Cave Spider,XI,11,3611,Cave Spider XI,Enchanted Fermented Spider Eye,16,E. Fermented Spider Eye 2 x 8,,,,,13,960
+Creeper,I,1,3701,Creeper I,Gunpowder,80,Gunpowder 10 x 8,,,,,27,64
+Creeper,II,2,3702,Creeper II,Gunpowder,160,Gunpowder 20 x 8,,,,,27,192
+Creeper,III,3,3703,Creeper III,Gunpowder,320,Gunpowder 40 x 8,,,,,25,192
+Creeper,IV,4,3704,Creeper IV,Gunpowder,512,Gunpowder 64 x 8,,,,,25,384
+Creeper,V,5,3705,Creeper V,Enchanted Gunpowder,8,E. Gunpowder 1 x 8,,,,,23,384
+Creeper,VI,6,3706,Creeper VI,Enchanted Gunpowder,24,E. Gunpowder 3 x 8,,,,,23,576
+Creeper,VII,7,3707,Creeper VII,Enchanted Gunpowder,64,E. Gunpowder 8 x 8,,,,,21,576
+Creeper,VIII,8,3708,Creeper VIII,Enchanted Gunpowder,128,E. Gunpowder 16 x 8,,,,,21,768
+Creeper,IX,9,3709,Creeper IX,Enchanted Gunpowder,256,E. Gunpowder 32 x 8,,,,,18,768
+Creeper,X,10,3710,Creeper X,Enchanted Gunpowder,512,E. Gunpowder 64 x 8,,,,,18,960
+Creeper,XI,11,3711,Creeper XI,Enchanted Firework Rocket,16,E. Firework Rocket 2 x 8,,,,,14,960
+Enderman,I,1,3801,Enderman I,Ender Pearl,64,Ender Pearl 8 x 8,,,,,32,64
+Enderman,II,2,3802,Enderman II,Ender Pearl,128,Ender Pearl 16 x 8,,,,,32,192
+Enderman,III,3,3803,Enderman III,Enchanted Ender Pearl,8,E. Ender Pearl 1 x 8,,,,,30,192
+Enderman,IV,4,3804,Enderman IV,Enchanted Ender Pearl,24,E. Ender Pearl 3 x 8,,,,,30,384
+Enderman,V,5,3805,Enderman V,Enchanted Ender Pearl,48,E. Ender Pearl 6 x 8,,,,,28,384
+Enderman,VI,6,3806,Enderman VI,Enchanted Ender Pearl,96,E. Ender Pearl 12 x 8,,,,,28,576
+Enderman,VII,7,3807,Enderman VII,Enchanted Eye of Ender,8,E. Eye of Ender 1 x 8,,,,,25,576
+Enderman,VIII,8,3808,Enderman VIII,Enchanted Eye of Ender,24,E. Eye of Ender 3 x 8,,,,,25,768
+Enderman,IX,9,3809,Enderman IX,Enchanted Eye of Ender,48,E. Eye of Ender 6 x 8,,,,,22,768
+Enderman,X,10,3810,Enderman X,Enchanted Eye of Ender,96,E. Eye of Ender 12 x 8,,,,,22,960
+Enderman,XI,11,3811,Enderman XI,Enchanted Eye of Ender,192,E. Eye of Ender 24 x 8,,,,,18,960
+Ghast,I,1,3901,Ghast I,Ghast Tear,64,Ghast Tear 8 x 8,,,,,50,64
+Ghast,II,2,3902,Ghast II,Ghast Tear,128,Ghast Tear 16 x 8,,,,,50,192
+Ghast,III,3,3903,Ghast III,Ghast Tear,256,Ghast Tear 32 x 8,,,,,47,192
+Ghast,IV,4,3904,Ghast IV,Ghast Tear,512,Ghast Tear 64 x 8,,,,,47,384
+Ghast,V,5,3905,Ghast V,Enchanted Ghast Tear,256,E. Ghast Tear 32 x 8,,,,,44,384
+Ghast,VI,6,3906,Ghast VI,Enchanted Ghast Tear,512,E. Ghast Tear 64 x 8,,,,,44,576
+Ghast,VII,7,3907,Ghast VII,Enchanted Ghast Tear,800,Silver Fang 4 x 8,,,,,41,576
+Ghast,VIII,8,3908,Ghast VIII,Enchanted Ghast Tear,1600,Silver Fang 8 x 8,,,,,41,768
+Ghast,IX,9,3909,Ghast IX,Enchanted Ghast Tear,3200,Silver Fang 16 x 8,,,,,38,768
+Ghast,X,10,3910,Ghast X,Enchanted Ghast Tear,6400,Silver Fang 32 x 8,,,,,38,960
+Ghast,XI,11,3911,Ghast XI,Enchanted Ghast Tear,12800,Silver Fang 64 x 8,,,,,32,960
+Slime,I,1,4001,Slime I,Slimeball,80,Slimeball 10 x 8,,,,,26,64
+Slime,II,2,4002,Slime II,Slimeball,160,Slimeball 20 x 8,,,,,26,192
+Slime,III,3,4003,Slime III,Slimeball,320,Slimeball 40 x 8,,,,,24,192
+Slime,IV,4,4004,Slime IV,Slimeball,512,Slimeball 64 x 8,,,,,24,384
+Slime,V,5,4005,Slime V,Enchanted Slimeball,8,E. Slimeball 1 x 8,,,,,22,384
+Slime,VI,6,4006,Slime VI,Enchanted Slimeball,24,E. Slimeball 3 x 8,,,,,22,576
+Slime,VII,7,4007,Slime VII,Enchanted Slimeball,64,E. Slimeball 8 x 8,,,,,19,576
+Slime,VIII,8,4008,Slime VIII,Enchanted Slimeball,128,E. Slimeball 16 x 8,,,,,19,768
+Slime,IX,9,4009,Slime IX,Enchanted Slimeball,256,E. Slimeball 32 x 8,,,,,16,768
+Slime,X,10,4010,Slime X,Enchanted Slimeball,512,E. Slimeball 64 x 8,,,,,16,960
+Slime,XI,11,4011,Slime XI,Enchanted Slime Block,8,E. Slime Block 1 x 8,,,,,12,960
+Blaze,I,1,4101,Blaze I,Blaze Rod,80,Blaze Rod 10 x 8,,,,,33,64
+Blaze,II,2,4102,Blaze II,Blaze Rod,160,Blaze Rod 20 x 8,,,,,33,192
+Blaze,III,3,4103,Blaze III,Blaze Rod,320,Blaze Rod 40 x 8,,,,,31,192
+Blaze,IV,4,4104,Blaze IV,Blaze Rod,512,Blaze Rod 64 x 8,,,,,31,384
+Blaze,V,5,4105,Blaze V,Enchanted Blaze Powder,8,E. Blaze Powder 1 x 8,,,,,28.5,384
+Blaze,VI,6,4106,Blaze VI,Enchanted Blaze Powder,24,E. Blaze Powder 3 x 8,,,,,28.5,576
+Blaze,VII,7,4107,Blaze VII,Enchanted Blaze Powder,64,E. Blaze Powder 8 x 8,,,,,25,576
+Blaze,VIII,8,4108,Blaze VIII,Enchanted Blaze Powder,128,E. Blaze Powder 16 x 8,,,,,25,768
+Blaze,IX,9,4109,Blaze IX,Enchanted Blaze Powder,256,E. Blaze Powder 32 x 8,,,,,21,768
+Blaze,X,10,4110,Blaze X,Enchanted Blaze Powder,512,E. Blaze Powder 64 x 8,,,,,21,960
+Blaze,XI,11,4111,Blaze XI,Enchanted Blaze Rod,8,E. Blaze Rod 1 x 8,,,,,16.5,960
+Magma Cube,I,1,4201,Magma Cube I,Magma Cream,80,Magma Cream 10 x 8,,,,,32,64
+Magma Cube,II,2,4202,Magma Cube II,Magma Cream,160,Magma Cream 20 x 8,,,,,32,192
+Magma Cube,III,3,4203,Magma Cube III,Magma Cream,320,Magma Cream 40 x 8,,,,,30,192
+Magma Cube,IV,4,4204,Magma Cube IV,Magma Cream,512,Magma Cream 64 x 8,,,,,30,384
+Magma Cube,V,5,4205,Magma Cube V,Enchanted Magma Cream,8,E. Magma Cream 1 x 8,,,,,28,384
+Magma Cube,VI,6,4206,Magma Cube VI,Enchanted Magma Cream,16,E. Magma Cream 2 x 8,,,,,28,576
+Magma Cube,VII,7,4207,Magma Cube VII,Enchanted Magma Cream,32,E. Magma Cream 4 x 8,,,,,25,576
+Magma Cube,VIII,8,4208,Magma Cube VIII,Enchanted Magma Cream,64,E. Magma Cream 8 x 8,,,,,25,768
+Magma Cube,IX,9,4209,Magma Cube IX,Enchanted Magma Cream,128,E. Magma Cream 16 x 8,,,,,22,768
+Magma Cube,X,10,4210,Magma Cube X,Enchanted Magma Cream,256,E. Magma Cream 32 x 8,,,,,22,960
+Magma Cube,XI,11,4211,Magma Cube XI,Enchanted Magma Cream,512,E. Magma Cream 64 x 8,,,,,18,960
+Revenant,I,1,4301,Revenant I,Revenant Flesh,80,Revenant Flesh 10 x 8,Crystallized Heart,1,Crystallized Heart x1,,29,64
+Revenant,II,2,4302,Revenant II,Revenant Flesh,140,Revenant Flesh 20 x 7,Rotten Flesh,80,Zombie Minion I x 1,,29,192
+Revenant,III,3,4303,Revenant III,Revenant Flesh,280,Revenant Flesh 40 x 7,Rotten Flesh,240,Zombie Minion II x 1,,26,192
+Revenant,IV,4,4304,Revenant IV,Revenant Flesh,448,Revenant Flesh 64 x 7,Rotten Flesh,560,Zombie Minion III x 1,,26,384
+Revenant,V,5,4305,Revenant V,Revenant Viscera,7,Revenant Viscera 1 x 7,Rotten Flesh,1072,Zombie Minion IV x 1,,23,384
+Revenant,VI,6,4306,Revenant VI,Revenant Viscera,14,Revenant Viscera 2 x 7,Rotten Flesh,2352,Zombie Minion V x 1,,23,576
+Revenant,VII,7,4307,Revenant VII,Revenant Viscera,28,Revenant Viscera 4 x 7,Rotten Flesh,4912,Zombie Minion VI x 1,,19,576
+Revenant,VIII,8,4308,Revenant VIII,Revenant Viscera,56,Revenant Viscera 8 x 7,Rotten Flesh,10032,Zombie Minion VII x 1,,19,768
+Revenant,IX,9,4309,Revenant IX,Revenant Viscera,112,Revenant Viscera 16 x 7,Rotten Flesh,20272,Zombie Minion VIII x 1,,14.5,768
+Revenant,X,10,4310,Revenant X,Revenant Viscera,224,Revenant Viscera 32 x 7,Rotten Flesh,40752,Zombie Minion IX x 1,,14.5,960
+Revenant,XI,11,4311,Revenant XI,Revenant Viscera,448,Revenant Viscera 64 x 7,Rotten Flesh,81712,Zombie Minion X x 1,,10,960
+Revenant,XII,12,4312,Revenant XII,Revenant Viscera,64,Revenant Viscera x64,Rotten Flesh,163632,Zombie Minion XI x 1,2M coins,8,960
+Tarantula,I,1,4401,Tarantula I,Tarantula Web,80,Tarantula Web 10 x 8,Enchanted Fermented Spider Eye,1,E. Fermented Spider Eye x 1,,29,64
+Tarantula,II,2,4402,Tarantula II,Tarantula Web,140,Tarantula Web 20 x 7,String,80,Spider Minion I x 1,,29,192
+Tarantula,III,3,4403,Tarantula III,Tarantula Web,280,Tarantula Web 40 x 7,String,240,Spider Minion II x 1,,26,192
+Tarantula,IV,4,4404,Tarantula IV,Tarantula Web,448,Tarantula Web 64 x 7,String,560,Spider Minion III x 1,,26,384
+Tarantula,V,5,4405,Tarantula V,Tarantula Silk,7,Tarantula Silk 1 x 7,String,1072,Spider Minion IV x 1,,23,384
+Tarantula,VI,6,4406,Tarantula VI,Tarantula Silk,14,Tarantula Silk 2 x 7,String,2608,Spider Minion V x 1,,23,576
+Tarantula,VII,7,4407,Tarantula VII,Tarantula Silk,28,Tarantula Silk 4 x 7,String,5680,Spider Minion VI x 1,,19,576
+Tarantula,VIII,8,4408,Tarantula VIII,Tarantula Silk,56,Tarantula Silk 8 x 7,String,11824,Spider Minion VII x 1,,19,768
+Tarantula,IX,9,4409,Tarantula IX,Tarantula Silk,112,Tarantula Silk 16 x 7,String,24112,Spider Minion VIII x 1,,14.5,768
+Tarantula,X,10,4410,Tarantula X,Tarantula Silk,224,Tarantula Silk 32 x 7,String,48688,Spider Minion IX x 1,,14.5,960
+Tarantula,XI,11,4411,Tarantula XI,Tarantula Silk,448,Tarantula Silk 64 x 7,String,97840,Spider Minion X x 1,,10,960
+Voidling,I,1,4501,Voidling I,Null Sphere,80,Null Sphere 10 x 8,Ender Pearl,64,Enderman Minion I x 1,,45,64
+Voidling,II,2,4502,Voidling II,Null Sphere,140,Null Sphere 20 x 7,Obsidian,80,Obsidian Minion I x 1,,45,192
+Voidling,III,3,4503,Voidling III,Null Sphere,280,Null Sphere 40 x 7,Obsidian,240,Obsidian Minion II x 1,,42,192
+Voidling,IV,4,4504,Voidling IV,Null Sphere,448,Null Sphere 64 x 7,Obsidian,560,Obsidian Minion III x 1,,42,384
+Voidling,V,5,4505,Voidling V,Null Ovoid,7,Null Ovoid 1 x 7,Obsidian,1072,Obsidian Minion IV x 1,,39,384
+Voidling,VI,6,4506,Voidling VI,Null Ovoid,14,Null Ovoid 2 x 7,Obsidian,2352,Obsidian Minion V x 1,,39,576
+Voidling,VII,7,4507,Voidling VII,Null Ovoid,28,Null Ovoid 4 x 7,Obsidian,4912,Obsidian Minion VI x 1,,35,576
+Voidling,VIII,8,4508,Voidling VIII,Null Ovoid,56,Null Ovoid 8 x 7,Obsidian,10032,Obsidian Minion VII x 1,,35,768
+Voidling,IX,9,4509,Voidling IX,Null Ovoid,112,Null Ovoid 16 x 7,Obsidian,20272,Obsidian Minion VIII x 1,,30,768
+Voidling,X,10,4510,Voidling X,Null Ovoid,224,Null Ovoid 32 x 7,Obsidian,40752,Obsidian Minion IX x 1,,30,960
+Voidling,XI,11,4511,Voidling XI,Null Ovoid,448,Null Ovoid 64 x 7,Obsidian,81712,Obsidian Minion X x 1,,24,960
+Oak,I,1,4601,Oak I,Oak Wood,80,Oak Wood 10 x 8,,,,,48,64
+Oak,II,2,4602,Oak II,Oak Wood,160,Oak Wood 20 x 8,,,,,48,192
+Oak,III,3,4603,Oak III,Oak Wood,320,Oak Wood 40 x 8,,,,,45,192
+Oak,IV,4,4604,Oak IV,Oak Wood,512,Oak Wood 64 x 8,,,,,45,384
+Oak,V,5,4605,Oak V,Enchanted Oak Wood,8,E. Oak Wood 1 x 8,,,,,42,384
+Oak,VI,6,4606,Oak VI,Enchanted Oak Wood,16,E. Oak Wood 2 x 8,,,,,42,576
+Oak,VII,7,4607,Oak VII,Enchanted Oak Wood,32,E. Oak Wood 4 x 8,,,,,38,576
+Oak,VIII,8,4608,Oak VIII,Enchanted Oak Wood,64,E. Oak Wood 8 x 8,,,,,38,768
+Oak,IX,9,4609,Oak IX,Enchanted Oak Wood,128,E. Oak Wood 16 x 8,,,,,33,768
+Oak,X,10,4610,Oak X,Enchanted Oak Wood,256,E. Oak Wood 32 x 8,,,,,33,960
+Oak,XI,11,4611,Oak XI,Enchanted Oak Wood,512,E. Oak Wood 64 x 8,,,,,27,960
+Spruce,I,1,4701,Spruce I,Spruce Wood,80,Spruce Wood 10 x 8,,,,,48,64
+Spruce,II,2,4702,Spruce II,Spruce Wood,160,Spruce Wood 20 x 8,,,,,48,192
+Spruce,III,3,4703,Spruce III,Spruce Wood,320,Spruce Wood 40 x 8,,,,,45,192
+Spruce,IV,4,4704,Spruce IV,Spruce Wood,512,Spruce Wood 64 x 8,,,,,45,384
+Spruce,V,5,4705,Spruce V,Enchanted Spruce Wood,8,E. Spruce Wood 1 x 8,,,,,42,384
+Spruce,VI,6,4706,Spruce VI,Enchanted Spruce Wood,16,E. Spruce Wood 2 x 8,,,,,42,576
+Spruce,VII,7,4707,Spruce VII,Enchanted Spruce Wood,32,E. Spruce Wood 4 x 8,,,,,38,576
+Spruce,VIII,8,4708,Spruce VIII,Enchanted Spruce Wood,64,E. Spruce Wood 8 x 8,,,,,38,768
+Spruce,IX,9,4709,Spruce IX,Enchanted Spruce Wood,128,E. Spruce Wood 16 x 8,,,,,33,768
+Spruce,X,10,4710,Spruce X,Enchanted Spruce Wood,256,E. Spruce Wood 32 x 8,,,,,33,960
+Spruce,XI,11,4711,Spruce XI,Enchanted Spruce Wood,512,E. Spruce Wood 64 x 8,,,,,27,960
+Birch,I,1,4801,Birch I,Birch Wood,80,Birch Wood 10 x 8,,,,,48,64
+Birch,II,2,4802,Birch II,Birch Wood,160,Birch Wood 20 x 8,,,,,48,192
+Birch,III,3,4803,Birch III,Birch Wood,320,Birch Wood 40 x 8,,,,,45,192
+Birch,IV,4,4804,Birch IV,Birch Wood,512,Birch Wood 64 x 8,,,,,45,384
+Birch,V,5,4805,Birch V,Enchanted Birch Wood,8,E. Birch Wood 1 x 8,,,,,42,384
+Birch,VI,6,4806,Birch VI,Enchanted Birch Wood,16,E. Birch Wood 2 x 8,,,,,42,576
+Birch,VII,7,4807,Birch VII,Enchanted Birch Wood,32,E. Birch Wood 4 x 8,,,,,38,576
+Birch,VIII,8,4808,Birch VIII,Enchanted Birch Wood,64,E. Birch Wood 8 x 8,,,,,38,768
+Birch,IX,9,4809,Birch IX,Enchanted Birch Wood,128,E. Birch Wood 16 x 8,,,,,33,768
+Birch,X,10,4810,Birch X,Enchanted Birch Wood,256,E. Birch Wood 32 x 8,,,,,33,960
+Birch,XI,11,4811,Birch XI,Enchanted Birch Wood,512,E. Birch Wood 64 x 8,,,,,27,960
+Dark Oak,I,1,4901,Dark Oak I,Dark Oak Wood,80,Dark Oak Wood 10 x 8,,,,,48,64
+Dark Oak,II,2,4902,Dark Oak II,Dark Oak Wood,160,Dark Oak Wood 20 x 8,,,,,48,192
+Dark Oak,III,3,4903,Dark Oak III,Dark Oak Wood,320,Dark Oak Wood 40 x 8,,,,,45,192
+Dark Oak,IV,4,4904,Dark Oak IV,Dark Oak Wood,512,Dark Oak Wood 64 x 8,,,,,45,384
+Dark Oak,V,5,4905,Dark Oak V,Enchanted Dark Oak Wood,8,E. Dark Oak Wood 1 x 8,,,,,42,384
+Dark Oak,VI,6,4906,Dark Oak VI,Enchanted Dark Oak Wood,16,E. Dark Oak Wood 2 x 8,,,,,42,576
+Dark Oak,VII,7,4907,Dark Oak VII,Enchanted Dark Oak Wood,32,E. Dark Oak Wood 4 x 8,,,,,38,576
+Dark Oak,VIII,8,4908,Dark Oak VIII,Enchanted Dark Oak Wood,64,E. Dark Oak Wood 8 x 8,,,,,38,768
+Dark Oak,IX,9,4909,Dark Oak IX,Enchanted Dark Oak Wood,128,E. Dark Oak Wood 16 x 8,,,,,33,768
+Dark Oak,X,10,4910,Dark Oak X,Enchanted Dark Oak Wood,256,E. Dark Oak Wood 32 x 8,,,,,33,960
+Dark Oak,XI,11,4911,Dark Oak XI,Enchanted Dark Oak Wood,512,E. Dark Oak Wood 64 x 8,,,,,27,960
+Acacia,I,1,5001,Acacia I,Acacia Wood,80,Acacia Wood 10 x 8,,,,,48,64
+Acacia,II,2,5002,Acacia II,Acacia Wood,160,Acacia Wood 20 x 8,,,,,48,192
+Acacia,III,3,5003,Acacia III,Acacia Wood,320,Acacia Wood 40 x 8,,,,,45,192
+Acacia,IV,4,5004,Acacia IV,Acacia Wood,512,Acacia Wood 64 x 8,,,,,45,384
+Acacia,V,5,5005,Acacia V,Enchanted Acacia Wood,8,E. Acacia Wood 1 x 8,,,,,42,384
+Acacia,VI,6,5006,Acacia VI,Enchanted Acacia Wood,16,E. Acacia Wood 2 x 8,,,,,42,576
+Acacia,VII,7,5007,Acacia VII,Enchanted Acacia Wood,32,E. Acacia Wood 4 x 8,,,,,38,576
+Acacia,VIII,8,5008,Acacia VIII,Enchanted Acacia Wood,64,E. Acacia Wood 8 x 8,,,,,38,768
+Acacia,IX,9,5009,Acacia IX,Enchanted Acacia Wood,128,E. Acacia Wood 16 x 8,,,,,33,768
+Acacia,X,10,5010,Acacia X,Enchanted Acacia Wood,256,E. Acacia Wood 32 x 8,,,,,33,960
+Acacia,XI,11,5011,Acacia XI,Enchanted Acacia Wood,512,E. Acacia Wood 64 x 8,,,,,27,960
+Jungle,I,1,5101,Jungle I,Jungle Wood,80,Jungle Wood 10 x 8,,,,,48,64
+Jungle,II,2,5102,Jungle II,Jungle Wood,160,Jungle Wood 20 x 8,,,,,48,192
+Jungle,III,3,5103,Jungle III,Jungle Wood,320,Jungle Wood 40 x 8,,,,,45,192
+Jungle,IV,4,5104,Jungle IV,Jungle Wood,512,Jungle Wood 64 x 8,,,,,45,384
+Jungle,V,5,5105,Jungle V,Enchanted Jungle Wood,8,E. Jungle Wood 1 x 8,,,,,42,384
+Jungle,VI,6,5106,Jungle VI,Enchanted Jungle Wood,16,E. Jungle Wood 2 x 8,,,,,42,576
+Jungle,VII,7,5107,Jungle VII,Enchanted Jungle Wood,32,E. Jungle Wood 4 x 8,,,,,38,576
+Jungle,VIII,8,5108,Jungle VIII,Enchanted Jungle Wood,64,E. Jungle Wood 8 x 8,,,,,38,768
+Jungle,IX,9,5109,Jungle IX,Enchanted Jungle Wood,128,E. Jungle Wood 16 x 8,,,,,33,768
+Jungle,X,10,5110,Jungle X,Enchanted Jungle Wood,256,E. Jungle Wood 32 x 8,,,,,33,960
+Jungle,XI,11,5111,Jungle XI,Enchanted Jungle Wood,512,E. Jungle Wood 64 x 8,,,,,27,960
+Fishing,I,1,5201,Fishing I,Raw Fish,64,Raw Fish 8 x 8,,,,,78,640
+Fishing,II,2,5202,Fishing II,Raw Fish,128,Raw Fish 16 x 8,,,,,75,640
+Fishing,III,3,5203,Fishing III,Raw Fish,256,Raw Fish 32 x 8,,,,,72,640
+Fishing,IV,4,5204,Fishing IV,Raw Fish,512,Raw Fish 64 x 8,,,,,72,704
+Fishing,V,5,5205,Fishing V,Enchanted Raw Fish,8,E. Raw Fish 1 x 8,,,,,68,704
+Fishing,VI,6,5206,Fishing VI,Enchanted Raw Fish,24,E. Raw Fish 3 x 8,,,,,68,768
+Fishing,VII,7,5207,Fishing VII,Enchanted Raw Fish,64,E. Raw Fish 8 x 8,,,,,62.5,768
+Fishing,VIII,8,5208,Fishing VIII,Enchanted Raw Fish,128,E. Raw Fish 16 x 8,,,,,62.5,832
+Fishing,IX,9,5209,Fishing IX,Enchanted Raw Fish,256,E. Raw Fish 32 x 8,,,,,53,832
+Fishing,X,10,5210,Fishing X,Enchanted Raw Fish,512,E. Raw Fish 64 x 8,,,,,53,896
+Fishing,XI,11,5211,Fishing XI,Enchanted Cooked Fish,8,E. Cooked Fish 1 x 8,,,,,35,960
+Clay,I,1,5301,Clay I,Clay,80,Clay 10 x 8,,,,,32,64
+Clay,II,2,5302,Clay II,Clay,160,Clay 20 x 8,,,,,32,192
+Clay,III,3,5303,Clay III,Clay,320,Clay 40 x 8,,,,,30,192
+Clay,IV,4,5304,Clay IV,Clay,512,Clay 64 x 8,,,,,30,384
+Clay,V,5,5305,Clay V,Enchanted Clay,8,E. Clay 1 x 8,,,,,27.5,384
+Clay,VI,6,5306,Clay VI,Enchanted Clay,16,E. Clay 2 x 8,,,,,27.5,576
+Clay,VII,7,5307,Clay VII,Enchanted Clay,32,E. Clay 4 x 8,,,,,24,576
+Clay,VIII,8,5308,Clay VIII,Enchanted Clay,64,E. Clay 8 x 8,,,,,24,768
+Clay,IX,9,5309,Clay IX,Enchanted Clay,128,E. Clay 16 x 8,,,,,20,768
+Clay,X,10,5310,Clay X,Enchanted Clay,256,E. Clay 32 x 8,,,,,20,960
+Clay,XI,11,5311,Clay XI,Enchanted Clay,512,E. Clay 64 x 8,,,,,16,960
+Flower,I,1,5401,Flower I,Dandelion,##,#Uncraftable,,,,,30,960
+Flower,II,2,5402,Flower II,Dandelion,160,Dandelion 20 x 8,,,,,29,960
+Flower,III,3,5403,Flower III,Dandelion,320,Dandelion 40 x 8,,,,,28,960
+Flower,IV,4,5404,Flower IV,Dandelion,512,Dandelion 64 x 8,,,,,27,960
+Flower,V,5,5405,Flower V,Enchanted Dandelion,8,E. Dandelion 1 x 8,,,,,26,960
+Flower,VI,6,5406,Flower VI,Enchanted Dandelion,24,E. Dandelion 3 x 8,,,,,25,960
+Flower,VII,7,5407,Flower VII,Enchanted Dandelion,64,E. Dandelion 8 x 8,,,,,24,960
+Flower,VIII,8,5408,Flower VIII,Enchanted Dandelion,128,E. Dandelion 16 x 8,,,,,23,960
+Flower,IX,9,5409,Flower IX,Enchanted Dandelion,256,E. Dandelion 32 x 8,,,,,22,960
+Flower,X,10,5410,Flower X,Enchanted Dandelion,512,E. Dandelion 64 x 8,,,,,20,960
+Flower,XI,11,5411,Flower XI,Enchanted Poppy,8,E. Poppy 1 x 8,,,,,18,960
+Flower,XII,12,5412,Flower XII,Enchanted Poppy,16,E. Poppy 2 x 8,,,,,15,960
+Snow,I,1,5501,Snow I,Snow Block,##,#Uncraftable,,,,,13,64
+Snow,II,2,5502,Snow II,Snow Block,32,Snow Block 4 x 8,,,,,13,192
+Snow,III,3,5503,Snow III,Snow Block,64,Snow Block 8 x 8,,,,,12,192
+Snow,IV,4,5504,Snow IV,Snow Block,128,Snow Block 16 x 8,,,,,12,384
+Snow,V,5,5505,Snow V,Snow Block,256,Snow Block 32 x 8,,,,,11,384
+Snow,VI,6,5506,Snow VI,Snow Block,512,Snow Block 64 x 8,,,,,11,576
+Snow,VII,7,5507,Snow VII,Enchanted Snow Block,8,E. Snow Block 1 x 8,,,,,9.5,576
+Snow,VIII,8,5508,Snow VIII,Enchanted Snow Block,16,E. Snow Block 2 x 8,,,,,9.5,768
+Snow,IX,9,5509,Snow IX,Enchanted Snow Block,32,E. Snow Block 4 x 8,,,,,8,768
+Snow,X,10,5510,Snow X,Enchanted Snow Block,64,E. Snow Block 8 x 8,,,,,8,960
+Snow,XI,11,5511,Snow XI,Enchanted Snow Block,128,E. Snow Block 16 x 8,,,,,6.5,960

@@ -1,0 +1,58 @@
+.container {
+  overflow: hidden;
+  background: grey;
+}
+ 
+.middle {
+  float: left;
+  columns: 21em 2;
+  width:69%;
+}
+ 
+.right {
+  float: right;
+  width: 29.5%;
+}
+
+.header {
+  text-align:center;
+  font-size:1.2em;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px 5px 0px 0px;
+  font-weight:600;
+ }
+
+.subheader {
+  height:4rem;
+  margin-bottom: 0.6rem;
+  text-align:center;
+  font-size:0.6em;
+  background-color: rgba(0, 0, 0, 0.45);
+  border-radius: 0px 0px 5px 5px;
+  color:rgb(185, 185, 185)
+}
+
+.todolist {
+  height:100vh; 
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.navbar-brand {
+   font-size:0.81em;
+   font-weight:500;
+}
+
+.nav-item {
+  font-size:0.65em;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 33% auto auto;
+}
+
+.grid-item {
+  padding-top: 0.2em;
+  padding-left:0.2em;
+  text-align: center;
+}
