@@ -5,60 +5,19 @@
 {% endblock %}
 
 {% block main %}
-    <div style="color: white; padding-top:1em">
-        <div class="right">
-            <div class="header" style="margin-bottom:0em !important;">
-                TO-DO - #/25
-            </div>
-            <div class="todolist">
-                
-            </div>
-
+    <div class="grid-container">
+        <div class="grid-select" style="border:solid; color:white">
+            Select Menu Here
         </div>
-        <div class="middle">
-            <div class="header">Gaming Data For</div>
-            <div class="subheader">
-                <div class="input-group mb-3" style="padding-left:2.5em; padding-right:2.5em; padding-top:0.8rem">
-                    <input type="text" class="form-control form-control-sm shadow-none" style="background-color:rgba(0, 0, 0, 0); color:white;" placeholder="Username" aria-label="Username" aria-describedby="button-addon2">
-                    <button class="btn btn-sm btn-outline-light shadow-none" type="button" id="button-addon2">BINGO</button>
-                </div>
-            </div>
-            {% for dict in bingo_tasks %}
-                <div class="header">{{ dict.name }}</div>
-                <div class="subheader">
-                    <div class="grid-container">
-                        <div class="grid-item">
-                            <div style="font-size:1.3em; font-weight:500;">
-                                TASK
-                            </div>
-                            <div>
-                                {{ dict.lore }}
-                            </div>
-                        </div>
-                        <div class="grid-item">
-                            <div style="font-size:1.3em; font-weight:500;">
-                                METHOD
-                            </div>
-                            <div>
-                                X Type Minions
-                                <br>
-                                Unloads: X
-                            </div>
-                        </div>
-                        <div class="grid-item">
-                            <div style="font-size:1.3em; font-weight:500;">
-                                ETA
-                            </div>
-                            <div>
-                                {{ dict.eta }} hr
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            {% endfor %}
-        </div> 
-
+        <div class="grid-input" style="border:solid; color:white">
+            Input IGN Here
+        </div>
+        <div class="grid-tasks" style="border:solid; color:white">
+            Tasks Here
+        </div>
+        <div class="grid-todo" style="border:solid; color:white">
+            Todo Here
+        </div>
     </div>
 
 

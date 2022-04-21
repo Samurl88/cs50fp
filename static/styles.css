@@ -48,11 +48,28 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: 33% auto auto;
+  grid-template-columns:repeat(3, 1fr);
+  grid-auto-rows:minmax(5.2rem, auto);
+  column-gap:15px;
+  row-gap:10px;
 }
 
-.grid-item {
-  padding-top: 0.2em;
-  padding-left:0.2em;
-  text-align: center;
+.grid-select {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+}
+
+.grid-input {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.grid-tasks {
+  grid-column: 1 / span 2;
+  grid-row: 2 / span 5;
+}
+
+.grid-todo {
+  grid-column: 3;
+  grid-row: 2 / span 5;
 }
