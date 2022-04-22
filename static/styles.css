@@ -126,17 +126,20 @@ input[type="text"]:focus {
     grid-column: 1;
     grid-row: 1;
   }
+  .grid-select {
+    display: none;
+  }
   .grid-tasks {
     grid-column: 1;
-    grid-row: 3 / span 3;
+    grid-row: 2 / span 3;
   }
   .grid-board {
     grid-column: 1;
-    grid-row: 6 / span 3;
+    grid-row: 5 / span 3;
   }
   .grid-todo {
     grid-column: 1;
-    grid-row: 9 / span 2;
+    grid-row: 8 / span 2;
   }
 }
 
