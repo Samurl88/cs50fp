@@ -6,15 +6,19 @@
 
 {% block main %}
     <div class="grid-container" style="color:white;">
-        <div class="grid-select" style="color: white; border:solid">
+        <div class="grid-select" style="color:white; border:solid">
             Select Menu Here
         </div>
         <div class="grid-input" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white; text-align:center;">
-            <div>Bingo Data For</div>
+            <div style="font-size:1.2em; font-weight:600;">Bingo Data For</div>
             <div>
-                <div class="input-group mb-3" style="padding-left:2.5em; padding-right:2.5em; padding-top:0.8rem">
-                    <input type="text" class="form-control form-control-sm shadow-none" style="background-color:rgba(0, 0, 0, 0); color:white; border: 1.5px solid" placeholder="Username" aria-label="Username" aria-describedby="button-addon2">
-                    <button class="btn btn-sm btn-outline-light shadow-none" type="button" id="button-addon2" style="border: 1.5px solid white;">BINGO</button>
+                <div style="padding-top:0.5em;">
+                    <form style="display:flex;">
+                        <div style="margin:0 auto; display:flex; border:1.5px solid white; border-radius:5px;">
+                            <input type="text" placeholder="IGN" style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:85%; text-indent:0.1em;">
+                            <button type="submit" style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:15%;"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

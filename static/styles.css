@@ -1,11 +1,6 @@
-.container {
-  overflow: hidden;
-  background: grey;
-}
-
 .header {
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.1em;
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 5px 5px 0px 0px;
   font-weight: 600;
@@ -20,18 +15,9 @@
   color: rgb(185, 185, 185)
 }
 
-.todolist {
-  height: 100vh; 
-  background-color: rgba(0, 0, 0, 0.45);
-}
-
 .navbar-brand {
    font-size: 0.81em;
    font-weight: 500;
-}
-
-.nav-item {
-  font-size: 0.65em;
 }
 
 .grid-container {
@@ -50,6 +36,10 @@
 .grid-input {
   grid-column: 1;
   grid-row: 1;
+}
+
+input[type="text"]:focus {
+  outline: none;
 }
 
 .grid-tasks {
@@ -113,13 +103,63 @@
   background: rgba(255, 255, 255, 0.8);
 }
 
-@media (min-width: 500px) {
-  body {
-    font-size: 75%;
+/* Resizing For Mobile */
+@media (min-width: 0px) and (max-width: 700px){
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: 9vh;
+    column-gap:10px;
+    row-gap: 10px;
+  }
+  .grid-select {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .grid-input {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .grid-tasks {
+    grid-column: 1;
+    grid-row: 3 / span 3;
+  }
+  .grid-board {
+    grid-column: 1;
+    grid-row: 6 / span 3;
+  }
+  .grid-todo {
+    grid-column: 1;
+    grid-row: 9 / span 2;
   }
 }
 
-@media (min-width: 500px) {
+/* One column of tasks up to 990px */
+@media (max-width: 990px){
+  body {
+    font-size: 75%;
+  }
+  .grid-tasks-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+    overflow-y: scroll;
+  }
+  .grid-tasks-item {
+    padding: 0.2em 0.3em 0.2em 0.3em;
+    text-align: center;
+  }
+    
+  .grid-subheader-container {
+    display: grid;
+    grid-template-columns: 33% auto auto;
+  }
+}
+
+/* Resizing For Desktop Page */
+
+@media (min-width: 991px) {
   body {
     font-size: 75%;
   }
