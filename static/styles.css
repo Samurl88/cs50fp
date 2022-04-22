@@ -23,7 +23,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: 30% 70%;
-  grid-auto-rows: 9vh;
+  grid-auto-rows: 4rem;
   column-gap:10px;
   row-gap: 10px;
 }
@@ -109,7 +109,7 @@ input[type="text"]:focus {
   .grid-container {
     display: grid;
     grid-template-columns: 100%;
-    grid-auto-rows: 9vh;
+    grid-auto-rows: 4rem;
     column-gap:10px;
     row-gap: 10px;
   }
