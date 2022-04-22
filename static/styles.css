@@ -90,6 +90,7 @@
 .grid-todo {
   grid-column: 1;
   grid-row: 5 / span 2;
+  overflow-y:scroll;
 }
 
 ::-webkit-scrollbar {
@@ -110,4 +111,28 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.8);
+}
+
+@media (min-width: 500px) {
+  body {
+    font-size: 75%;
+  }
+}
+
+@media (min-width: 500px) {
+  body {
+    font-size: 75%;
+  }
+}
+
+@media (min-width: 1168px) {
+  body {
+    font-size: 90%;
+  }
+}
+
+@media (min-width: 1292px) {
+  body {
+    font-size: 100%;
+  }
 }
