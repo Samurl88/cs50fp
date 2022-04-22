@@ -6,8 +6,8 @@
 
 {% block main %}
     <div class="grid-container" style="color:white;">
-        <div class="grid-select" style="color:white; border:solid">
-            Select Menu Here
+        <div class="grid-select">
+            <!-- TODO -->
         </div>
         <div class="grid-input" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white; text-align:center;">
             <div style="font-size:1.2em; font-weight:600;">Bingo Data For</div>
@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid-tasks" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5)">
+        <div class="grid-tasks" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding-top:0.3rem; padding-bottom:0.3rem">
             <div class="grid-tasks-container">
                 {% for dict in bingo_tasks %}
                     <div class="grid-tasks-item">
@@ -62,12 +62,13 @@
             </div>
         </div>
         <div class="grid-board" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white;">
-            <div class="grid-in-board" style="border:solid">
-                e
+            <div class="grid-in-board">
+                <!-- TODO -->
             </div>
         </div>
         <div class="grid-todo" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white;">
             <div style="font-size:1.1em; font-weight:500;">
+                <!-- TODO BETTER -->
                 Unfinished
                 <ul style="font-size:0.7em;">
                 {% for dict in bingo_tasks %}
