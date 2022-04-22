@@ -17,16 +17,22 @@ def color(lore):
     return lore
 
 #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
+
 # TODO: Add completion % for each task
-def sortlist(init_tasks):
-    # TODO: Add completion % for each task, THIS IS A PLACEHOLDER
-    # TODO: For minions, at least: acknowledge collection progress, count toward & recalculate ETA
-    for task in init_tasks:
-        task["completion"] = 0
+def completion(tasks):
+# TODO: Add completion % for each task, THIS IS A PLACEHOLDER
+# TODO: For minions, at least: acknowledge collection progress, count toward & recalculate ETA
+    for task in tasks:
+        if task["name"] == 'Skilled':
+            task["completion"] = 100
+        else:
+            task["completion"] = 0
         # If minion/craft, check collection
         # If stat, check stats
+    return(tasks)
 
-# Order: collection eta, craft eta, misc, community goals, completed
+def sortbyeta(init_tasks):
+# TODO: Order: BY ETA
     sorted_tasks = []
     minion_task = []
     craft_task = []

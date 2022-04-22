@@ -70,11 +70,16 @@ input[type="text"]:focus {
 }
 
 .grid-in-board {
+  display:grid;
   margin: 0 auto;
   height: 100%;
   width: 100%;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
+}
+
+.grid-board-item {
+  font-size:1em;
 }
 
 .grid-todo {

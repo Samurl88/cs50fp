@@ -85,12 +85,18 @@ for dict in response["goals"]:
 def index():
     #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
     bingo_tasks = db.execute("SELECT name, lore, method, eta FROM bingo")
-    bingo_tasks = sortlist(bingo_tasks)
-    return render_template('index.html', bingo_tasks=bingo_tasks)
+    
+    # Adds completion %, keeps proper order of tasks - used for bingo board
+    ordered_tasks = completion(bingo_tasks)
+
+    # Calculates and sorts by ETA - used for list of tasks
+    eta_tasks = sortbyeta(ordered_tasks)
+    
+
+    return render_template('index.html', eta_tasks=eta_tasks, ordered_tasks=ordered_tasks)
 
 # TODO: bingo_tasks: Send list of dictionaries, each a task containing keys: name, lore (?), method, eta, completion (percentage)
 
 # TODO: Query per user, add percentage bars (?) for each task, https://api.hypixel.net/skyblock/bingo?key=5a0827f1-cf40-4ea6-9891-5a5a323b5f35&uuid=5e22209b-e586-4a08-8761-aa6bde56a090
 # TODO: Make tasks change color based on completion % (?) - g l o w
-# TODO: Make each task a drop-down button, beneath contains: method, approx. time, importance(?)
 # TODO: Add interactable to-do list
