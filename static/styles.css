@@ -1,4 +1,5 @@
 .header {
+  height: 1.5em;
   text-align: center;
   font-size: 1.1em;
   background-color: rgba(0, 0, 0, 0.6);
@@ -23,7 +24,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: 30% 70%;
-  grid-auto-rows: 4rem;
+  grid-auto-rows: 5rem;
   column-gap:10px;
   row-gap: 10px;
 }
@@ -31,6 +32,27 @@
 .grid-select {
   grid-column: 2;
   grid-row: 1;
+}
+
+.grid-select-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.select-btn {
+  color: rgb(131, 131, 131);
+  background-color: rgba(143, 143, 143, 0.0);
+  border: 0;
+  font-weight: 600;
+}
+
+.select-btn:hover {
+  color:white;
+}
+
+.selected {
+  color: white;
+  font-weight: 700;
 }
 
 .grid-input {
@@ -45,11 +67,14 @@ input[type="text"]:focus {
 .grid-tasks {
   grid-column: 2;
   grid-row: 2 / span 5;
+  height:109%; 
+  transform:translateY(-8.3%);
 }
 
 .grid-tasks-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 5.7em;
   height: 100%;
   overflow-y: scroll;
 }
@@ -71,6 +96,7 @@ input[type="text"]:focus {
 
 .grid-in-board {
   display:grid;
+  border-radius: 5px;
   margin: 0 auto;
   height: 100%;
   width: 100%;
@@ -118,10 +144,6 @@ input[type="text"]:focus {
     column-gap:10px;
     row-gap: 10px;
   }
-  .grid-select {
-    grid-column: 1;
-    grid-row: 2;
-  }
   .grid-input {
     grid-column: 1;
     grid-row: 1;
@@ -132,6 +154,8 @@ input[type="text"]:focus {
   .grid-tasks {
     grid-column: 1;
     grid-row: 2 / span 3;
+    height:100%;
+    transform: translateY(0%)
   }
   .grid-board {
     grid-column: 1;

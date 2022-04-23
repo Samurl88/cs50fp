@@ -23,10 +23,7 @@ def completion(tasks):
 # TODO: Add completion % for each task, THIS IS A PLACEHOLDER
 # TODO: For minions, at least: acknowledge collection progress, count toward & recalculate ETA
     for task in tasks:
-        if task["name"] == 'Skilled':
-            task["completion"] = 100
-        else:
-            task["completion"] = 0
+        task["completion"] = 0
         # If minion/craft, check collection
         # If stat, check stats
     return(tasks)
@@ -49,7 +46,7 @@ def sortbyeta(init_tasks):
                 craft_task.append(task)
             elif task["method"] == "STATS":
                 stat_task.append(task)
-            elif task["method"] == "":
+            elif task["method"] == "MISCELLANEOUS":
                 misc_task.append(task)
             elif task["method"] == "COMMUNITY GOAL":
                 comm_task.append(task)

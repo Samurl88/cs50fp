@@ -75,7 +75,7 @@ for dict in response["goals"]:
         eta = "0"
 
     else:
-        method = ""
+        method = "MISCELLANEOUS"
         eta = "0"
 
     db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta)

@@ -4,28 +4,98 @@
     BINGO
 {% endblock %}
 
+{% block javascript %}
+    <script>
+        var allButtons = document.getElementsByClassName("select-btn");
+        var tasks = document.getElementsByClassName("task");
+        
+        function filter(id) {
+            // Removes "selected" class from all buttons, adds it to the new selected one
+            var button = document.getElementById(id);
+            Array.from(allButtons).forEach(btn => {
+                if(btn.classList.contains("selected")) {
+                    btn.classList.remove("selected");
+                }
+                button.classList.add("selected");
+            });
+
+            // Filters to match selection
+            Array.from(tasks).forEach(task => {
+                task.style.display = "inline";
+            });
+            
+            if (id != "all") {
+                Array.from(tasks).forEach(task => {
+                    if (!(task.classList.contains(id))) {
+                        task.style.display = "none";
+                    }
+                });
+            }
+
+        }
+    </script>
+{% endblock %}
+
 {% block main %}
     <div class="grid-container" style="color:white;">
-        <div class="grid-select" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); color:white; text-align:center;">
-            <!-- TODO -->
+        <div class="grid-select" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); color:white; text-align:center; height:50%;">
+            <div class="grid-select-container" style="position:relative; top:50%; transform:translateY(-50%)">
+                <div>
+                    <button id="all" class="select-btn selected" onclick="filter(this.id)">
+                        ALL
+                    </button>
+                </div>
+                <div>
+                    <button id="coll" class="select-btn" onclick="filter(this.id)">
+                        COLL.
+                    </button>
+                </div>
+                <div>
+                    <button id="craft" class="select-btn" onclick="filter(this.id)">
+                        CRAFT
+                    </button>
+                </div>
+                <div>
+                    <button id="misc" class="select-btn" onclick="filter(this.id)">
+                        MISC.
+                    </button>
+                </div>
+                <div>
+                    <button id="comm" class="select-btn" onclick="filter(this.id)">
+                        COMM.
+                    </button>
+                </div>
+            </div>
         </div>
+
         <div class="grid-input" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); color:white; text-align:center;">
-            <div style="font-size:1.2em; font-weight:600;">Bingo Data For</div>
-            <div>
+            <div style="position:relative; top:50%; transform:translateY(-50%)">
+                <div style="font-size:1.2em; font-weight:600; padding-bottom:0.2rem;">
+                    Bingo Data For
+                </div>
                 <div>
                     <form style="display:flex;">
-                        <div style="margin:0 auto; display:flex; border:1.5px solid white; border-radius:5px;">
+                        <div style="margin:0 auto; display:flex; border:1.5px solid white; border-radius:5px;">                            
                             <input type="text" placeholder="IGN" spellcheck="false" style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:85%; text-indent:0.1em;">
                             <button type="submit" style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:15%;"><i class="fa fa-search"></i></button>
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> 
         </div>
-        <div class="grid-tasks" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding-top:0.3rem; padding-bottom:0.3rem">
+
+        <div class="grid-tasks" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding-top:0.3rem; padding-bottom:0.3rem;">
             <div class="grid-tasks-container">
                 {% for dict in eta_tasks %}
-                    <div class="grid-tasks-item">
+                    {% if dict.method == "MINION" %}
+                        <div class="grid-tasks-item task coll">
+                    {% elif dict.method == "CRAFT" %}
+                        <div class="grid-tasks-item task craft">
+                    {% elif dict.method == "COMMUNITY GOAL" %}
+                        <div class="grid-tasks-item task comm">
+                    {% else %}
+                        <div class="grid-tasks-item task misc">
+                    {% endif %}
                         <div class="header">
                             {{ dict.name }}
                         </div>
@@ -61,8 +131,9 @@
                 {% endfor %}
             </div>
         </div>
+
         <div class="grid-board" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white;">
-            <div class="grid-in-board">
+            <div class="grid-in-board" style="border:solid 2px rgb(0, 0, 0)">
                 {% for task in ordered_tasks %}
                         {% if task.lore == "Community Goal!" %}
                             <div class="grid-board-item" style="background-color:rgba(255, 132, 0, 0.6); border:1px solid black;"></div>
@@ -76,6 +147,7 @@
                 
             </div>
         </div>
+
         <div class="grid-todo" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white;">
             <div style="font-size:1.1em; font-weight:500;">
                 <!-- TODO BETTER -->
@@ -83,7 +155,7 @@
                 <ul style="font-size:0.7em; list-style-type:none; margin:1em; padding:0;">
                 {% for dict in eta_tasks %}
                     {% if dict.completion != 100 %}
-                        <li>{{ dict.name }}</li>
+                        <li>{{ dict.lore }}</li>
                     {% endif %}
                 {% endfor %}
                 </ul>
