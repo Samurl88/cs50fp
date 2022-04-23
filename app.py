@@ -22,7 +22,6 @@ response = (requests.get("https://api.hypixel.net/resources/skyblock/bingo")).js
 db = SQL("sqlite:///bingo.db")
 
 # TODO: ALTER DATABASE WHEN NECESSARY
-"""
 db.execute("DELETE FROM bingo")
 for dict in response["goals"]:
     id = dict["id"]
@@ -79,7 +78,7 @@ for dict in response["goals"]:
         eta = "0"
 
     db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta)
-"""
+
 
 @app.route("/")
 def index():
