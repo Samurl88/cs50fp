@@ -79,9 +79,12 @@ for dict in response["goals"]:
 
     db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta)
 
-
 @app.route("/")
 def index():
+    return render_template('index.html')
+
+@app.route("/bingo")
+def bingo():
     #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
     bingo_tasks = db.execute("SELECT name, lore, method, eta FROM bingo")
     
