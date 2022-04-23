@@ -47,7 +47,7 @@
                 </div>
                 <div>
                     <button id="coll" class="select-btn" onclick="filter(this.id)">
-                        COLL.
+                        COLLECT.
                     </button>
                 </div>
                 <div>
@@ -151,11 +151,13 @@
         <div class="grid-todo" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white;">
             <div style="font-size:1.1em; font-weight:500;">
                 <!-- TODO BETTER -->
-                TO-DO
-                <ul style="font-size:0.7em; list-style-type:none; margin:1em; padding:0;">
+                <div style="text-align:center; font-size:1.2em;">INCOMPLETE</div>
+                <ul style="font-size:0.7em; margin-left:1em; padding:0; list-style-type: none;">
+                <hr>
                 {% for dict in eta_tasks %}
                     {% if dict.completion != 100 %}
-                        <li>{{ dict.lore }}</li>
+                        <li>{{ dict.name}} → {{ dict.lore }}</li>
+                        <hr>
                     {% endif %}
                 {% endfor %}
                 </ul>
