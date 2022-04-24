@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    BINGO
+{% endblock %}
+
+{% block main %}
+    <div class="title">
+        <div class="letter">B</div>
+        <div class="letter">I</div>
+        <div class="letter">N</div>
+        <div class="letter">G</div>
+        <div class="letter">O</div>
+    </div>
+    <div class="subtitle">
+        By LoRe
+    </div>
+    <br>
+    <div>
+        <form style="display:flex;" action="/bingo" method="get" autocomplete="off">
+            <div style="margin:0 auto; display:flex; border:1.5px solid white; border-radius:5px;">                            
+                <input type="text" name="ign" placeholder="Username" spellcheck="false" style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:85%; text-indent:0.1em;">
+                <button type="submit" style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:15%;"><i class="fa fa-search"></i></button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
