@@ -9,6 +9,7 @@
 
 .letter {
   display: inline-block;
+	text-shadow:0 0 10px #fff;
 }
 
 .subtitle {
@@ -17,6 +18,7 @@
   text-align: center;
   letter-spacing: 0.05em;
   font-weight: 450;
+  text-shadow:0 0 5px #fff;
 }
 
 ::placeholder {
@@ -127,7 +129,6 @@ input[type="text"]:focus {
 
 .grid-in-board {
   display:grid;
-  border-radius: 5px;
   margin: 0 auto;
   height: 100%;
   width: 100%;
@@ -136,7 +137,7 @@ input[type="text"]:focus {
 }
 
 .grid-board-item {
-  font-size:1em;
+  font-size: 1em;
 }
 
 .grid-todo {

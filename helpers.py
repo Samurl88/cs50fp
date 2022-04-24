@@ -19,39 +19,20 @@ def color(lore):
 #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
 
 # TODO: Add completion % for each task
-def completion(tasks):
+def completion(tasks, completed_tasks):
 # TODO: Add completion % for each task, THIS IS A PLACEHOLDER
 # TODO: For minions, at least: acknowledge collection progress, count toward & recalculate ETA
     for task in tasks:
-        task["completion"] = 0
+        if task["id"] in completed_tasks:
+            task["completion"] = 100
+        else:
+            task["completion"] = 0
         # If minion/craft, check collection
         # If stat, check stats
     return(tasks)
 
 def sortbyeta(init_tasks):
 # TODO: Order: BY ETA
-    sorted_tasks = []
-    minion_task = []
-    craft_task = []
-    stat_task = []
-    misc_task = []
-    comm_task = []
-    completed_task = []
-    for task in init_tasks:
-        if task["completion"] != 100:
-            if task["method"] == "MINION":
-                minion_task.append(task)
-                # TODO: Sort by ETA
-            elif task["method"] == "CRAFT":
-                craft_task.append(task)
-            elif task["method"] == "STATS":
-                stat_task.append(task)
-            elif task["method"] == "MISCELLANEOUS":
-                misc_task.append(task)
-            elif task["method"] == "COMMUNITY GOAL":
-                comm_task.append(task)
-        else:
-            completed_task.append(task)
-    sorted_tasks = minion_task + craft_task + stat_task + misc_task + comm_task + completed_task
+    sorted_tasks = init_tasks
     return(sorted_tasks)
 
