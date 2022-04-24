@@ -99,7 +99,11 @@
                         <div class="header">
                             {{ dict.name }}
                         </div>
-                        <div class="subheader grid-subheader-container">
+                        <!--<div class="header" style="z-index:9; background-color:rgba(40, 207, 40, 0.6); transform:translateY(-100%); position:relative;"></div>-->
+                            
+                        <!-- TODO: ADD PERCENTAGE BARS HERE -->
+                        <!--<div class="subheader grid-subheader-container" style="transform:translateY(-45.8%)">-->
+                            <div class="subheader grid-subheader-container">
                             <div class="grid-tasks-item">
                                 <div style="font-size:1.3em; font-weight:500;">
                                     TASK
@@ -133,7 +137,7 @@
         </div>
 
         <div class="grid-board" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white;">
-            <div class="grid-in-board" style="border:solid 0.75px rgb(0, 0, 0)">
+            <div class="grid-in-board" style="border:solid 2px rgb(0, 0, 0)">
                 {% for task in ordered_tasks %}
                         {% if task.lore == "Community Goal!" %}
                             <div class="grid-board-item" style="background-color:rgba(255, 132, 0, 0.6); border:1.5px solid black;"></div>
