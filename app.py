@@ -83,19 +83,20 @@ for dict in response["goals"]:
 def index():
     return render_template('index.html')
 
-@app.route("/bingo")
+@app.route("/about")
+def about():
+    return render_template('about.html')
+
+@app.route("/bingo", methods=["GET"])
 def bingo():
-    #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
     bingo_tasks = db.execute("SELECT name, lore, method, eta FROM bingo")
-    
     # Adds completion %, keeps proper order of tasks - used for bingo board
     ordered_tasks = completion(bingo_tasks)
-
     # Calculates and sorts by ETA - used for list of tasks
     eta_tasks = sortbyeta(ordered_tasks)
-    
 
-    return render_template('index.html', eta_tasks=eta_tasks, ordered_tasks=ordered_tasks)
+    return render_template('bingo.html', eta_tasks=eta_tasks, ordered_tasks=ordered_tasks)
+    
 
 # TODO: bingo_tasks: Send list of dictionaries, each a task containing keys: name, lore (?), method, eta, completion (percentage)
 

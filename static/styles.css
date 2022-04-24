@@ -1,3 +1,39 @@
+/* FOR INDEX.HTML */
+/* FOR INDEX.HTML */
+.title {
+  font-size: 4em;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+}
+
+.letter {
+  display: inline-block;
+}
+
+.subtitle {
+  font-size: 1em;
+  color: white;
+  text-align: center;
+  letter-spacing: 0.05em;
+  font-weight: 450;
+}
+
+::placeholder {
+  color:rgba(255, 255, 255, 0.7);
+}
+
+
+/* FOR LAYOUT.HTML */
+/* FOR LAYOUT.HTML */
+.navbar-brand {
+  font-size: 0.81em;
+  font-weight: 500;
+}
+
+
+/* FOR BINGO.HTML */
+/* FOR BINGO.HTML */
 .header {
   height: 1.5em;
   text-align: center;
@@ -14,11 +50,6 @@
   background-color: rgba(0, 0, 0, 0.45);
   border-radius: 0px 0px 5px 5px;
   color: rgb(185, 185, 185)
-}
-
-.navbar-brand {
-   font-size: 0.81em;
-   font-weight: 500;
 }
 
 .grid-container {
