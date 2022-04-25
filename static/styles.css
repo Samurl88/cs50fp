@@ -57,7 +57,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: 30% 70%;
-  grid-auto-rows: 5rem;
+  grid-auto-rows: minmax(50px, 9vh);
   column-gap:10px;
   row-gap: 10px;
 }

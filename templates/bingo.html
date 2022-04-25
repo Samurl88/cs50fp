@@ -70,14 +70,14 @@
 
         <div class="grid-input" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); color:white; text-align:center;">
             <div style="position:relative; top:50%; transform:translateY(-50%)">
-                <div style="font-size:1.2em; font-weight:600; padding-bottom:0.2rem;">
+                <div style="font-size:1.2em; font-weight:600; padding-bottom:min(0.2rem, 0.1vh);">
                     Bingo Data For
                 </div>
                 <div>
                     <form action="/bingo" method="post" style="display:flex" autocomplete="off">
                         <div style="margin:0 auto; display:flex; border:1.5px solid white; border-radius:5px;">                            
-                            <input type="text" name="ign" placeholder="Username" spellcheck="false" value={{ ign }} style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:85%; text-indent:0.1em;">
-                            <button type="submit" style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:15%;"><i class="fa fa-search"></i></button>
+                            <input type="text" name="ign" placeholder="Username" spellcheck="false" value={{ ign }} style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:85%; height:1.4em; text-indent:0.1em;">
+                            <button type="submit" style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:15%; height:1.4em"><i class="fa fa-search" style="font-size:0.8em; display:flex; justify-content:center; align-items:center;"></i></button>
                         </div>
                     </form>
                 </div>
@@ -97,13 +97,15 @@
                         <div class="grid-tasks-item task misc">
                     {% endif %}
                         <div class="header">
+                            <div style="z-index:999;">
                             {{ dict.name }}
+                            </div>
                         </div>
-                        <!--<div class="header" style="z-index:9; background-color:rgba(40, 207, 40, 0.6); transform:translateY(-100%); position:relative;"></div>-->
+                        <!--<div class="header" style="z-index:2; background-color:rgba(40, 207, 40, 0.6); transform:translateY(-100%); position:relative;"></div>-->
                             
                         <!-- TODO: ADD PERCENTAGE BARS HERE -->
                         <!--<div class="subheader grid-subheader-container" style="transform:translateY(-45.8%)">-->
-                            <div class="subheader grid-subheader-container">
+                        <div class="subheader grid-subheader-container">
                             <div class="grid-tasks-item">
                                 <div style="font-size:1.3em; font-weight:500;">
                                     TASK
@@ -137,7 +139,7 @@
         </div>
 
         <div class="grid-board" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white;">
-            <div class="grid-in-board" style="border:solid 2px rgb(0, 0, 0)">
+            <div class="grid-in-board">
                 {% for task in ordered_tasks %}
                         {% if task.lore == "Community Goal!" %}
                             <div class="grid-board-item" style="background-color:rgba(255, 132, 0, 0.6); border:1.5px solid black;"></div>

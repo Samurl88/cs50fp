@@ -97,6 +97,7 @@ def bingo():
     # Get UUID from Mojang API
     try:
         response = (requests.get(f"https://api.mojang.com/users/profiles/minecraft/{ign}")).json()
+        ign = response['name']
         uuid = response['id']
     except:
         error = "Not a username!"
@@ -112,8 +113,7 @@ def bingo():
         except:
             # Completed Tasks of Latest Bingo Event
             completed_tasks = (response["events"][(len(response["events"]) - 1)])["completed_goals"]
-            print(completed_tasks)
-
+        
             bingo_tasks = db.execute("SELECT name, lore, method, eta, id FROM bingo")
             # Adds completion %, keeps proper order of tasks - used for bingo board
             ordered_tasks = completion(bingo_tasks, completed_tasks)
