@@ -3,6 +3,27 @@
 {% block title %}
     BINGO
 {% endblock %}
+{% block javascript %}
+    <script>
+        /*
+        function appear() {
+            let letters = document.getElementsByClassName("letter");
+            let subtitle = document.getElementsByClassName("subtitle");
+            i = 0;
+            Array.from(letters).forEach(letter => {
+                i++;
+                setTimeout(() => {letter.style.opacity = 1}, 100 * i);
+            })
+            Array.from(subtitle).forEach(st => {
+                setTimeout(() => {st.style.opacity = 1}, 900);
+            })
+        }
+
+        /* Work-around so I don't have to re-position script to end of body * /
+        setTimeout(appear, 1);
+        */
+    </script>
+{% endblock %}
 
 {% block main %}
     <div class="title">
@@ -23,5 +44,9 @@
                 <button type="submit" style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:15%;"><i class="fa fa-search"></i></button>
             </div>
         </form>
+    </div>
+    <br>
+    <div class="error">
+        {{ error }}
     </div>
 {% endblock %}

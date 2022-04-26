@@ -93,6 +93,7 @@ def about():
 
 @app.route("/bingo", methods=["POST"])
 def bingo():
+    error=""
     ign = (request.form.get("ign")).strip()
     # Get UUID from Mojang API
     try:

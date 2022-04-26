@@ -9,7 +9,9 @@
 
 .letter {
   display: inline-block;
-	text-shadow:0 0 10px #fff;
+	text-shadow: 0 0 10px #fff;
+  opacity: 1;
+  transition: opacity 1s;
 }
 
 .subtitle {
@@ -19,10 +21,18 @@
   letter-spacing: 0.05em;
   font-weight: 450;
   text-shadow:0 0 5px #fff;
+  opacity: 1;
+  transition: opacity 1s;
 }
 
 ::placeholder {
   color:rgba(255, 255, 255, 0.7);
+}
+
+.error {
+  color: white;
+  font-size: 1em;
+  text-align: center;
 }
 
 
