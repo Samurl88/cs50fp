@@ -19,17 +19,21 @@ def color(lore):
 #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
 
 # TODO: Add completion % for each task
-def completion(tasks, completed_tasks):
+def completion(tasks, completed_tasks, latest, bingo_id):
 # TODO: Add completion % for each task, THIS IS A PLACEHOLDER
 # TODO: For minions, at least: acknowledge collection progress, count toward & recalculate ETA
-    for task in tasks:
-        if task["id"] in completed_tasks:
-            task["completion"] = 100
-            print(task)
-        else:
+    if latest == bingo_id:
+        for task in tasks:
+            if task["id"] in completed_tasks:
+                task["completion"] = 100
+                print(task)
+            else:
+                task["completion"] = 0
+            # If minion/craft, check collection
+            # If stat, check stats
+    else: 
+        for task in tasks: 
             task["completion"] = 0
-        # If minion/craft, check collection
-        # If stat, check stats
     return(tasks)
 
 def sortbyeta(init_tasks):

@@ -116,11 +116,12 @@ def bingo():
             # Completed Tasks of Latest Bingo Event
             # Find correct bingo with key (must be equal to bingo_id)
 
+            latest = (response["events"][(len(response["events"]) - 1)])["key"]
             completed_tasks = (response["events"][(len(response["events"]) - 1)])["completed_goals"]
-        
+
             bingo_tasks = db.execute("SELECT name, lore, method, eta, id FROM bingo")
             # Adds completion %, keeps proper order of tasks - used for bingo board
-            ordered_tasks = completion(bingo_tasks, completed_tasks)
+            ordered_tasks = completion(bingo_tasks, completed_tasks, latest, bingo_id)
             # Calculates and sorts by ETA - used for list of tasks
             eta_tasks = sortbyeta(ordered_tasks)
 
