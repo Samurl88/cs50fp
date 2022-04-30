@@ -632,3 +632,8 @@ Snow,VIII,8,5508,Snow VIII,Enchanted Snow Block,16,E. Snow Block 2 x 8,,,,,9.5,7
 Snow,IX,9,5509,Snow IX,Enchanted Snow Block,32,E. Snow Block 4 x 8,,,,,8,768
 Snow,X,10,5510,Snow X,Enchanted Snow Block,64,E. Snow Block 8 x 8,,,,,8,960
 Snow,XI,11,5511,Snow XI,Enchanted Snow Block,128,E. Snow Block 16 x 8,,,,,6.5,960
+Hard Stone,I,1,5601,HardStone I,Hard Stone,256,Hard Stone x 256,,,,,14,64 
+Hard Stone,II,2,5602,HardStone II,Hard Stone,512,Hard Stone x 512,,,,,14,192
+Hard Stone,III,3,5603,HardStone III,Enchanted Hard Stone,8,E. Hard Stone x 8,,,,,12,192
+Hard Stone,IV,4,5604,HardStone IV,Enchanted Hard Stone,16,E. Hard Stone x 16,,,,,12,384
+Hard Stone,V,5,5605,HardStone V,Enchanted Hard Stone,32,E. Hard Stone x 32,,,,,10,384

@@ -20,6 +20,7 @@ key = "5a0827f1-cf40-4ea6-9891-5a5a323b5f35"
 
 # Get Bingo Card API Data from Hypixel - id, name, lore, required amount
 response = (requests.get("https://api.hypixel.net/resources/skyblock/bingo")).json()
+bingo_id = response["id"]
 
 # Loads data into database
 db = SQL("sqlite:///bingo.db")
@@ -44,7 +45,7 @@ for dict in response["goals"]:
     if "collection" in id:
         method = "MINION"
         # Parse item to query
-        item = (id.split("_"))[1] 
+        item = id.replace('collection_', '')
         # Select minion from item (sometimes minion name is different from item)
         minion = (db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item))[0]["type"]
         # Find tier 4 stats
@@ -113,6 +114,8 @@ def bingo():
                 error = "Can't find BINGO data!"
         except:
             # Completed Tasks of Latest Bingo Event
+            # Find correct bingo with key (must be equal to bingo_id)
+
             completed_tasks = (response["events"][(len(response["events"]) - 1)])["completed_goals"]
         
             bingo_tasks = db.execute("SELECT name, lore, method, eta, id FROM bingo")

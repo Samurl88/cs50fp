@@ -25,6 +25,7 @@ def completion(tasks, completed_tasks):
     for task in tasks:
         if task["id"] in completed_tasks:
             task["completion"] = 100
+            print(task)
         else:
             task["completion"] = 0
         # If minion/craft, check collection
