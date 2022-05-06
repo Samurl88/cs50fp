@@ -142,11 +142,11 @@
             <div class="grid-in-board">
                 {% for task in ordered_tasks %}
                         {% if task.lore == "Community Goal!" %}
-                            <div class="grid-board-item" style="background-color:rgba(255, 132, 0, 0.6); border:1.5px solid black;"></div>
+                            <div class="grid-board-item" style="background-color:rgba(255, 132, 0, 0.6);"></div>
                         {% elif task.completion == 100 %}
-                            <div class="grid-board-item" style="background-color:rgba(40, 207, 40, 0.6); border:1.5px solid black;"></div>
+                            <div class="grid-board-item" style="background-color:rgba(40, 207, 40, 0.6);"></div>
                         {% else %}
-                            <div class="grid-board-item" style="background-color:rgba(0, 0, 0, 0.6); border:1.5px solid black;"></div>
+                            <div class="grid-board-item" style="background-color:rgba(0, 0, 0, 0.6);"></div>
                         {% endif %}
                         
                 {% endfor %}
@@ -162,7 +162,7 @@
                 {% for dict in eta_tasks %}
                     {% if dict.method != "COMMUNITY GOAL" %}
                         {% if dict.completion != 100 %}
-                            <li style="margin-left:0.5em;">{{ dict.name}} → {{ dict.lore }}</li>
+                            <li style="margin-left:0.5em;">{{ dict.name }} → {{ dict.lore }}</li>
                             <hr>
                         {% endif %}
                     {% endif %}

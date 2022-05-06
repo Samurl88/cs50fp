@@ -10,7 +10,7 @@
 .letter {
   display: inline-block;
 	text-shadow: 0 0 10px #fff;
-  opacity: 1;
+  opacity: 0;
   transition: opacity 1s;
 }
 
@@ -21,7 +21,7 @@
   letter-spacing: 0.05em;
   font-weight: 450;
   text-shadow:0 0 5px #fff;
-  opacity: 1;
+  opacity: 0;
   transition: opacity 1s;
 }
 
@@ -144,10 +144,13 @@ input[type="text"]:focus {
   width: 100%;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
+  grid-gap:2px;
 }
 
 .grid-board-item {
   font-size: 1em;
+  outline: black 2px solid;
+  box-shadow: none;
 }
 
 .grid-todo {

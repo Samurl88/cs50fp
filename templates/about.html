@@ -4,8 +4,35 @@
     BINGO - ABOUT
 {% endblock %}
 
+{% block javascript %}
+    <script>
+        function appear() {
+            let letters = document.getElementsByClassName("letter");
+            let subtitle = document.getElementsByClassName("subtitle");
+            i = 0;
+            Array.from(letters).forEach(letter => {
+                i++;
+                setTimeout(() => {letter.style.opacity = 1}, 100 * i);
+            })
+            Array.from(subtitle).forEach(st => {
+                setTimeout(() => {st.style.opacity = 1}, 900);
+            })
+        }
+
+        /* Work-around so I don't have to re-position script to end of body */
+        setTimeout(appear, 1);
+    </script>
+{% endblock %}
+
 {% block main %}
-    <div style="color:white;">
-        This is where the about page will go!
+    <div class="title">
+        <div class="letter">A</div>
+        <div class="letter">B</div>
+        <div class="letter">O</div>
+        <div class="letter">U</div>
+        <div class="letter">T</div>
+    </div>
+    <div class="subtitle" style="color:white;">
+        He he he haw
     </div>
 {% endblock %}
