@@ -210,15 +210,15 @@ input[type="text"]:focus {
   .grid-select {
     display: none;
   }
-  .grid-tasks {
-    grid-column: 1;
-    grid-row: 2 / span 3;
-    height:100%;
-    transform: translateY(0%)
-  }
   .grid-board {
     grid-column: 1;
+    grid-row: 2 / span 3;
+  }
+  .grid-tasks {
+    grid-column: 1;
     grid-row: 5 / span 3;
+    height:100%;
+    transform: translateY(0%)
   }
   .grid-todo {
     grid-column: 1;

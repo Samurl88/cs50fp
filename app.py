@@ -56,7 +56,7 @@ for dict in response["goals"]:
             minion = (db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item))[0]["type"]
 
         except:
-            # In case weird name (Eg. 'ender stone' entered as opposed to 'end stone)
+            # In case weird name (Eg. 'ender stone' entered as opposed to 'end stone')
             item = name.replace(' Collector', '')
 
             minion = db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item)[0]["type"]
@@ -124,7 +124,11 @@ def bingo():
             # Find correct bingo with key (must be equal to bingo_id)
 
             latest = (response["events"][(len(response["events"]) - 1)])["key"]
-            completed_tasks = (response["events"][(len(response["events"]) - 1)])["completed_goals"]
+            if latest == bingo_id:
+                completed_tasks = (response["events"][(len(response["events"]) - 1)])["completed_goals"]
+            else:
+                completed_tasks = []
+            print(completed_tasks)
 
             bingo_tasks = db.execute("SELECT * FROM bingo")
             # Adds completion %, keeps proper order of tasks - used for bingo board
