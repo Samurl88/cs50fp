@@ -124,12 +124,26 @@ input[type="text"]:focus {
 
 .grid-tasks-item {
   padding: 0.2em 0.3em 0.2em 0.3em;
-  text-align: center;
 }
 
-.grid-subheader-container {
+.grid-subheader-container-collection {
   display: grid;
-  grid-template-columns: 33% auto auto;
+  grid-template-columns: 33% 34% 33%;
+}
+
+.grid-subheader-container-craft {
+  display: grid;
+  grid-template-columns: 33% auto auto auto;
+}
+
+.grid-subheader-container-community {
+  display: grid;
+  grid-template-columns: 66% 34%;
+}
+
+.grid-subheader-container-misc {
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
 }
 
 .grid-board {
@@ -226,11 +240,6 @@ input[type="text"]:focus {
   .grid-tasks-item {
     padding: 0.2em 0.3em 0.2em 0.3em;
     text-align: center;
-  }
-    
-  .grid-subheader-container {
-    display: grid;
-    grid-template-columns: 33% auto auto;
   }
 }
 

@@ -28,6 +28,10 @@ db = SQL("sqlite:///bingo.db")
 # TODO: ALTER DATABASE WHEN NECESSARY
 db.execute("DELETE FROM bingo")
 for dict in response["goals"]:
+    unloads = ""
+    eta = 0
+    minion = ""
+
     id = dict["id"]
     name = dict["name"]
     if "lore" in dict:
@@ -56,6 +60,7 @@ for dict in response["goals"]:
             item = name.replace(' Collector', '')
 
             minion = db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item)[0]["type"]
+        
             
 
         # Find tier 4 stats
@@ -64,35 +69,27 @@ for dict in response["goals"]:
         storage = (info[0]["storage"]) + 576 # Medium Storages (TODO: Calculate if user has more minion slots, use small storages)
         # Find time (in HOURS) WITH 5 MINIONS to get collection
         eta = round((requiredAmount * timePerItem) / 5)
-        unloads = numpy.ceil(eta / (timePerItem * storage))
+        unloads = int(numpy.ceil(eta / (timePerItem * storage)))
         timePerUnload = eta / unloads
-        #print(eta)
-        #print(unloads)
-        #print(timePerUnload)
-        #print("")
 
 
     # TODO: Stat Goal, optimize talismans, reforges, fairy souls
     elif "stat" in id:
         method = "STATS"
-        eta = "0"
 
     # TODO: Craft Goal, determine if worth minion, and how much minion.
     # TODO: For crafting: take into account 
     # Couldn't do "craft" in id b/c craft_minions is a goal but it's crafting 40 unique minions
     elif "Craft a" in lore:
         method = "CRAFT"
-        eta = "0"
 
     elif lore == "Community Goal!":
         method = "COMMUNITY GOAL"
-        eta = "0"
 
     else:
         method = "MISCELLANEOUS"
-        eta = "0"
 
-    db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta)
+    db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta, unloads, minion)
 
 @app.route("/")
 def index():
@@ -129,7 +126,7 @@ def bingo():
             latest = (response["events"][(len(response["events"]) - 1)])["key"]
             completed_tasks = (response["events"][(len(response["events"]) - 1)])["completed_goals"]
 
-            bingo_tasks = db.execute("SELECT name, lore, method, eta, id FROM bingo")
+            bingo_tasks = db.execute("SELECT * FROM bingo")
             # Adds completion %, keeps proper order of tasks - used for bingo board
             ordered_tasks = completion(bingo_tasks, completed_tasks, latest, bingo_id)
             # Calculates and sorts by ETA - used for list of tasks

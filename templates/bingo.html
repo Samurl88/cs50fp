@@ -76,7 +76,7 @@
                 <div>
                     <form action="/bingo" method="post" style="display:flex" autocomplete="off">
                         <div style="margin:0 auto; display:flex; border:1.5px solid white; border-radius:5px;">                            
-                            <input type="text" name="ign" placeholder="Username" spellcheck="false" value={{ ign }} style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:85%; height:1.4em; text-indent:0.1em; text-align:center;">
+                            <input type="text" name="ign" placeholder="Username" spellcheck="false" value={{ ign }} style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:85%; height:1.4em; text-indent:0.1em;">
                             <button type="submit" style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:15%; height:1.4em"><i class="fa fa-search" style="font-size:0.8em; display:flex; justify-content:center; align-items:center;"></i></button>
                         </div>
                     </form>
@@ -105,37 +105,131 @@
                         
                     <!-- TODO: ADD PERCENTAGE BARS HERE -->
                     <!--<div class="subheader grid-subheader-container" style="transform:translateY(-45.8%)">-->
-                    
-                    <div class="subheader grid-subheader-container">
-                        {% if dict.method == "MINION" %}
-                        <div class="grid-tasks-item">
-                            <div style="font-size:1.3em; font-weight:500;">
-                                TASK
+                        
+                    {% if dict.method == "MINION" %}
+                        <div class="subheader grid-subheader-container-collection">
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    TASK
+                                </div>
+                                <div>
+                                    {{ dict.lore }}
+                                </div>
                             </div>
-                            <div>
-                                {{ dict.lore }}
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    METHOD
+                                </div>
+                                <div>
+                                    {{ dict.minion }} Minions
+                                    <br>
+                                    Unloads: {{ dict.unloads }}
+                                </div>
+                            </div>
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    ETA
+                                </div>
+                                <div style="font-size:1.2em; font-weight:400;">
+                                    {{ dict.eta }}
+                                </div>
+                                <div style="font-size:1em; font-weight:400;">
+                                    Hours
+                                </div>
                             </div>
                         </div>
-                        <div class="grid-tasks-item">
-                            <div style="font-size:1.3em; font-weight:500;">
-                                METHOD
+                    {% elif dict.method == "CRAFT" %}
+                        <div class="subheader grid-subheader-container-craft">
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    TASK
+                                </div>
+                                <div>
+                                    {{ dict.lore }}
+                                </div>
                             </div>
-                            <div>
-                                X Type Minions
-                                <br>
-                                Unloads: {{ dict.unloads }}
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    METHOD
+                                </div>
+                                <div>
+                                    -----
+                                </div>
+                            </div>
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    RECIPE
+                                </div>
+                                <div>
+                                    ---
+                                </div>
+                            </div>
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    ETA
+                                </div>
+                                <div style="font-size:1.2em; font-weight:400;">
+                                    ??
+                                </div>
+                                <div style="font-size:1em; font-weight:400;">
+                                    Hours
+                                </div>
                             </div>
                         </div>
-                        <div class="grid-tasks-item">
-                            <div style="font-size:1.3em; font-weight:500;">
-                                ETA
+                    {% elif dict.method == "COMMUNITY GOAL" %}
+                        <div class="subheader grid-subheader-container-community">
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    TASK
+                                </div>
+                                <div>
+                                    <b style="font-size:1.2em;">COMMUNITY GOAL</b>
+                                    <br><em>(API does not provide lore...)</em>
+                                </div>
                             </div>
-                            <div>
-                                {{ dict.eta }}
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    ETA
+                                </div>
+                                <div style="font-size:1.2em; font-weight:400;">
+                                    ??
+                                </div>
+                                <div style="font-size:1em; font-weight:400;">
+                                    Hours
+                                </div>
                             </div>
                         </div>
-                        {% endif %}
+                    {% else %}
+                        <div class="subheader grid-subheader-container-misc">
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    TASK
+                                </div>
+                                <div>
+                                    {{ dict.lore }}
+                                </div>
+                            </div>
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    METHOD
+                                </div>
+                                <div>
+                                    -----
+                                </div>
+                            </div>
+                            <div class="grid-tasks-item">
+                                <div style="font-size:1.3em; font-weight:500;">
+                                    ETA
+                                </div>
+                                <div style="font-size:1.2em; font-weight:400;">
+                                    {{ dict.eta }}
+                                </div>
+                                <div style="font-size:1em; font-weight:400;">
+                                    Hours
+                                </div>
+                            </div>
                         </div>
+                    {% endif %}
                     </div>
                 {% endfor %}
             </div>
