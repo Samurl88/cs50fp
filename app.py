@@ -45,9 +45,19 @@ for dict in response["goals"]:
     if "collection" in id:
         method = "MINION"
         # Parse item to query
-        item = id.replace('collection_', '')
-        # Select minion from item (sometimes minion name is different from item)
-        minion = (db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item))[0]["type"]
+        try:
+            item = id.replace('collection_', '')
+
+            # Select minion from item (sometimes minion name is different from item)
+            minion = (db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item))[0]["type"]
+
+        except:
+            # In case weird name (Eg. 'ender stone' entered as opposed to 'end stone)
+            item = name.replace(' Collector', '')
+
+            minion = db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item)[0]["type"]
+            
+
         # Find tier 4 stats
         info = db.execute("SELECT delay, storage FROM miniondata WHERE tier=4 AND type=?", minion)
         timePerItem = ((info[0]["delay"]) * 2) / 3600

@@ -76,7 +76,7 @@
                 <div>
                     <form action="/bingo" method="post" style="display:flex" autocomplete="off">
                         <div style="margin:0 auto; display:flex; border:1.5px solid white; border-radius:5px;">                            
-                            <input type="text" name="ign" placeholder="Username" spellcheck="false" value={{ ign }} style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:85%; height:1.4em; text-indent:0.1em;">
+                            <input type="text" name="ign" placeholder="Username" spellcheck="false" value={{ ign }} style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:85%; height:1.4em; text-indent:0.1em; text-align:center;">
                             <button type="submit" style="background-color:rgba(0, 0, 0, 0.0); color:white; border:none; width:15%; height:1.4em"><i class="fa fa-search" style="font-size:0.8em; display:flex; justify-content:center; align-items:center;"></i></button>
                         </div>
                     </form>
@@ -96,42 +96,45 @@
                     {% else %}
                         <div class="grid-tasks-item task misc">
                     {% endif %}
-                        <div class="header">
-                            <div style="z-index:999;">
-                            {{ dict.name }}
+                    <div class="header">
+                        <div style="z-index:999;">
+                        {{ dict.name }}
+                        </div>
+                    </div>
+                    <!--<div class="header" style="z-index:2; background-color:rgba(40, 207, 40, 0.6); transform:translateY(-100%); position:relative;"></div>-->
+                        
+                    <!-- TODO: ADD PERCENTAGE BARS HERE -->
+                    <!--<div class="subheader grid-subheader-container" style="transform:translateY(-45.8%)">-->
+                    
+                    <div class="subheader grid-subheader-container">
+                        {% if dict.method == "MINION" %}
+                        <div class="grid-tasks-item">
+                            <div style="font-size:1.3em; font-weight:500;">
+                                TASK
+                            </div>
+                            <div>
+                                {{ dict.lore }}
                             </div>
                         </div>
-                        <!--<div class="header" style="z-index:2; background-color:rgba(40, 207, 40, 0.6); transform:translateY(-100%); position:relative;"></div>-->
-                            
-                        <!-- TODO: ADD PERCENTAGE BARS HERE -->
-                        <!--<div class="subheader grid-subheader-container" style="transform:translateY(-45.8%)">-->
-                        <div class="subheader grid-subheader-container">
-                            <div class="grid-tasks-item">
-                                <div style="font-size:1.3em; font-weight:500;">
-                                    TASK
-                                </div>
-                                <div>
-                                    {{ dict.lore }}
-                                </div>
+                        <div class="grid-tasks-item">
+                            <div style="font-size:1.3em; font-weight:500;">
+                                METHOD
                             </div>
-                            <div class="grid-tasks-item">
-                                <div style="font-size:1.3em; font-weight:500;">
-                                    METHOD
-                                </div>
-                                <div>
-                                    X Type Minions
-                                    <br>
-                                    Unloads: X
-                                </div>
+                            <div>
+                                X Type Minions
+                                <br>
+                                Unloads: {{ dict.unloads }}
                             </div>
-                            <div class="grid-tasks-item">
-                                <div style="font-size:1.3em; font-weight:500;">
-                                    ETA
-                                </div>
-                                <div>
-                                    {{ dict.eta }}
-                                </div>
+                        </div>
+                        <div class="grid-tasks-item">
+                            <div style="font-size:1.3em; font-weight:500;">
+                                ETA
                             </div>
+                            <div>
+                                {{ dict.eta }}
+                            </div>
+                        </div>
+                        {% endif %}
                         </div>
                     </div>
                 {% endfor %}
