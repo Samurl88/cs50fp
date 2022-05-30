@@ -9,8 +9,6 @@ from tempfile import mkdtemp
 from datetime import datetime
 from helpers import *
 
-dog = "e"
-
 # Configure application
 app = Flask(__name__)
 
