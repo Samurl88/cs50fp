@@ -16,6 +16,11 @@ def color(lore):
     lore = lore.replace("§f", "")
     return lore
 
+def find_text(soup):
+    for header in soup.find_all(id='Location'):
+        para = header.find_next('p')
+        return(para)
+
 #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
 
 # TODO: Add completion % for each task

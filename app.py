@@ -7,6 +7,7 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from datetime import datetime
+from bs4 import BeautifulSoup
 from helpers import *
 
 # Configure application
@@ -88,6 +89,27 @@ for dict in response["goals"]:
 
     else:
         method = "MISCELLANEOUS"
+        # IF KILLING A MOB
+        if "kill" in id:
+            mob = list(id.replace('kill_', ''))
+            for count, char in enumerate(mob):
+                if char == '_':
+                    mob[count + 1] = mob[count + 1].upper()
+                if char.isnumeric():
+                    mob[count] = ''
+            mob = ''.join(mob)
+            print(mob)
+
+            # Search up mob in hypixel skyblock wiki, find where it's located
+            r = requests.get(f'https://wiki.hypixel.net/{mob}')
+            soup = BeautifulSoup(r.content, 'html.parser')
+
+            para = find_text(soup) 
+            soup = BeautifulSoup(para, "html.parser")
+            for data in soup(['style', 'script']):
+                data.decompose()
+            text = ''.join(para.stripped_strings)
+            print(text)
 
     db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta, unloads, minion)
 
