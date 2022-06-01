@@ -23,6 +23,12 @@ key = "5a0827f1-cf40-4ea6-9891-5a5a323b5f35"
 response = (requests.get("https://api.hypixel.net/resources/skyblock/bingo")).json()
 bingo_id = response["id"]
 
+armor_list = ['Leather Armor', 'Golden Armor', 'Chainmail Armor', 'Iron Armor', 'Diamond Armor', 'Farm Suit', 'Mushroom Armor', 'Pumpkin Armor', 'Cactus Armor', 'Leaflet Armor', 'Miner Armor', 'Lapis Armor', 'Angler Armor', "Rosetta's Armor", 'Squire Armor', 'Celeste Armor', 'Mercenary Armor', 'Starlight Armor']
+accessory_list = ['Zombie Talisman', 'Skeleton Talisman', 'Village Affinity Talisman', 'Mine Affinity Talisman', 'Intimidation Talisman', 'Scavenger Talisman', 'Wolf Paw', "Pig's Foot", "Melody's Hair", 'Shiny Yellow Rock', 'Campfire Initiate Badge', 'Cat Talisman', 'King Talisman', 'Red Claw Talisman', 'Spider Talisman', 'Vaccine Talisman', 'Farming Talisman', 'Talisman of Coins', 'Magnetic Talisman', 'Gravity Talisman', 'Speed Talisman', 'Potion Affinity Talisman']
+health_steps = [("Growth V", 900), ("Titanic", 120)]
+scc_steps = [("Sea Emperor Century Cake", 1), ("Angler V", 5), ("Beacon V", 5), ("Angler Armor", 4)]
+strength_steps = [("Strength VIII Potion", 75)]
+
 # Loads data into database
 db = SQL("sqlite:///bingo.db")
 
@@ -32,6 +38,7 @@ for dict in response["goals"]:
     unloads = ""
     eta = 0
     minion = ""
+    strategy = ""
 
     id = dict["id"]
     name = dict["name"]
@@ -73,11 +80,6 @@ for dict in response["goals"]:
         unloads = int(numpy.ceil(eta / (timePerItem * storage)))
         timePerUnload = eta / unloads
 
-
-    # TODO: Stat Goal, optimize talismans, reforges, fairy souls
-    elif "stat" in id:
-        method = "STATS"
-
     # TODO: Craft Goal, determine if worth minion, and how much minion.
     # TODO: For crafting: take into account 
     # Couldn't do "craft" in id b/c craft_minions is a goal but it's crafting 40 unique minions
@@ -89,29 +91,52 @@ for dict in response["goals"]:
 
     else:
         method = "MISCELLANEOUS"
+
         # IF KILLING A MOB
         if "kill" in id:
-            mob = list(id.replace('kill_', ''))
-            for count, char in enumerate(mob):
-                if char == '_':
-                    mob[count + 1] = mob[count + 1].upper()
-                if char.isnumeric():
-                    mob[count] = ''
-            mob = ''.join(mob)
-            print(mob)
+            mob = search_term(id.replace('kill_', ''))
+            strategy = find_text(mob, "Location")
 
-            # Search up mob in hypixel skyblock wiki, find where it's located
-            r = requests.get(f'https://wiki.hypixel.net/{mob}')
-            soup = BeautifulSoup(r.content, 'html.parser')
+        # IF WEARING SOMETHING
+        elif "wear" in id:
+            if "unique_armor" in id:
+                strategy = f"Obtain {requiredAmount} of these armors: "
+                for armor in armor_list:
+                    strategy += f"{armor}\n"
+            elif "accessories" in id:
+                strategy = f"Obtain {requiredAmount} of these acessories: "
+                for accessory in accessory_list:
+                    strategy += f"{accessory}\n"
 
-            para = find_text(soup) 
-            soup = BeautifulSoup(para, "html.parser")
-            for data in soup(['style', 'script']):
-                data.decompose()
-            text = ''.join(para.stripped_strings)
-            print(text)
+        # IF OBTAINING SOMETHING
+        elif "obtain" in id:
+            if "obtain_item" in id:
+                item = item.replace('Obtain an ', '')
+                item = lore.replace('Obtain a ', '')
+                item = item.replace(' ', '_')
+                item = item.replace('.', '')
+                print(item)
+                strategy = str(find_text(item, "Obtaining"))
 
-    db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta, unloads, minion)
+        # IF STAT TASK
+        elif "stat" in id:
+            strategy = ""
+            i = 0
+            if "health" in id:
+                health = 265 #(Base Health + Mushroom Armor)
+                strategy += "Mushroom Armor\n"
+                while health < requiredAmount:
+                    try:
+                        strategy += health_steps[i][0]
+                        health += health_steps[i][1]
+                        i += 1
+                    except:
+                        # TODO: Add fairy soul suppport?
+                        break
+                
+    db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta, unloads, minion, strategy)
+
+
 
 @app.route("/")
 def index():
@@ -150,7 +175,6 @@ def bingo():
                 completed_tasks = (response["events"][(len(response["events"]) - 1)])["completed_goals"]
             else:
                 completed_tasks = []
-            print(completed_tasks)
 
             bingo_tasks = db.execute("SELECT * FROM bingo")
             # Adds completion %, keeps proper order of tasks - used for bingo board

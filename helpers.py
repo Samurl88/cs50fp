@@ -1,3 +1,6 @@
+from bs4 import BeautifulSoup
+import requests
+
 def color(lore):
     lore = lore.replace("§1", "")
     lore = lore.replace("§2", "")
@@ -16,10 +19,23 @@ def color(lore):
     lore = lore.replace("§f", "")
     return lore
 
-def find_text(soup):
-    for header in soup.find_all(id='Location'):
-        para = header.find_next('p')
-        return(para)
+def search_term(query):
+    query = list(query)
+    for count, char in enumerate(query):
+        if char == '_':
+            query[count + 1] = query[count + 1].upper()
+        if char.isnumeric():
+            query[count] = ''
+    query = ''.join(query)
+    return(query)
+
+def find_text(thing, word):
+    para = ""
+    r = requests.get(f'https://wiki.hypixel.net/index.php?title={thing}&redirect=yes')
+    soup = BeautifulSoup(r.content, 'html.parser')
+    for header in soup.find_all(id=word):
+        para = header.find_next('p').get_text()
+    return(str(para))
 
 #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
 
