@@ -25,9 +25,14 @@ bingo_id = response["id"]
 
 armor_list = ['Leather Armor', 'Golden Armor', 'Chainmail Armor', 'Iron Armor', 'Diamond Armor', 'Farm Suit', 'Mushroom Armor', 'Pumpkin Armor', 'Cactus Armor', 'Leaflet Armor', 'Miner Armor', 'Lapis Armor', 'Angler Armor', "Rosetta's Armor", 'Squire Armor', 'Celeste Armor', 'Mercenary Armor', 'Starlight Armor']
 accessory_list = ['Zombie Talisman', 'Skeleton Talisman', 'Village Affinity Talisman', 'Mine Affinity Talisman', 'Intimidation Talisman', 'Scavenger Talisman', 'Wolf Paw', "Pig's Foot", "Melody's Hair", 'Shiny Yellow Rock', 'Campfire Initiate Badge', 'Cat Talisman', 'King Talisman', 'Red Claw Talisman', 'Spider Talisman', 'Vaccine Talisman', 'Farming Talisman', 'Talisman of Coins', 'Magnetic Talisman', 'Gravity Talisman', 'Speed Talisman', 'Potion Affinity Talisman']
-health_steps = [("Growth V", 900), ("Titanic", 120)]
-scc_steps = [("Sea Emperor Century Cake", 1), ("Angler V", 5), ("Beacon V", 5), ("Angler Armor", 4)]
-strength_steps = [("Strength VIII Potion", 75)]
+
+health_steps = [("Mushroom Armor", 165), ("Growth V", 900), ("Titanic (Armor Reforge, Uncommon)", 120), ("Crab-Colored Century Cake", 10)]
+scc_steps = [("Sea Emperor Century Cake", 1), ("Angler V", 5), ("Beacon V (Friend's)", 5), ("Angler Armor", 4)]
+strength_steps = [("Bingo Pet (Lv. 50+)", 15), ("Strength VIII Potion (Friend's)", 75), ("Overflux Power Orb (Friend's)", 25), ("Raider Axe (Base, Reforged to Epic", 105), ("Fierce (Armor Reforge, Rare+)", 24)]
+ferocity_steps = [("Dirty (Reforge, Uncommon+)", 3), ("Latest Update Century Cake", 2)]
+crit_damage_steps = [("Critical (Enchantment)", 50), ("Spicy (Meelee Reforge, Rare+)", 45), ("Fierce (Armor Reforge, Rare+)", 40), ("Critical IV Potion (Friend's)", 40), ("Beacon V (Friend's)", 10)]
+crit_chance_steps = [("Odd (Meelee Reforge, Rare+)", 15), ("Clean (Armor Reforge, Rare+)", 24), ("Critical IV Potion (Friend's)", 25), ("Beacon V (Friend's)", 5), ("Fortuitous Power (Accessory)", 3)]
+
 
 # Loads data into database
 db = SQL("sqlite:///bingo.db")
@@ -115,24 +120,24 @@ for dict in response["goals"]:
                 item = lore.replace('Obtain a ', '')
                 item = item.replace(' ', '_')
                 item = item.replace('.', '')
-                print(item)
                 strategy = str(find_text(item, "Obtaining"))
 
         # IF STAT TASK
         elif "stat" in id:
-            strategy = ""
-            i = 0
             if "health" in id:
-                health = 265 #(Base Health + Mushroom Armor)
-                strategy += "Mushroom Armor\n"
-                while health < requiredAmount:
-                    try:
-                        strategy += health_steps[i][0]
-                        health += health_steps[i][1]
-                        i += 1
-                    except:
-                        # TODO: Add fairy soul suppport?
-                        break
+                strategy = stat_strat(100, requiredAmount, health_steps)
+            elif "sea_creature_chance" in id:
+                strategy = stat_strat(20, requiredAmount, scc_steps)
+            elif "strength" in id:
+                strategy = stat_strat(0, requiredAmount, strength_steps)
+            elif "ferocity" in id:
+                strategy = stat_strat(0, requiredAmount, ferocity_steps)
+            elif "critical_damage" in id:
+                strategy = stat_strat(50, requiredAmount, crit_damage_steps)
+            elif "critical_chance" in id:
+                strategy = stat_strat(30, requiredAmount, crit_chance_steps)
+            else:
+                strategy = "Who knows? I sure don't!"
                 
     db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta, unloads, minion, strategy)
 

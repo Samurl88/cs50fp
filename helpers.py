@@ -37,6 +37,20 @@ def find_text(thing, word):
         para = header.find_next('p').get_text()
     return(str(para))
 
+def stat_strat(base_stat, requiredAmount, steps):
+    strategy = f"Base - {base_stat}\n"
+    i = 0
+    while base_stat < requiredAmount:
+        try:
+            
+            strategy += f"{steps[i][0]} - {steps[i][1]}\n"
+            base_stat += steps[i][1]
+            i += 1
+        except:
+            # TODO: Add fairy soul suppport?
+            break
+    return strategy
+
 #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
 
 # TODO: Add completion % for each task
