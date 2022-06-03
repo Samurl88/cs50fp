@@ -100,7 +100,7 @@ for dict in response["goals"]:
         method = "MISCELLANEOUS"
 
         # IF KILLING A MOB
-        if "kill" in id:
+        if "kill" in id and "skill" not in id:
             mob = search_term(id.replace('kill_', ''))
             strategy = find_text(mob, "Location")
 
@@ -148,9 +148,7 @@ for dict in response["goals"]:
         else:
             key_words = []
             key_words = find_key_words(dict["lore"])
-            print(key_words)
-
-
+            strategy = attempt_search(key_words)
                 
     db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta, unloads, minion, strategy)
 

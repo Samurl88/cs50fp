@@ -68,6 +68,8 @@ def find_key_words(lore):
     key_words = []
     read = False
     key = []
+
+    # Get key words
     for count, char in enumerate(lore):
         if read:
             if char == "§":
@@ -83,7 +85,35 @@ def find_key_words(lore):
             if key:
                 key = ("".join(key)).strip()
                 key_words.append(key)
+
+    # Filter useless key words
+    for count, word in enumerate(key_words):
+        # Important numbers already in requiredAmount
+        # Remove starting numbers
+        replacement = re.sub(r'[0-9]', '', word)
+        if replacement != word:
+            key_words[count] = replacement
+
+        if key_words[count] == '':
+            key_words.remove('')
+    print(key_words)
     return(key_words)
+
+def attempt_search(key_words):
+    for phrase in key_words:
+        para = ""
+        r = requests.get(f'https://wiki.hypixel.net/index.php?title={phrase}&redirect=yes')
+        soup = BeautifulSoup(r.content, 'html.parser')
+
+
+        # (Hopefully) stuff under first header is most pertinent
+        for header in soup.find_all('h2'):
+            para = header.find_next('p').get_text()
+            print(str(para))
+            return(str(para))
+    
+    return("Failed")
+
     
 
 #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
@@ -109,4 +139,4 @@ def sortbyeta(init_tasks):
 # TODO: Order: BY ETA
     sorted_tasks = init_tasks
     return(sorted_tasks)
-
+    
