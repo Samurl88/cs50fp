@@ -1,6 +1,7 @@
 import os
 import requests
 import numpy
+import re
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
@@ -25,6 +26,7 @@ bingo_id = response["id"]
 
 armor_list = ['Leather Armor', 'Golden Armor', 'Chainmail Armor', 'Iron Armor', 'Diamond Armor', 'Farm Suit', 'Mushroom Armor', 'Pumpkin Armor', 'Cactus Armor', 'Leaflet Armor', 'Miner Armor', 'Lapis Armor', 'Angler Armor', "Rosetta's Armor", 'Squire Armor', 'Celeste Armor', 'Mercenary Armor', 'Starlight Armor']
 accessory_list = ['Zombie Talisman', 'Skeleton Talisman', 'Village Affinity Talisman', 'Mine Affinity Talisman', 'Intimidation Talisman', 'Scavenger Talisman', 'Wolf Paw', "Pig's Foot", "Melody's Hair", 'Shiny Yellow Rock', 'Campfire Initiate Badge', 'Cat Talisman', 'King Talisman', 'Red Claw Talisman', 'Spider Talisman', 'Vaccine Talisman', 'Farming Talisman', 'Talisman of Coins', 'Magnetic Talisman', 'Gravity Talisman', 'Speed Talisman', 'Potion Affinity Talisman']
+pet_list = ['Bingo', 'Grandma Wolf', 'Bee', 'Rock', 'Dolphin', 'Jerry', 'Rabbit', 'Pig', 'Silverfish', 'Armadillo', 'Enderman', 'An Oringo Pet']
 
 health_steps = [("Mushroom Armor", 165), ("Growth V", 900), ("Titanic (Armor Reforge, Uncommon)", 120), ("Crab-Colored Century Cake", 10)]
 scc_steps = [("Sea Emperor Century Cake", 1), ("Angler V", 5), ("Beacon V (Friend's)", 5), ("Angler Armor", 4)]
@@ -105,11 +107,11 @@ for dict in response["goals"]:
         # IF WEARING SOMETHING
         elif "wear" in id:
             if "unique_armor" in id:
-                strategy = f"Obtain {requiredAmount} of these armors: "
+                strategy = f"Obtain {requiredAmount} of these: \n"
                 for armor in armor_list:
                     strategy += f"{armor}\n"
             elif "accessories" in id:
-                strategy = f"Obtain {requiredAmount} of these acessories: "
+                strategy = f"Obtain {requiredAmount} of these: \n"
                 for accessory in accessory_list:
                     strategy += f"{accessory}\n"
 
@@ -121,6 +123,10 @@ for dict in response["goals"]:
                 item = item.replace(' ', '_')
                 item = item.replace('.', '')
                 strategy = str(find_text(item, "Obtaining"))
+            if "obtain_pets" in id:
+                strategy = f"Obtain {requiredAmount} of these: \n"
+                for pet in pet_list:
+                    strategy += f"{pet}\n"
 
         # IF STAT TASK
         elif "stat" in id:
@@ -138,6 +144,13 @@ for dict in response["goals"]:
                 strategy = stat_strat(30, requiredAmount, crit_chance_steps)
             else:
                 strategy = "Who knows? I sure don't!"
+            
+        else:
+            key_words = []
+            key_words = find_key_words(dict["lore"])
+            print(key_words)
+
+
                 
     db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta, unloads, minion, strategy)
 

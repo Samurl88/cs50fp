@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import re
 
 def color(lore):
     lore = lore.replace("§1", "")
@@ -50,6 +51,40 @@ def stat_strat(base_stat, requiredAmount, steps):
             # TODO: Add fairy soul suppport?
             break
     return strategy
+
+def find_key_words(lore):
+
+    # Remove useless coloring and periods
+    lore = (lore).replace(".", "")
+    lore = (lore).replace("§7", "", 1)
+    lore = list(lore)
+
+    # Removes character following § (so §8 -> §)
+    for count,char in enumerate(lore):
+        if char == '§':
+            lore[count + 1] = ""
+    lore = "".join(lore)
+
+    key_words = []
+    read = False
+    key = []
+    for count, char in enumerate(lore):
+        if read:
+            if char == "§":
+                key = ("".join(key)).strip()
+                key_words.append(key)
+                read = False
+                key = []
+            else:
+                key.append(char)
+        if char == "§":
+            read = True
+        if count == len(lore) - 1:
+            if key:
+                key = ("".join(key)).strip()
+                key_words.append(key)
+    return(key_words)
+    
 
 #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
 
