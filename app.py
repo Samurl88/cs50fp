@@ -34,6 +34,9 @@ strength_steps = [("Bingo Pet (Lv. 50+)", 15), ("Strength VIII Potion (Friend's)
 ferocity_steps = [("Dirty (Reforge, Uncommon+)", 3), ("Latest Update Century Cake", 2)]
 crit_damage_steps = [("Critical (Enchantment)", 50), ("Spicy (Meelee Reforge, Rare+)", 45), ("Fierce (Armor Reforge, Rare+)", 40), ("Critical IV Potion (Friend's)", 40), ("Beacon V (Friend's)", 10)]
 crit_chance_steps = [("Odd (Meelee Reforge, Rare+)", 15), ("Clean (Armor Reforge, Rare+)", 24), ("Critical IV Potion (Friend's)", 25), ("Beacon V (Friend's)", 5), ("Fortuitous Power (Accessory)", 3)]
+speed_steps = [("Godsplash (#BongoBrewers)", 220), ("Farm Suit", 20), ("Rogue Sword", 30), ("Hunter Knife", 40), ("Haste Block (Friend's)", 100), ("Potato-Style Century Cake (Friend's", 10)]
+
+money_steps = [("Spider Relics", 310000), ("Kill Goblins/Farm Wheat/Other Money Making Method", 100000000)]
 
 
 # Loads data into database
@@ -47,7 +50,7 @@ for dict in response["goals"]:
     minion = ""
     strategy = ""
 
-    id = dict["id"]
+    id = dict["id"].lower()
     name = dict["name"]
     if "lore" in dict:
         lore = dict["lore"]
@@ -127,6 +130,15 @@ for dict in response["goals"]:
                 strategy = f"Obtain {requiredAmount} of these: \n"
                 for pet in pet_list:
                     strategy += f"{pet}\n"
+            if "obtain_t1" in id:
+                number = ""
+                for char in lore:
+                    if char.isnumeric():
+                        number = number + char
+                if number == "11":
+                    strategy = "Upgrade a Wheat Minion to Tier 11. Use the hub to farm wheat."
+                elif number == "12":
+                    strategy = "Upgrade a Wheat Minion to Tier 12. Use the hub to farm wheat, and upgrade to Tier 12 using Tony's Shop in the Mushroom Desert."
 
         # IF STAT TASK
         elif "stat" in id:
@@ -142,9 +154,34 @@ for dict in response["goals"]:
                 strategy = stat_strat(50, requiredAmount, crit_damage_steps)
             elif "critical_chance" in id:
                 strategy = stat_strat(30, requiredAmount, crit_chance_steps)
+            elif "speed" in id:
+                strategy = stat_strat(100, requiredAmount, speed_steps)
             else:
-                strategy = "Who knows? I sure don't!"
+                strategy = "Oops I didn't plan for this"
             
+        # IF SKILL TASK
+        elif "get_skill" in id:
+            skill = id.replace("get_skill_", "")
+            skill = list(skill)
+            for count, char in enumerate(skill): 
+                if not char.isalpha():
+                    skill[count] = ""
+            skill = ("".join(skill)).strip()
+            skill = skill.title()
+            strategy = get_skill_info(skill)
+                    
+        # IF REFORGE TASK
+        elif "reforge" in id:
+            reforge = (id.replace("reforge_", "")).title()
+            strategy = attempt_search(reforge)
+            if strategy == "I sure hope this task is self-explanatory because I didn't program for this to happen":
+                strategy = f"Basic reforges (like {reforge}) can be applied to an item at the Blacksmith."
+
+        # IF BANK TASK
+        elif "bank" in id:
+            strategy = stat_strat(0, requiredAmount, money_steps)
+
+        # IF NOTHING ELSE
         else:
             key_words = []
             key_words = find_key_words(dict["lore"])
@@ -189,6 +226,9 @@ def bingo():
             latest = (response["events"][(len(response["events"]) - 1)])["key"]
             if latest == bingo_id:
                 completed_tasks = (response["events"][(len(response["events"]) - 1)])["completed_goals"]
+                for count, task in enumerate(completed_tasks):
+                    completed_tasks[count] = task.lower()
+                print(completed_tasks)
             else:
                 completed_tasks = []
 

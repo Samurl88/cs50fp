@@ -52,7 +52,17 @@ def stat_strat(base_stat, requiredAmount, steps):
             break
     return strategy
 
+def get_skill_info(skill):
+    para = ""
+    r = requests.get(f'https://wiki.hypixel.net/index.php?title={skill}&redirect=yes')
+    soup = BeautifulSoup(r.content, 'html.parser')
+    for header in soup.find_all(id=f"{skill}_XP_Gain"):
+        para = header.find_next('p').get_text()
+    return(str(para))
+
+
 def find_key_words(lore):
+    #print(lore)
 
     # Remove useless coloring and periods
     lore = (lore).replace(".", "")
@@ -91,6 +101,8 @@ def find_key_words(lore):
         # Important numbers already in requiredAmount
         # Remove starting numbers
         replacement = re.sub(r'[0-9]', '', word)
+        replacement = re.sub(r'[^\w]', ' ', replacement)
+        print(replacement)
         if replacement != word:
             key_words[count] = replacement
 
@@ -103,16 +115,23 @@ def attempt_search(key_words):
     for phrase in key_words:
         para = ""
         r = requests.get(f'https://wiki.hypixel.net/index.php?title={phrase}&redirect=yes')
-        soup = BeautifulSoup(r.content, 'html.parser')
+        if r.status_code == 200:
+            soup = BeautifulSoup(r.content, 'html.parser')
 
+            # If not Obtaining, try first para of page
+            if not soup.find_all(id="Obtaining"):
+                i = 0
+                for para in soup.find_all('p'):
+                    text = para.get_text()
+                    if text != "\n" and text != "Content\n":
+                        return(text)
 
-        # (Hopefully) stuff under first header is most pertinent
-        for header in soup.find_all('h2'):
-            para = header.find_next('p').get_text()
-            print(str(para))
-            return(str(para))
-    
-    return("Failed")
+            # Try Obtaining
+            for header in soup.find_all(id='Obtaining'):
+                para = str(header.find_next('p').get_text())
+                return(para)
+
+    return("I sure hope this task is self-explanatory because I didn't program for this to happen")
 
     
 
