@@ -38,6 +38,9 @@ speed_steps = [("Godsplash (#BongoBrewers)", 220), ("Farm Suit", 20), ("Rogue Sw
 
 money_steps = [("Spider Relics", 310000), ("Kill Goblins/Farm Wheat/Other Money Making Method", 100000000)]
 
+dchest_prices = [("Wood", 0), ("Gold", 25000), ("Diamond", 50000), ("Emerald", 100000), ("Obsidian", 250000)]
+
+unique_minions = ["Cobblestone", "Sand", "Coal", "Iron", "Gold", "Diamond", "Lapis Lazuli", "Redstone", "Emerald", "Oak", "Spruce", "Birch", "Dark Oak", "Acacia", "Jungle", "Wheat", "Melon", "Pumpkin", "Carrot", "Potato", "Mushroom", "Cactus", "Cocoa Beans", "Sugar Cane", "Cow", "Pig", "Chicken", "Sheep", "Rabbit"]
 
 # Loads data into database
 db = SQL("sqlite:///bingo.db")
@@ -108,37 +111,42 @@ for dict in response["goals"]:
             strategy = find_text(mob, "Location")
 
         # IF WEARING SOMETHING
-        elif "wear" in id:
-            if "unique_armor" in id:
-                strategy = f"Obtain {requiredAmount} of these: \n"
-                for armor in armor_list:
-                    strategy += f"{armor}\n"
-            elif "accessories" in id:
-                strategy = f"Obtain {requiredAmount} of these: \n"
-                for accessory in accessory_list:
-                    strategy += f"{accessory}\n"
+        elif "unique_armor" in id:
+            strategy = f"Obtain {requiredAmount} of these: \n"
+            for armor in armor_list:
+                strategy += f"{armor}\n"
+        elif "accessories" in id:
+            strategy = f"Obtain {requiredAmount} of these: \n"
+            for accessory in accessory_list:
+                strategy += f"{accessory}\n"
 
         # IF OBTAINING SOMETHING
-        elif "obtain" in id:
-            if "obtain_item" in id:
-                item = item.replace('Obtain an ', '')
-                item = lore.replace('Obtain a ', '')
-                item = item.replace(' ', '_')
-                item = item.replace('.', '')
-                strategy = str(find_text(item, "Obtaining"))
-            if "obtain_pets" in id:
-                strategy = f"Obtain {requiredAmount} of these: \n"
-                for pet in pet_list:
-                    strategy += f"{pet}\n"
-            if "obtain_t1" in id:
-                number = ""
-                for char in lore:
-                    if char.isnumeric():
-                        number = number + char
-                if number == "11":
-                    strategy = "Upgrade a Wheat Minion to Tier 11. Use the hub to farm wheat."
-                elif number == "12":
-                    strategy = "Upgrade a Wheat Minion to Tier 12. Use the hub to farm wheat, and upgrade to Tier 12 using Tony's Shop in the Mushroom Desert."
+        elif "obtain_item" in id:
+            item = item.replace('Obtain an ', '')
+            item = lore.replace('Obtain a ', '')
+            item = item.replace(' ', '_')
+            item = item.replace('.', '')
+            strategy = str(find_text(item, "Obtaining"))
+        elif "obtain_pets" in id:
+            strategy = f"Obtain {requiredAmount} of these: \n"
+            for pet in pet_list:
+                strategy += f"{pet}\n"
+        elif "obtain_t1" in id:
+            number = ""
+            for char in lore:
+                if char.isnumeric():
+                    number = number + char
+            if number == "11":
+                strategy = "Upgrade a Wheat Minion to Tier 11. Use the hub to farm wheat."
+            elif number == "12":
+                strategy = "Upgrade a Wheat Minion to Tier 12. Use the hub to farm wheat, and upgrade to Tier 12 using Tony's Shop in the Mushroom Desert."
+        
+        # Edge cases :( - no (useful) wiki page...
+        elif "obtain_ultimate_enchanted_book" in id:
+            strategy = "Play Floor 1 of Dungeons. You'll likely get Bank I from the Free Chest."
+        
+        elif "Esteemed Enchanter" == name:
+            strategy = "Play Floor 1 of Dungeons. You'll likely get Feather Falling VI or Infinite Quiver VI from the Free Chest."
 
         # IF STAT TASK
         elif "stat" in id:
@@ -181,6 +189,32 @@ for dict in response["goals"]:
         elif "bank" in id:
             strategy = stat_strat(0, requiredAmount, money_steps)
 
+        # IF DUNGEON CHEST TASK
+        elif "dungeon_chest" in id:
+            tier = id.replace("unlock_dungeon_chest_", "")
+            try:
+                for chest in dchest_prices:
+                    if chest[0] == tier:
+                        amount = chest[1]
+                strategy = f"Play Floor 1. A {tier} chest costs {amount} coins."
+            except:
+                strategy = "Error..."
+
+        # IF SKILL AVERAGE
+        elif "skill_average" in id:
+            strategy = "Play the game. If neccessary, Farming tends to be the easiest skill to level up."
+
+        # IF POTION
+        elif "brew_potion" in id:
+            if requiredAmount == 4:
+                strategy = "Speed IV: Enchanted Sugar + Glowstone Dust"
+            if requiredAmount == 6:
+                strategy = "Speed VI: Enchanted Sugar + Enchanted Redstone Lamp"
+
+        # IF MINION COLLECTION
+        elif "craft_minions" in id:
+            strategy = find_next_minions(requiredAmount, unique_minions)
+        
         # IF NOTHING ELSE
         else:
             key_words = []

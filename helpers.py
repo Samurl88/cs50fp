@@ -60,6 +60,9 @@ def get_skill_info(skill):
         para = header.find_next('p').get_text()
     return(str(para))
 
+def find_next_minions(requiredAmount, minion_list):
+    #15, 25, 40, 60, 100
+    return(str(minion_list))
 
 def find_key_words(lore):
     #print(lore)
