@@ -131,7 +131,11 @@
                     <div id = {{loop.index}} class="task-button" onclick="show_method(this.id)" style="border-radius:5px;">
                     <div class="header">
                         <div style="z-index:999;">
-                        {{ dict.name }}
+                            {% if dict.method == "COMMUNITY GOAL" %}
+                                {{ dict.name }}
+                            {% else %}
+                                {{ dict.name }} - {{ dict.percent_complete }}%
+                            {% endif %}
                         </div>
                     </div>
                     <!--<div class="header" style="z-index:2; background-color:rgba(40, 207, 40, 0.6); transform:translateY(-100%); position:relative;"></div>-->
@@ -169,7 +173,7 @@
                 {% for task in ordered_tasks %}
                         {% if task.lore == "Community Goal!" %}
                             <div class="grid-board-item" style="background-color:rgba(255, 132, 0, 0.6);"></div>
-                        {% elif task.completion == 100 %}
+                        {% elif task.percent_complete == 100 %}
                             <div class="grid-board-item" style="background-color:rgba(40, 207, 40, 0.6);"></div>
                         {% else %}
                             <div class="grid-board-item" style="background-color:rgba(0, 0, 0, 0.6);"></div>
@@ -185,8 +189,12 @@
                 <div id="strat-placeholder" class="grid-in-strat-content" style="text-align:center; font-size:1em; font-weight:500; padding:1.5em;"><em>Click on any task to view relevant information!</em></div>
                 {% for dict in eta_tasks %}
                     <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; display:none; padding-bottom:0.25em;">{{ dict.name }}</div>
-                    <div id={{ dict.id }} class="grid-in-strat-content" style="text-align:center; font-size:0.8em; font-weight:400; display:none;">{{ dict.strat }}</div>
-                {% endfor %}
+                    {% if "\n" in dict.strat %}
+                        <div id={{ dict.id }} class="grid-in-strat-content" style="text-align:center; font-size:0.8em; font-weight:400; display:none; white-space:pre;">{{ dict.strat }}</div>
+                    {% else %}
+                        <div id={{ dict.id }} class="grid-in-strat-content" style="text-align:center; font-size:0.8em; font-weight:400; display:none;">{{ dict.strat }}</div>
+                    {% endif %}
+                    {% endfor %}
             </div>
         </div>
     </div>

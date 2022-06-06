@@ -36,7 +36,7 @@ def find_text(thing, word):
     soup = BeautifulSoup(r.content, 'html.parser')
     for header in soup.find_all(id=word):
         para = header.find_next('p').get_text()
-    return(str(para))
+    return(str(para).strip())
 
 def stat_strat(base_stat, requiredAmount, steps):
     strategy = f"Base - {base_stat}\n"
@@ -58,7 +58,7 @@ def get_skill_info(skill):
     soup = BeautifulSoup(r.content, 'html.parser')
     for header in soup.find_all(id=f"{skill}_XP_Gain"):
         para = header.find_next('p').get_text()
-    return(str(para))
+    return(str(para).strip())
 
 def find_next_minions(requiredAmount, minion_list):
     #15, 25, 40, 60, 100
@@ -127,12 +127,12 @@ def attempt_search(key_words):
                 for para in soup.find_all('p'):
                     text = para.get_text()
                     if text != "\n" and text != "Content\n":
-                        return(text)
+                        return(text.strip())
 
             # Try Obtaining
             for header in soup.find_all(id='Obtaining'):
                 para = str(header.find_next('p').get_text())
-                return(para)
+                return(para.strip())
 
     return("I sure hope this task is self-explanatory because I didn't program for this to happen")
 
@@ -141,21 +141,41 @@ def attempt_search(key_words):
 #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
 
 # TODO: Add completion % for each task
-def completion(tasks, completed_tasks, latest, bingo_id):
-# TODO: Add completion % for each task, THIS IS A PLACEHOLDER
-# TODO: For minions, at least: acknowledge collection progress, count toward & recalculate ETA
+def completion(ign, uuid, profile_data, tasks, completed_tasks, latest, bingo_id):
+# TODO: Personalized Completion Data Here
+    for task in tasks:
+        if task["method"] == "MINION":
+            required_amount = task["required_amount"]
+            try:
+                item = (task["id"].replace("collection_", "")).upper()
+                progress = profile_data["members"][uuid]["collection"][item]
+            except:
+                progress = 0
+            task["eta"] = f"{str(progress)} / {str(required_amount)}"
+            task["percent_complete"] = progress / required_amount
+
+        elif "stat" in task["id"]:
+            profile_id = profile_data["profile_id"]
+            required_amount = task["required_amount"]
+            shiiyu_data = requests.get("https://sky.shiiyu.moe/api/v2/profile/{ign}").json()
+            for profile in shiiyu_data:
+                if profile["profile_id"] == profile_id:
+                    bingo_profile = profile
+            print(bingo_profile)
+            
+        
     if latest == bingo_id:
         for task in tasks:
             if task["id"] in completed_tasks:
-                task["completion"] = 100
+                task["percent_complete"] = 100
                 #task["eta"] = "DONE" NOTE ADD THIS IN
             else:
-                task["completion"] = 0
+                task["percent_complete"] = 0
             # If minion/craft, check collection
             # If stat, check stats
     else: 
         for task in tasks: 
-            task["completion"] = 0
+            task["percent_complete"] = 0
     return(tasks)
 
 def sortbyeta(init_tasks):
