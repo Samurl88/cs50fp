@@ -184,8 +184,8 @@
             <div class="grid-in-strat">
                 <div id="strat-placeholder" class="grid-in-strat-content" style="text-align:center; font-size:1em; font-weight:500; padding:1.5em;"><em>Click on any task to view relevant information!</em></div>
                 {% for dict in eta_tasks %}
-                    <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; display:none;">{{ dict.name }}<hr></div>
-                    <div id={{ dict.id }} class="grid-in-strat-content" style="text-align:center; font-size:0.8em; font-weight:500; display:none;">{{ dict.strat }}</div>
+                    <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; display:none; padding-bottom:0.25em;">{{ dict.name }}</div>
+                    <div id={{ dict.id }} class="grid-in-strat-content" style="text-align:center; font-size:0.8em; font-weight:400; display:none;">{{ dict.strat }}</div>
                 {% endfor %}
             </div>
         </div>
