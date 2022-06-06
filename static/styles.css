@@ -56,7 +56,7 @@
  }
 
 .subheader {
-  height: 6.5em;
+  height: 6.1em;
   text-align: center;
   font-size: 0.6em;
   background-color: rgba(0, 0, 0, 0.45);
@@ -98,6 +98,10 @@
   font-weight: 700;
 }
 
+.selected-task-btn {
+  border:solid 1.5px rgba(255, 255, 255, 0.75);
+}
+
 .grid-input {
   grid-column: 1;
   grid-row: 1;
@@ -117,33 +121,27 @@ input[type="text"]:focus {
 .grid-tasks-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 6.1em;
+  grid-auto-rows: 5.75em;
   height: 100%;
   overflow-y: scroll;
 }
+
+.selected-task-btn:hover {
+  border:solid 1.5px rgba(255, 255, 255, 0.75) !important;
+}
+
+.task-button:hover {
+  border:solid 1.5px rgba(255, 255, 255, 0.4);
+}
+
 
 .grid-tasks-item {
   padding: 0.2em 0.3em 0.2em 0.3em;
 }
 
-.grid-subheader-container-collection {
+.grid-subheader-container {
   display: grid;
-  grid-template-columns: 33% 34% 33%;
-}
-
-.grid-subheader-container-craft {
-  display: grid;
-  grid-template-columns: 33% auto auto auto;
-}
-
-.grid-subheader-container-community {
-  display: grid;
-  grid-template-columns: 33% 34% 33%;
-}
-
-.grid-subheader-container-misc {
-  display: grid;
-  grid-template-columns: 33% 34% 33%;
+  grid-template-columns: 50% 50%;
 }
 
 .grid-board {
@@ -167,30 +165,50 @@ input[type="text"]:focus {
   box-shadow: none;
 }
 
-.grid-todo {
+.grid-strat {
   grid-column: 1;
   grid-row: 5 / span 2;
-  overflow-y:scroll;
+  overflow-y:auto;
 }
 
+.grid-in-strat {
+  display:grid;
+}
+
+.grid-in-strat-header {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.grid-in-strat-content {
+  grid-row: 2 / span 4;
+  grid-column: 1;
+}
+
+/* This is just for the actual page's scroll bar */
 ::-webkit-scrollbar {
   width: 5px;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #00000028; 
-}
- 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 5px;
 }
 
+
+.grid-container ::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+/* Handle */
+.grid-container ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+}
+
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.75);
+.grid-container ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.65);
 }
 
 /* Resizing For Mobile */
@@ -214,13 +232,21 @@ input[type="text"]:focus {
     grid-column: 1;
     grid-row: 2 / span 3;
   }
+
+  .grid-tasks-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
   .grid-tasks {
     grid-column: 1;
     grid-row: 5 / span 3;
     height:100%;
     transform: translateY(0%)
   }
-  .grid-todo {
+  .grid-strat {
     grid-column: 1;
     grid-row: 8 / span 2;
   }
@@ -229,17 +255,7 @@ input[type="text"]:focus {
 /* One column of tasks up to 990px */
 @media (max-width: 990px){
   body {
-    font-size: 75%;
-  }
-  .grid-tasks-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    height: 100%;
-    overflow-y: scroll;
-  }
-  .grid-tasks-item {
-    padding: 0.2em 0.3em 0.2em 0.3em;
-    text-align: center;
+    font-size: 65%;
   }
 }
 

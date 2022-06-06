@@ -30,7 +30,7 @@ pet_list = ['Bingo', 'Grandma Wolf', 'Bee', 'Rock', 'Dolphin', 'Jerry', 'Rabbit'
 
 health_steps = [("Mushroom Armor", 165), ("Growth V", 900), ("Titanic (Armor Reforge, Uncommon)", 120), ("Crab-Colored Century Cake", 10)]
 scc_steps = [("Sea Emperor Century Cake", 1), ("Angler V", 5), ("Beacon V (Friend's)", 5), ("Angler Armor", 4)]
-strength_steps = [("Bingo Pet (Lv. 50+)", 15), ("Strength VIII Potion (Friend's)", 75), ("Overflux Power Orb (Friend's)", 25), ("Raider Axe (Base, Reforged to Epic", 105), ("Fierce (Armor Reforge, Rare+)", 24)]
+strength_steps = [("Bingo Pet (Lv. 50+)", 15), ("Strength VIII Potion (Friend's)", 75), ("Overflux Power Orb (Friend's)", 25), ("Raider Axe (Base, Reforged to Epic)", 105), ("Fierce (Armor Reforge, Rare+)", 24)]
 ferocity_steps = [("Dirty (Reforge, Uncommon+)", 3), ("Latest Update Century Cake", 2)]
 crit_damage_steps = [("Critical (Enchantment)", 50), ("Spicy (Meelee Reforge, Rare+)", 45), ("Fierce (Armor Reforge, Rare+)", 40), ("Critical IV Potion (Friend's)", 40), ("Beacon V (Friend's)", 10)]
 crit_chance_steps = [("Odd (Meelee Reforge, Rare+)", 15), ("Clean (Armor Reforge, Rare+)", 24), ("Critical IV Potion (Friend's)", 25), ("Beacon V (Friend's)", 5), ("Fortuitous Power (Accessory)", 3)]
@@ -93,14 +93,18 @@ for dict in response["goals"]:
         unloads = int(numpy.ceil(eta / (timePerItem * storage)))
         timePerUnload = eta / unloads
 
+        strategy = "One second..."
+
     # TODO: Craft Goal, determine if worth minion, and how much minion.
     # TODO: For crafting: take into account 
     # Couldn't do "craft" in id b/c craft_minions is a goal but it's crafting 40 unique minions
     elif "Craft a" in lore:
         method = "CRAFT"
+        strategy = "WIP"
 
     elif lore == "Community Goal!":
         method = "COMMUNITY GOAL"
+        strategy = "I'm not sure! The Hypixel API doesn't provide lore for Community Goals..."
 
     else:
         method = "MISCELLANEOUS"

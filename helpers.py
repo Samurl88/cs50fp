@@ -105,13 +105,13 @@ def find_key_words(lore):
         # Remove starting numbers
         replacement = re.sub(r'[0-9]', '', word)
         replacement = re.sub(r'[^\w]', ' ', replacement)
-        print(replacement)
+        #print(replacement)
         if replacement != word:
             key_words[count] = replacement
 
         if key_words[count] == '':
             key_words.remove('')
-    print(key_words)
+    #print(key_words)
     return(key_words)
 
 def attempt_search(key_words):
@@ -148,6 +148,7 @@ def completion(tasks, completed_tasks, latest, bingo_id):
         for task in tasks:
             if task["id"] in completed_tasks:
                 task["completion"] = 100
+                #task["eta"] = "DONE" NOTE ADD THIS IN
             else:
                 task["completion"] = 0
             # If minion/craft, check collection
