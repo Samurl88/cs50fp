@@ -30,7 +30,7 @@ accessory_list = ['Zombie Talisman', 'Skeleton Talisman', 'Village Affinity Tali
 pet_list = ['Bingo', 'Grandma Wolf', 'Bee', 'Rock', 'Dolphin', 'Jerry', 'Rabbit', 'Pig', 'Silverfish', 'Armadillo', 'Enderman', 'An Oringo Pet']
 
 health_steps = [("Mushroom Armor", 165), ("Growth V", 900), ("Titanic (Armor Reforge, Uncommon)", 120), ("Crab-Colored Century Cake", 10)]
-scc_steps = [("Sea Emperor Century Cake", 1), ("Angler V", 5), ("Beacon V (Friend's)", 5), ("Angler Armor", 4)]
+scc_steps = [("Angler V", 5), ("Beacon V (Friend's)", 5), ("Angler Armor", 4), ("Sea Emperor Century Cake", 1)]
 strength_steps = [("Bingo Pet (Lv. 50+)", 15), ("Strength VIII Potion (Friend's)", 75), ("Overflux Power Orb (Friend's)", 25), ("Raider Axe (Base, Reforged to Epic)", 105), ("Fierce (Armor Reforge, Rare+)", 24)]
 ferocity_steps = [("Dirty (Reforge, Uncommon+)", 3), ("Latest Update Century Cake", 2)]
 crit_damage_steps = [("Critical (Enchantment)", 50), ("Spicy (Meelee Reforge, Rare+)", 45), ("Fierce (Armor Reforge, Rare+)", 40), ("Critical IV Potion (Friend's)", 40), ("Beacon V (Friend's)", 10)]
@@ -249,6 +249,7 @@ def bingo():
         ign = response['name']
         uuid = response['id']
         profile_data = []
+        profile_id = ""
     except:
         error = "Not a username!"
     else:
@@ -277,19 +278,18 @@ def bingo():
                     try:
                         if profile["game_mode"] == "bingo":
                             profile_data = profile
-                            #profile_id = profile["profile_id"]
+                            profile_id = profile_data["profile_id"]
                             #profile_data = (requests.get(f"https://api.hypixel.net/skyblock/profile?key={key}&uuid={uuid}&profile={profile_id}")).json()
                     except:
                         continue
-                
-
+    
                 
             else:
                 completed_tasks = []
 
             bingo_tasks = db.execute("SELECT * FROM bingo")
             # Adds personalized completion data, keeps proper order of tasks - used for bingo board
-            ordered_tasks = completion(ign, uuid, profile_data, bingo_tasks, completed_tasks, latest, bingo_id)
+            ordered_tasks = completion(ign, uuid, profile_data, profile_id, bingo_tasks, completed_tasks, latest, bingo_id)
             # Calculates and sorts by ETA - used for list of tasks
             eta_tasks = sortbyeta(ordered_tasks)
 

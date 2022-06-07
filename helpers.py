@@ -141,10 +141,17 @@ def attempt_search(key_words):
 
 #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
 
+
 # TODO: Add completion % for each task
-def completion(ign, uuid, profile_data, tasks, completed_tasks, latest, bingo_id):
+def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id):
 # TODO: Personalized Completion Data Here
-    shiiyu_data = requests.get(f"https://sky.shiiyu.moe/api/v2/profile/{ign}").json() #NOTE: THIS IS SO SLOW!!!
+    try: # In case API's down
+        shiiyu_data = requests.get(f"https://sky.shiiyu.moe/api/v2/profile/{ign}").json() #NOTE: THIS IS SO SLOW!!!
+        talisman_data = requests.get(f"https://sky.shiiyu.moe/api/v2/talismans/{ign}").json()
+    except:
+        shiiyu_data = []
+        talisman_data = []
+
     for task in tasks:
         if task["method"] == "MINION":
             required_amount = task["required_amount"]
@@ -158,7 +165,6 @@ def completion(ign, uuid, profile_data, tasks, completed_tasks, latest, bingo_id
 
         elif "stat" in task["id"]:
             try:
-                profile_id = profile_data["profile_id"]
                 required_amount = task["required_amount"]
                 task_stat = task["id"].replace("stat_", "")
 
@@ -187,10 +193,76 @@ def completion(ign, uuid, profile_data, tasks, completed_tasks, latest, bingo_id
                 progress = 0
             task["eta"] = f"{str(progress)} / {str(required_amount)}"
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
-            print(task["percent_complete"])
 
-            
+        elif "accessories" in task["id"]:
+            try:
+                required_amount = task["required_amount"]
+                progress = len(talisman_data["profiles"][profile_id]["accessories"])
+            except:
+                progress = 0
+            task["eta"] = f"{str(progress)} / {str(required_amount)}"
+            task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+                
+        elif "relic" in task["id"]:
+            try:
+                required_amount = task["required_amount"]
+                progress = profile_data["members"][uuid]["objectives"]["find_relics"]["progress"]
+            except:
+                progress = 0
+            task["eta"] = f"{str(progress)} / {str(required_amount)}"
+            task["percent_complete"] = round(((progress / required_amount) * 100), 1)
         
+        elif "get_skill" in task["id"]:
+            skill = list(task["id"].replace("get_skill_", ""))
+            for count, char in enumerate(skill): 
+                if not char.isalpha():
+                    skill[count] = ""
+            skill = ("".join(skill)).strip()
+            required_amount = int((re.sub('[^0-9]','', task["id"])).strip())
+            try:
+                progress = shiiyu_data["profiles"][profile_id]["data"]["levels"][skill]["level"]
+            except:
+                progress = 0
+            task["eta"] = f"{str(progress)} / {str(required_amount)}"
+            task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+        
+        # NOTE: Only checks equipped armor and armor stored in wardrobe
+        elif "armor" in task["id"]:
+            required_amount = task["required_amount"]
+            armor_count = 0
+            # Armor currently equipped
+            try:
+                equipped_armor = shiiyu_data["profiles"][profile_id]["items"]["armor"]
+                armor_check = equipped_armor[0]["armor_name"]
+                c = 0 # I don't know how to do this better
+                for piece in equipped_armor:
+                    if piece["armor_name"] == armor_check:
+                        c += 1
+                if c == 4:
+                    armor_count += 1
+            except:
+                armor_count += 0
+            
+            # Armor stored in wardrobe
+            try:
+                wardrobe = shiiyu_data["profiles"][profile_id]["items"]["wardrobe"]
+                for armor_set in wardrobe:
+                    armor_check = armor_set[0]["tag"]["ExtraAttributes"]["id"].split('_')[0] # Gets id to compare to other armor pieces
+                    c = 0
+                    for piece in armor_set:
+                        try:
+                            if armor_check in piece["tag"]["ExtraAttributes"]["id"]:
+                                c += 1
+                        except:
+                            break
+                    if c == 4:
+                        armor_count += 1
+            except:
+                armor_count += 0
+            task["eta"] = f"{str(armor_count)} / {str(required_amount)}"
+            task["percent_complete"] = round(((armor_count / required_amount) * 100), 1)
+            
+
     if latest == bingo_id:
         for task in tasks:
             if task["id"] in completed_tasks:
