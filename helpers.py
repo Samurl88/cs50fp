@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import math
 
 def color(lore):
     lore = lore.replace("§1", "")
@@ -143,6 +144,7 @@ def attempt_search(key_words):
 # TODO: Add completion % for each task
 def completion(ign, uuid, profile_data, tasks, completed_tasks, latest, bingo_id):
 # TODO: Personalized Completion Data Here
+    shiiyu_data = requests.get(f"https://sky.shiiyu.moe/api/v2/profile/{ign}").json() #NOTE: THIS IS SO SLOW!!!
     for task in tasks:
         if task["method"] == "MINION":
             required_amount = task["required_amount"]
@@ -152,16 +154,41 @@ def completion(ign, uuid, profile_data, tasks, completed_tasks, latest, bingo_id
             except:
                 progress = 0
             task["eta"] = f"{str(progress)} / {str(required_amount)}"
-            task["percent_complete"] = progress / required_amount
+            task["percent_complete"] = round(((progress / required_amount) * 100), 1)
 
         elif "stat" in task["id"]:
-            profile_id = profile_data["profile_id"]
-            required_amount = task["required_amount"]
-            shiiyu_data = requests.get("https://sky.shiiyu.moe/api/v2/profile/{ign}").json()
-            for profile in shiiyu_data:
-                if profile["profile_id"] == profile_id:
-                    bingo_profile = profile
-            print(bingo_profile)
+            try:
+                profile_id = profile_data["profile_id"]
+                required_amount = task["required_amount"]
+                task_stat = task["id"].replace("stat_", "")
+
+                progress = shiiyu_data["profiles"][profile_id]["data"]["stats"][task_stat]
+
+                task["eta"] = f"{str(progress)} / {str(required_amount)}"
+                task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+            except:
+                task["eta"] = "API too slow :("
+                task["percent_complete"] = 0
+            
+        elif "fairy_souls" in task["id"]:
+            try:
+                required_amount = task["required_amount"]
+                progress = profile_data["members"][uuid]["fairy_souls_collected"]
+            except:
+                progress = 0
+            task["eta"] = f"{str(progress)} / {str(required_amount)}"
+            task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+        
+        elif "pets" in task["id"]:
+            try:
+                required_amount = task["required_amount"]
+                progress = len(profile_data["members"][uuid]["pets"])
+            except:
+                progress = 0
+            task["eta"] = f"{str(progress)} / {str(required_amount)}"
+            task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+            print(task["percent_complete"])
+
             
         
     if latest == bingo_id:
@@ -169,8 +196,6 @@ def completion(ign, uuid, profile_data, tasks, completed_tasks, latest, bingo_id
             if task["id"] in completed_tasks:
                 task["percent_complete"] = 100
                 #task["eta"] = "DONE" NOTE ADD THIS IN
-            else:
-                task["percent_complete"] = 0
             # If minion/craft, check collection
             # If stat, check stats
     else: 

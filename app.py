@@ -106,7 +106,7 @@ for dict in response["goals"]:
     elif lore == "Community Goal!":
         method = "COMMUNITY GOAL"
         strategy = "I'm not sure! The Hypixel API doesn't provide lore for Community Goals..."
-        eta = "DONE"
+        eta = "¯\_ (ツ)_/¯"
 
     else:
         method = "MISCELLANEOUS"
@@ -248,6 +248,7 @@ def bingo():
         response = (requests.get(f"https://api.mojang.com/users/profiles/minecraft/{ign}")).json()
         ign = response['name']
         uuid = response['id']
+        profile_data = []
     except:
         error = "Not a username!"
     else:
@@ -289,7 +290,6 @@ def bingo():
             bingo_tasks = db.execute("SELECT * FROM bingo")
             # Adds personalized completion data, keeps proper order of tasks - used for bingo board
             ordered_tasks = completion(ign, uuid, profile_data, bingo_tasks, completed_tasks, latest, bingo_id)
-            print(ordered_tasks)
             # Calculates and sorts by ETA - used for list of tasks
             eta_tasks = sortbyeta(ordered_tasks)
 
