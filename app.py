@@ -279,7 +279,6 @@ def bingo():
                         if profile["game_mode"] == "bingo":
                             profile_data = profile
                             profile_id = profile_data["profile_id"]
-                            #profile_data = (requests.get(f"https://api.hypixel.net/skyblock/profile?key={key}&uuid={uuid}&profile={profile_id}")).json()
                     except:
                         continue
     

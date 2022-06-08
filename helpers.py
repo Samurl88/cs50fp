@@ -261,7 +261,30 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
                 armor_count += 0
             task["eta"] = f"{str(armor_count)} / {str(required_amount)}"
             task["percent_complete"] = round(((armor_count / required_amount) * 100), 1)
-            
+
+        elif "bank" in id:
+            required_amount = task["required_amount"]
+            if required_amount >= 1000000:
+                required_amount = round((required_amount / 1000000), 1)
+            elif required_amount >= 1000:
+                required_amount = round((required_amount / 1000), 1)
+            try:
+                coins = round(profile_data["banking"]["balance"])
+                if coins >= 1000000000:
+                    coins = round((coins / 1000000000), 1)
+                    task["eta"] = f"{str(coins)}B / {str(required_amount)}"
+                    task["percent_complete"] = round(((coins / required_amount) * 100), 1)
+                elif coins >= 1000000:
+                    coins = round((coins / 1000000), 1)
+                    task["eta"] = f"{str(coins)}M / {str(required_amount)}"
+                    task["percent_complete"] = round(((coins / required_amount) * 100), 1)
+                elif coins >= 1000:
+                    coins = round((coins / 1000), 1)
+                    task["eta"] = f"{str(coins)}K / {str(required_amount)}"
+                    task["percent_complete"] = round(((coins / required_amount) * 100), 1)
+            except:
+                task["eta"] = "Turn on Banking API!"
+                task["percent_complete"] = 0
 
     if latest == bingo_id:
         for task in tasks:
