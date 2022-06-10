@@ -143,13 +143,19 @@ def attempt_search(key_words):
 
 # Returns a string from a long number (ex. 390000 -> 390K)
 def shorten_number(number):
-    if number >= 1000000000:
-        number_string = str(round((number / 1000000000), 1)) + "B"
-    elif number >= 1000000:
-       number_string = str(round((number / 1000000), 1)) + "M"
-    elif number >= 1000:
-        number_string = str(round((number / 1000), 1)) + "K"
-    return(number_string)
+    try:
+        number = int(number)
+        if number >= 1000000000:
+            number_string = str(round((number / 1000000000), 1)) + "B"
+        elif number >= 1000000:
+            number_string = str(round((number / 1000000), 1)) + "M"
+        elif number >= 1000:
+            number_string = str(round((number / 1000), 1)) + "K"
+        else:
+            number_string = number
+        return(number_string)
+    except:
+        return(0)
 
 # TODO: Add completion % for each task
 def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id):
@@ -172,6 +178,9 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             except:
                 task["eta"] = "Turn on Collection API!"
                 task["percent_complete"] = 0
+                
+        elif task["method"] == "COMMUNITY GOAL":
+            task["eta"] = "---"
 
         elif "stat" in task["id"]:
             try:
@@ -309,16 +318,47 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             task["eta"] = f"{str_progress} / {str_required_amount}"
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
         
-#        elif "unique_collections" in task["id"]:
-#            required_amount = task["required_amount"]
-#            try:
-#                progress = profile_data["members"][uuid]["unlocked_coll_tiers"]
+        elif "unique_collections" in task["id"]:
+            required_amount = task["required_amount"]
+            try:
+                progress = len(profile_data["members"][uuid]["collection"])
+                task["eta"] = f"{str(progress)} / {str(required_amount)}"
+            except:
+                progress = 0
+                task["eta"] = "Turn on Collection API!"
+            task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+
+        elif "slayer_level" in task["id"]:
+            required_amount = task["required_amount"]
+            xp_list = {1:5, 2:25, 3:200, 4:1000, 5:5000, 6:20000, 7:100000, 8:400000, 9:1000000}
+            xp_needed = xp_list[required_amount]
+            try:
+                # NOTE: possibly add code to determine highest slayer level and go off of that...
+                slayers = profile_data["members"][uuid]["slayer_bosses"]
+                progress = slayers["spider"]["xp"]
+            except:
+                progress = 0
+            task["eta"] = f"{shorten_number(progress)} / {shorten_number(xp_needed)}"
+            task["percent_complete"] = round(((progress / xp_needed) * 100), 1)
+        
+        elif "craft_minions" in task["id"]:
+            required_amount = task["required_amount"]
+            try:
+                progress = len(profile_data["members"][uuid]["crafted_generators"])
+            except:
+                progress = 0
+            task["eta"] = f"{progress} / {required_amount}"
+            task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+
+        else:
+            task["eta"] = "TO DO"
+            task["percent_complete"] = 0
 
     if latest == bingo_id:
         for task in tasks:
             if task["id"] in completed_tasks:
                 task["percent_complete"] = 100
-                #task["eta"] = "DONE" NOTE ADD THIS IN
+                task["eta"] = "DONE"
             # If minion/craft, check collection
             # If stat, check stats
     else: 

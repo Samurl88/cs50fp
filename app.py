@@ -221,6 +221,11 @@ for dict in response["goals"]:
         elif "craft_minions" in id:
             strategy = find_next_minions(requiredAmount, unique_minions)
         
+        # IF SLAYER LEVEL
+        elif "slayer_level" in id:
+            strategy = "Level up Spider Slayer."
+
+
         # IF NOTHING ELSE
         else:
             key_words = []
