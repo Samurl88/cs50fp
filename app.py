@@ -106,7 +106,7 @@ for dict in response["goals"]:
     elif lore == "Community Goal!":
         method = "COMMUNITY GOAL"
         strategy = "I'm not sure! The Hypixel API doesn't provide lore for Community Goals..."
-        eta = "¯\_ (ツ)_/¯"
+        eta = "---"
 
     else:
         method = "MISCELLANEOUS"

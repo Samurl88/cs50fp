@@ -141,6 +141,15 @@ def attempt_search(key_words):
 
 #[{'name': 'Skilled', 'lore': '', 'method': '', 'eta': 0}, {'name': 'Diamond Collector', 'lore': '§7Reach §a5,000 §7Diamond Collection.', 'method': 'MINION', 'eta': 15}
 
+# Returns a string from a long number (ex. 390000 -> 390K)
+def shorten_number(number):
+    if number >= 1000000000:
+        number_string = str(round((number / 1000000000), 1)) + "B"
+    elif number >= 1000000:
+       number_string = str(round((number / 1000000), 1)) + "M"
+    elif number >= 1000:
+        number_string = str(round((number / 1000), 1)) + "K"
+    return(number_string)
 
 # TODO: Add completion % for each task
 def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id):
@@ -158,10 +167,11 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             try:
                 item = (task["id"].replace("collection_", "")).upper()
                 progress = profile_data["members"][uuid]["collection"][item]
+                task["eta"] = f"{str(progress)} / {str(required_amount)}"
+                task["percent_complete"] = round(((progress / required_amount) * 100), 1)
             except:
-                progress = 0
-            task["eta"] = f"{str(progress)} / {str(required_amount)}"
-            task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+                task["eta"] = "Turn on Collection API!"
+                task["percent_complete"] = 0
 
         elif "stat" in task["id"]:
             try:
@@ -173,7 +183,7 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
                 task["eta"] = f"{str(progress)} / {str(required_amount)}"
                 task["percent_complete"] = round(((progress / required_amount) * 100), 1)
             except:
-                task["eta"] = "API too slow :("
+                task["eta"] = "API too slow..."
                 task["percent_complete"] = 0
             
         elif "fairy_souls" in task["id"]:
@@ -262,29 +272,47 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             task["eta"] = f"{str(armor_count)} / {str(required_amount)}"
             task["percent_complete"] = round(((armor_count / required_amount) * 100), 1)
 
-        elif "bank" in id:
+        elif "bank" in task["id"]:
             required_amount = task["required_amount"]
-            if required_amount >= 1000000:
-                required_amount = round((required_amount / 1000000), 1)
-            elif required_amount >= 1000:
-                required_amount = round((required_amount / 1000), 1)
             try:
+                str_required_amount = shorten_number(required_amount)
                 coins = round(profile_data["banking"]["balance"])
-                if coins >= 1000000000:
-                    coins = round((coins / 1000000000), 1)
-                    task["eta"] = f"{str(coins)}B / {str(required_amount)}"
-                    task["percent_complete"] = round(((coins / required_amount) * 100), 1)
-                elif coins >= 1000000:
-                    coins = round((coins / 1000000), 1)
-                    task["eta"] = f"{str(coins)}M / {str(required_amount)}"
-                    task["percent_complete"] = round(((coins / required_amount) * 100), 1)
-                elif coins >= 1000:
-                    coins = round((coins / 1000), 1)
-                    task["eta"] = f"{str(coins)}K / {str(required_amount)}"
-                    task["percent_complete"] = round(((coins / required_amount) * 100), 1)
+                str_coins = shorten_number(coins)
+
+                task["eta"] = f"{str_coins} / {str_required_amount}"
+                task["percent_complete"] = round(((coins / required_amount) * 100), 1)
             except:
                 task["eta"] = "Turn on Banking API!"
                 task["percent_complete"] = 0
+
+        elif "powder_mithril" in task["id"]:
+            required_amount = task["required_amount"]
+            str_required_amount = shorten_number(required_amount)
+            try:
+                progress = shiiyu_data["profiles"][profile_id]["data"]["mining"]["core"]["powder"]["mithril"]["total"]
+                str_progress = shorten_number(progress)
+            except:
+                progress = 0
+                str_progress = 0
+            task["eta"] = f"{str_progress} / {str_required_amount}"
+            task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+
+        elif "powder_gemstone" in task["id"]:
+            required_amount = task["required_amount"]
+            str_required_amount = shorten_number(required_amount)
+            try:
+                progress = shiiyu_data["profiles"][profile_id]["data"]["mining"]["core"]["powder"]["gemstone"]["total"]
+                str_progress = shorten_number(progress)
+            except:
+                progress = 0
+                str_progress = 0
+            task["eta"] = f"{str_progress} / {str_required_amount}"
+            task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+        
+#        elif "unique_collections" in task["id"]:
+#            required_amount = task["required_amount"]
+#            try:
+#                progress = profile_data["members"][uuid]["unlocked_coll_tiers"]
 
     if latest == bingo_id:
         for task in tasks:
