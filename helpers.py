@@ -40,12 +40,12 @@ def find_text(thing, word):
     return(str(para).strip())
 
 def stat_strat(base_stat, requiredAmount, steps):
-    strategy = f"Base - {base_stat}\n"
+    strategy = f"- Base → {base_stat}\n"
     i = 0
     while base_stat < requiredAmount:
         try:
             
-            strategy += f"{steps[i][0]} - {steps[i][1]}\n"
+            strategy += f"- {steps[i][0]} → {steps[i][1]}\n"
             base_stat += steps[i][1]
             i += 1
         except:
@@ -170,11 +170,16 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
     for task in tasks:
         if task["method"] == "MINION":
             required_amount = task["required_amount"]
+            item = (task["id"].replace("collection_", "")).upper()
             try:
-                item = (task["id"].replace("collection_", "")).upper()
-                progress = profile_data["members"][uuid]["collection"][item]
-                task["eta"] = f"{str(progress)} / {str(required_amount)}"
-                task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+                collection = profile_data["members"][uuid]["collection"]
+                try:
+                    progress = collection[item]
+                    task["eta"] = f"{shorten_number(progress)} / {shorten_number(required_amount)}"
+                    task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+                except:
+                    task["eta"] = f"0 / {shorten_number(required_amount)}"
+                    task["percent_complete"] = 0
             except:
                 task["eta"] = "Turn on Collection API!"
                 task["percent_complete"] = 0
@@ -351,8 +356,8 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
 
         else:
-            task["eta"] = "TO DO"
             task["percent_complete"] = 0
+            task["eta"] = "NOT DONE"
 
     if latest == bingo_id:
         for task in tasks:

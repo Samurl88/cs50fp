@@ -33,20 +33,16 @@
             }
         }
         
-
         function show_method(button_id) { 
             
             // Clears visible information everywhere
-            let headers = document.getElementsByClassName("grid-in-strat-header");
-            let contents = document.getElementsByClassName("grid-in-strat-content");
+            let all_text = document.getElementsByClassName("grid-in-strat-text");
             let buttons = document.getElementsByClassName("task-button");
 
-            Array.from(headers).forEach(item => {
+            Array.from(all_text).forEach(item => {
                 item.style.display = "none";
             });
-            Array.from(contents).forEach(item => {
-                item.style.display = "none";
-            });
+
             Array.from(buttons).forEach(item => {
                 if(item.classList.contains("selected-task-btn")) {
                     item.classList.remove("selected-task-btn");
@@ -54,11 +50,11 @@
             });
 
             // Find new information and makes visible in strat grid
-            let header = document.getElementsByClassName("grid-in-strat-header")[button_id - 1];
-            let content = document.getElementsByClassName("grid-in-strat-content")[button_id];
+            let text = document.getElementsByClassName("grid-in-strat-text")[button_id];
 
-            header.style.display = "inline";
-            content.style.display = "inline";
+            console.log(text);
+
+            text.style.display = "inline";
 
             // Shows selected button
             let button = document.getElementById(button_id);
@@ -186,14 +182,45 @@
 
         <div class="grid-strat" style="background-color:rgba(255, 255, 255, 0.1); border-radius:5px; border:solid 1.5px rgba(0, 0, 0, 0.5); padding:0.3em; color:white;">
             <div class="grid-in-strat">
-                <div id="strat-placeholder" class="grid-in-strat-content" style="text-align:center; font-size:1em; font-weight:500; padding:1.5em;"><em>Click on any task to view relevant information!</em></div>
+                <div id="strat-placeholder" class="grid-in-strat-text" style="text-align:center; font-size:1em; font-weight:500; padding:1.5em;"><em>Click on any task to view relevant information!</em></div>
                 {% for dict in eta_tasks %}
-                    <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; display:none; padding-bottom:0.25em;">{{ dict.name }}</div>
-                    {% if "\n" in dict.strat %}
-                        <div id={{ dict.id }} class="grid-in-strat-content" style="text-align:center; font-size:0.8em; font-weight:400; display:none; white-space:pre;">{{ dict.strat }}</div>
-                    {% else %}
-                        <div id={{ dict.id }} class="grid-in-strat-content" style="text-align:center; font-size:0.8em; font-weight:400; display:none;">{{ dict.strat }}</div>
-                    {% endif %}
+                    <div id={{ dict.id }} class="grid-in-strat-text" style="display:none;">
+                        <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; padding-bottom:0.25em;">{{ dict.name }} - {{ dict.eta}} </div>
+                        {% if "\n" in dict.strat %}
+                            {% set count = namespace(value=0) %}
+                            {% for i in range(dict.strat|length) %}
+                                {% if dict.strat[i] == "\n" %}
+                                    {% set count.value = count.value + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if count.value > 7 %}
+                                <div id={{ dict.id }} class="grid-in-strat-content" style="margin:0 auto; text-align:left; font-size:0.8em; font-weight:400; columns: auto 2; white-space:pre;">{{ dict.strat }}</div>
+                            {% else %}
+                                <div id={{ dict.id }} class="grid-in-strat-content" style="float:left; padding-left: 0.5em; text-align:left; font-size:0.8em; font-weight:400; white-space:pre-line;">{{ dict.strat }}</div>
+                            {% endif %}
+                        {% elif dict.strat == "armor_list" %}
+                            <div id={{ dict.id }} class="grid-in-strat-objective" style="margin:0 auto; text-align:center; font-size:0.8em; font-weight:400;"><hr style="margin:2%;">Obtain <b>{{ dict.required_amount }}</b> of these armors!<hr style="margin:2%;"></div>
+                            <div id={{ dict.id }} class="grid-in-strat-content" style="margin:0 auto; text-align:left; font-size:0.8em; font-weight:400; columns: auto 2;">
+                            {% for i in range(armor_list|length) %}
+                                <div style="white-space:pre;">- {{ armor_list[i] }}</div>
+                            {% endfor %}
+                            </div>
+                        {% elif dict.strat == "accessory_list" %}
+                            <div id={{ dict.id }} class="grid-in-strat-content" style="margin:0 auto; text-align:left; font-size:0.8em; font-weight:400; columns: auto 2;">
+                            {% for i in range(accessory_list|length) %}
+                                <div style="white-space:pre;">- {{ accessory_list[i] }}</div>
+                            {% endfor %}
+                            </div>
+                        {% elif dict.strat == "pet_list" %}
+                            <div id={{ dict.id }} class="grid-in-strat-content" style="margin:0 auto; text-align:left; font-size:0.8em; font-weight:400; columns: auto 2;">
+                            {% for i in range(pet_list|length) %}
+                                <div style="white-space:pre;">- {{ pet_list[i] }}</div>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            <div id={{ dict.id }} class="grid-in-strat-content" style="text-align:center; font-size:0.8em; font-weight:400;">{{ dict.strat }}</div>
+                        {% endif %}
+                    </div>
                     {% endfor %}
             </div>
         </div>

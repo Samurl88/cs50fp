@@ -176,14 +176,19 @@ input[type="text"]:focus {
 }
 
 .grid-in-strat-header {
-  grid-row: 1;
-  grid-column: 1;
+  margin:0.3rem 0rem 0.25rem 0rem;
+  line-height: 60%;
 }
 
-.grid-in-strat-content {
-  grid-row: 2 / span 4;
-  grid-column: 1;
+.grid-in-strat-objective {
+  line-height: 100%;
 }
+
+/*
+.grid-in-strat-content {
+
+}
+*/
 
 /* This is just for the actual page's scroll bar */
 ::-webkit-scrollbar {

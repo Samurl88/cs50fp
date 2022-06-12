@@ -118,13 +118,15 @@ for dict in response["goals"]:
 
         # IF WEARING SOMETHING
         elif "unique_armor" in id:
-            strategy = f"Obtain {requiredAmount} of these: \n"
-            for armor in armor_list:
-                strategy += f"{armor}\n"
+            strategy = "armor_list"
+            #strategy = f"Obtain {requiredAmount} of these: \n"
+            #for armor in armor_list:
+            #    strategy += f"- {armor}\n"
         elif "accessories" in id:
-            strategy = f"Obtain {requiredAmount} of these: \n"
-            for accessory in accessory_list:
-                strategy += f"{accessory}\n"
+            strategy = "accessory_list"
+            #strategy = f"Obtain {requiredAmount} of these: \n"
+            #for accessory in accessory_list:
+            #    strategy += f"- {accessory}\n"
 
         # IF OBTAINING SOMETHING
         elif "obtain_item" in id:
@@ -133,10 +135,12 @@ for dict in response["goals"]:
             item = item.replace(' ', '_')
             item = item.replace('.', '')
             strategy = str(find_text(item, "Obtaining"))
+        
         elif "obtain_pets" in id:
-            strategy = f"Obtain {requiredAmount} of these: \n"
-            for pet in pet_list:
-                strategy += f"{pet}\n"
+            strategy = "pet_list"
+            #strategy = f"Obtain {requiredAmount} of these: \n"
+            #for pet in pet_list:
+            #    strategy += f"- {pet}\n"
         elif "obtain_t1" in id:
             number = ""
             for char in lore:
@@ -297,7 +301,7 @@ def bingo():
             # Calculates and sorts by ETA - used for list of tasks
             eta_tasks = sortbyeta(ordered_tasks)
 
-            return render_template('bingo.html', eta_tasks=eta_tasks, ordered_tasks=ordered_tasks, ign=ign)
+            return render_template('bingo.html', eta_tasks=eta_tasks, ordered_tasks=ordered_tasks, ign=ign, armor_list=armor_list, pet_list=pet_list, accessory_list=accessory_list)
     return redirect("/")
     
 
