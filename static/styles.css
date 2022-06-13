@@ -46,7 +46,13 @@
 
 /* FOR BINGO.HTML */
 /* FOR BINGO.HTML */
+.header-grid {
+  display: grid;
+}
+
 .header {
+  grid-row: 1;
+  grid-column: 1;
   height: 1.5em;
   text-align: center;
   font-size: 1.1em;
@@ -55,13 +61,36 @@
   font-weight: 600;
  }
 
+ .header-progress-bar {
+  grid-row: 1;
+  grid-column: 1;
+  height: 1.5em;
+  text-align: center;
+  font-size: 1.1em;
+  border-radius: 5px 5px 0px 0px;
+  font-weight: 600;
+ }
+
+ .header-text {
+  grid-row: 1;
+  grid-column: 1;
+  height: 1.5em;
+  text-align: center;
+  font-size: 1.1em;
+  border-radius: 5px 5px 0px 0px;
+  font-weight: 600;
+  border: solid 1.5px black;
+ }
+
 .subheader {
   height: 6.1em;
   text-align: center;
   font-size: 0.6em;
   background-color: rgba(0, 0, 0, 0.45);
   border-radius: 0px 0px 5px 5px;
-  color: rgb(185, 185, 185)
+  color: rgb(185, 185, 185);
+  border: solid 1.5px black; 
+  border-top-style: none; 
 }
 
 .grid-container {
@@ -255,6 +284,17 @@ input[type="text"]:focus {
     grid-column: 1;
     grid-row: 8 / span 2;
   }
+  .header-text {
+    grid-row: 1;
+    grid-column: 1;
+    height: 1.5em;
+    text-align: center;
+    font-size: 1.1em;
+    border-radius: 5px 5px 0px 0px;
+    font-weight: 600;
+    border: solid 1.5px black;
+    line-height:100%;
+   }
 }
 
 /* One column of tasks up to 990px */
