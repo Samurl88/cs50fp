@@ -55,8 +55,8 @@
   grid-column: 1;
   height: 1.5em;
   text-align: center;
-  font-size: 1.1em;
-  background-color: rgba(0, 0, 0, 0.6);
+  font-size: 1em;
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 5px 5px 0px 0px;
   font-weight: 600;
  }
@@ -66,7 +66,7 @@
   grid-column: 1;
   height: 1.5em;
   text-align: center;
-  font-size: 1.1em;
+  font-size: 1em;
   border-radius: 5px 5px 0px 0px;
   font-weight: 600;
  }
@@ -76,10 +76,10 @@
   grid-column: 1;
   height: 1.5em;
   text-align: center;
-  font-size: 1.1em;
+  font-size: 1em;
   border-radius: 5px 5px 0px 0px;
   font-weight: 600;
-  border: solid 1.5px black;
+  /* border: solid 1.5px black; */
  }
 
 .subheader {
@@ -89,8 +89,8 @@
   background-color: rgba(0, 0, 0, 0.45);
   border-radius: 0px 0px 5px 5px;
   color: rgb(185, 185, 185);
-  border: solid 1.5px black; 
-  border-top-style: none; 
+  /* border: solid 1.5px black; 
+  border-top-style: none; */
 }
 
 .grid-container {
@@ -165,7 +165,7 @@ input[type="text"]:focus {
 
 
 .grid-tasks-item {
-  padding: 0.2em 0.3em 0.2em 0.3em;
+  padding: 0.2em 0.4em 0.2em 0.4em;
 }
 
 .grid-subheader-container {
@@ -284,17 +284,6 @@ input[type="text"]:focus {
     grid-column: 1;
     grid-row: 8 / span 2;
   }
-  .header-text {
-    grid-row: 1;
-    grid-column: 1;
-    height: 1.5em;
-    text-align: center;
-    font-size: 1.1em;
-    border-radius: 5px 5px 0px 0px;
-    font-weight: 600;
-    border: solid 1.5px black;
-    line-height:100%;
-   }
 }
 
 /* One column of tasks up to 990px */

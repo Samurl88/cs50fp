@@ -179,13 +179,14 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
                     task["percent_complete"] = round(((progress / required_amount) * 100), 1)
                 except:
                     task["eta"] = f"0 / {shorten_number(required_amount)}"
-                    task["percent_complete"] = 0
+                    task["percent_complete"] = 0.0
             except:
                 task["eta"] = "Turn on Collection API!"
-                task["percent_complete"] = 0
+                task["percent_complete"] = 0.0
                 
         elif task["method"] == "COMMUNITY GOAL":
             task["eta"] = "---"
+            task["percent_complete"] = 100
 
         elif "stat" in task["id"]:
             try:
@@ -198,7 +199,7 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
                 task["percent_complete"] = round(((progress / required_amount) * 100), 1)
             except:
                 task["eta"] = "API too slow..."
-                task["percent_complete"] = 0
+                task["percent_complete"] = 0.0
             
         elif "fairy_souls" in task["id"]:
             try:
@@ -297,7 +298,7 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
                 task["percent_complete"] = round(((coins / required_amount) * 100), 1)
             except:
                 task["eta"] = "Turn on Banking API!"
-                task["percent_complete"] = 0
+                task["percent_complete"] = 0.0
 
         elif "powder_mithril" in task["id"]:
             required_amount = task["required_amount"]
@@ -356,7 +357,7 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
 
         else:
-            task["percent_complete"] = 0
+            task["percent_complete"] = 0.0
             task["eta"] = "NOT DONE"
 
     if latest == bingo_id:
@@ -368,11 +369,12 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             # If stat, check stats
     else: 
         for task in tasks: 
-            task["percent_complete"] = 0
+            task["percent_complete"] = 0.0
     return(tasks)
 
 def sortbyeta(init_tasks):
 # TODO: Order: BY ETA
+    #sorted_tasks = sorted(init_tasks, key = lambda item: item["percent_complete"])
     sorted_tasks = init_tasks
     return(sorted_tasks)
     

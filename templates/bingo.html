@@ -127,11 +127,13 @@
                     <div id = {{loop.index}} class="task-button" onclick="show_method(this.id)" style="border-radius:5px;">
                     <div class="header-grid">
                         <div class="header"></div>
+                        <!--
                         {% if dict.method == "COMMUNITY GOAL" %}
-                            <div class="header-progress-bar" style="background-color:rgba(62, 168, 255, 0.4);"></div>
+                            <div class="header-progress-bar" style="background-color:rgba(48, 142, 218, 0.45);"></div>
                         {% else %}
-                            <div class="header-progress-bar" style="background-color:rgba(0, 255, 0, 0.4); width:{{ dict.percent_complete }}%;"></div>
+                            <div class="header-progress-bar" style="background-color:rgba(0, 255, 0, 0.45); width:{{ dict.percent_complete }}%;"></div>
                         {% endif %}
+                        -->
                         <div class="header-text">
                             {% if dict.method == "COMMUNITY GOAL" %}
                                 {{ dict.name }}
@@ -140,6 +142,7 @@
                             {% endif %}
                         </div>
                     </div>
+
                     <!--<div class="header" style="z-index:2; background-color:rgba(40, 207, 40, 0.6); transform:translateY(-100%); position:relative;"></div>-->
                         
                     <!-- TODO: ADD PERCENTAGE BARS HERE -->
@@ -160,7 +163,20 @@
                                 PROGRESS
                             </div>
                             <div style="font-size:1.3em; font-weight:500;">
-                                {{ dict.eta }}
+                                {% if dict.method == "COMMUNITY GOAL" %}
+                                    <span style="color:rgba(62, 168, 255, 0.7)">
+                                {% elif dict.eta == "DONE"  or dict.percent_complete == 100 %}
+                                    <span style="color:rgba(99, 255, 0, 0.7);">
+                                {% elif dict.percent_complete >= 80 %}
+                                    <span style="color:rgba(214, 255, 0, 0.9);">
+                                {% elif dict.percent_complete >= 60 %}
+                                    <span style="color:rgba(255, 255, 0, 0.9);">  
+                                {% elif dict.percent_complete >= 40 %}
+                                    <span style="color:rgba(255, 193, 0, 0.9);">  
+                                {% else %}
+                                    <span style="color:rgba(255, 0, 0, 0.9);"> 
+                                {% endif %}
+                                {{ dict.eta }}</span>
                             </div>
                         </div>
                     </div>
