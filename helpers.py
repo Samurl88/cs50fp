@@ -160,8 +160,8 @@ def shorten_number(number):
 # TODO: Add completion % for each task
 def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list):
 # TODO: Personalized Completion Data Here
-    load_shiiyu_page = requests.get(f"https://sky.shiiyu.moe/stats/{uuid}/{profile_id}") #API doesn't update otherwise...
     try: # In case API's down
+        load_shiiyu_page = requests.get(f"https://sky.shiiyu.moe/stats/{uuid}/{profile_id}") #API doesn't update otherwise...
         shiiyu_data = requests.get(f"https://sky.shiiyu.moe/api/v2/profile/{ign}").json() #NOTE: THIS IS SO SLOW!!!
         talisman_data = requests.get(f"https://sky.shiiyu.moe/api/v2/talismans/{ign}").json()
     except:
@@ -214,7 +214,23 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
         elif "pets" in task["id"]:
             try:
                 required_amount = task["required_amount"]
-                progress = len(profile_data["members"][uuid]["pets"])
+                pets = profile_data["members"][uuid]["pets"]
+                progress = len(pets)
+
+                progress_pets = []
+                for pet in pets:
+                    progress_pets.append(pet["type"])
+                
+                task["completion_list"] = []
+                for pet in pet_list:
+                    tmpdict = {}
+                    tmpdict["name"] = pet
+                    if pet.replace(" ", "_").upper() in progress_pets:
+                        tmpdict["has"] = "true"
+                    else:
+                        tmpdict["has"] = "false"
+                    task["completion_list"].append(tmpdict)
+
             except:
                 progress = 0
             task["eta"] = f"{str(progress)} / {str(required_amount)}"
@@ -237,7 +253,6 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
 
             # Compare player's accessories to full list; create dict showing whether has or doesn't have
             task["completion_list"] = []
-            print(progress_accessories)
             for accessory in accessory_list:
                 tmpdict = {}
                 tmpdict["name"] = accessory
@@ -246,7 +261,6 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
                 else:
                     tmpdict["has"] = "false"
                 task["completion_list"].append(tmpdict)
-            print(task["completion_list"])
             
         elif "relic" in task["id"]:
             try:

@@ -207,21 +207,11 @@
                 <div id="strat-placeholder" class="grid-in-strat-text" style="text-align:center; font-size:1em; font-weight:500; padding:1.5em;"><em>Click on any task to view relevant information!</em></div>
                 {% for dict in eta_tasks %}
                     <div id={{ dict.id }} class="grid-in-strat-text" style="display:none;">
-                        <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; padding-bottom:0.25em;">{{ dict.name }} → {{ dict.percent_complete }}% </div>
+                        <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; padding:0.25em;">{{ dict.name }} → {{ dict.percent_complete }}% </div>
+                        <div id={{ dict.id }} class="grid-in-strat-objective" style="margin:0 auto; text-align:center; font-size:0.8em; font-weight:400;"><hr style="margin:2%;">Progress: <b>{{ dict.eta }}</b> | ({{ dict.percent_complete }}%) <hr style="margin:2%;"></div>
                         {% if "\n" in dict.strat %}
-                            {% set count = namespace(value=0) %}
-                            {% for i in range(dict.strat|length) %}
-                                {% if dict.strat[i] == "\n" %}
-                                    {% set count.value = count.value + 1 %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if count.value > 7 %}
-                                <div id={{ dict.id }} class="grid-in-strat-content" style="margin:0 auto; text-align:left; font-size:0.8em; font-weight:400; columns: auto 2; white-space:pre;">{{ dict.strat }}</div>
-                            {% else %}
-                                <div id={{ dict.id }} class="grid-in-strat-content" style="float:left; padding-left: 0.5em; text-align:left; font-size:0.8em; font-weight:400; white-space:pre-line;">{{ dict.strat }}</div>
-                            {% endif %}
-                        {% elif dict.strat == "armor_list" or dict.strat == "accessory_list" %}
-                            <div id={{ dict.id }} class="grid-in-strat-objective" style="margin:0 auto; text-align:center; font-size:0.8em; font-weight:400;"><hr style="margin:2%;">Obtain <b>{{ dict.required_amount }}</b> of these!<hr style="margin:2%;"></div>
+                            <div id={{ dict.id }} class="grid-in-strat-content" style="float:left; padding-left: 0.5em; text-align:left; font-size:0.8em; font-weight:400; white-space:pre-line;">{{ dict.strat }}</div>
+                        {% elif dict.strat == "armor_list" or dict.strat == "accessory_list" or dict.strat == "pet_list" %}
                             <div id={{ dict.id }} class="grid-in-strat-content" style="margin:0 auto; text-align:left; font-size:0.8em; font-weight:400; columns: auto 2;">
                             {% for i in range(dict.completion_list|length) %}
                                 {% if dict.completion_list[i].has == "true" %}
@@ -231,17 +221,13 @@
                                 {% endif %}
                             {% endfor %}
                             </div>
-                        {% elif dict.strat == "pet_list" %}
-                            <div id={{ dict.id }} class="grid-in-strat-content" style="margin:0 auto; text-align:left; font-size:0.8em; font-weight:400; columns: auto 2;">
-                            {% for i in range(pet_list|length) %}
-                                <div style="white-space:pre;">- {{ pet_list[i] }}</div>
-                            {% endfor %}
-                            </div>
+                        {% elif dict.method == "MINION" %}
+                            <div style="text-align:center; font-size:0.6em;"><em>Assuming 5 Lvl 5 Minions w/ Medium Storages</em></div>
                         {% else %}
                             <div id={{ dict.id }} class="grid-in-strat-content" style="text-align:center; font-size:0.8em; font-weight:400;">{{ dict.strat }}</div>
                         {% endif %}
                     </div>
-                    {% endfor %}
+                {% endfor %}
             </div>
         </div>
     </div>
