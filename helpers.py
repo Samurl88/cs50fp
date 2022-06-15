@@ -160,6 +160,7 @@ def shorten_number(number):
 # TODO: Add completion % for each task
 def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list):
 # TODO: Personalized Completion Data Here
+    load_shiiyu_page = requests.get(f"https://sky.shiiyu.moe/stats/{uuid}/{profile_id}") #API doesn't update otherwise...
     try: # In case API's down
         shiiyu_data = requests.get(f"https://sky.shiiyu.moe/api/v2/profile/{ign}").json() #NOTE: THIS IS SO SLOW!!!
         talisman_data = requests.get(f"https://sky.shiiyu.moe/api/v2/talismans/{ign}").json()
@@ -220,14 +221,33 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
 
         elif "accessories" in task["id"]:
+            progress_accessories = []
+            required_amount = task["required_amount"]
             try:
-                required_amount = task["required_amount"]
-                progress = len(talisman_data["profiles"][profile_id]["accessories"])
+                accessories = talisman_data["profiles"][profile_id]["accessories"]
+                progress = len(accessories)
             except:
                 progress = 0
+            # Get list of accessories that player has
+            for accessory in accessories:
+                progress_accessories.append(accessory["display_name"])
+
             task["eta"] = f"{str(progress)} / {str(required_amount)}"
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
-                
+
+            # Compare player's accessories to full list; create dict showing whether has or doesn't have
+            task["completion_list"] = []
+            print(progress_accessories)
+            for accessory in accessory_list:
+                tmpdict = {}
+                tmpdict["name"] = accessory
+                if accessory in progress_accessories:
+                    tmpdict["has"] = "true"
+                else:
+                    tmpdict["has"] = "false"
+                task["completion_list"].append(tmpdict)
+            print(task["completion_list"])
+            
         elif "relic" in task["id"]:
             try:
                 required_amount = task["required_amount"]
