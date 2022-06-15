@@ -25,7 +25,7 @@ key = "5a0827f1-cf40-4ea6-9891-5a5a323b5f35"
 response = (requests.get("https://api.hypixel.net/resources/skyblock/bingo")).json()
 bingo_id = response["id"]
 
-armor_list = ['Leather Armor', 'Golden Armor', 'Chainmail Armor', 'Iron Armor', 'Diamond Armor', 'Farm Suit', 'Mushroom Armor', 'Pumpkin Armor', 'Cactus Armor', 'Leaflet Armor', 'Miner Armor', 'Lapis Armor', 'Angler Armor', "Rosetta's Armor", 'Squire Armor', 'Celeste Armor', 'Mercenary Armor', 'Starlight Armor']
+armor_list = [{"name":'Leather Armor', "id":'LEATHER'}, {"name":'Golden Armor', "id":'GOLD'}, {"name": 'Chainmail Armor', "id":"CHAINMAIL"}, {"name":'Iron Armor', "id":"IRON"}, {"name":'Diamond Armor', "id":"DIAMOND"}, {"name":'Farm Suit', "id":"FARM"}, {"name":'Mushroom Armor', "id":"MUSHROOM"}, {"name":'Pumpkin Armor', "id":"PUMPKIN"}, {"name":'Cactus Armor', "id":"CACTUS"}, {"name":'Leaflet Armor',"id":"LEAFLET"}, {"name":'Miner Armor',"id":"TANK"}, {"name":'Lapis Armor',"id":"LAPIS"}, {"name":'Angler Armor',"id":"ANGLER"}, {"name":"Rosetta's Armor","id":"ROSETTA"}, {"name":'Squire Armor',"id":"SQUIRE"}, {"name":'Celeste Armor', "id":"CELESTE"}, {"name":'Mercenary Armor',"id":"MERCENARY"}, {"name":'Starlight Armor', "id":"STARLIGHT"}]
 accessory_list = ['Zombie Talisman', 'Skeleton Talisman', 'Village Affinity Talisman', 'Mine Affinity Talisman', 'Intimidation Talisman', 'Scavenger Talisman', 'Wolf Paw', "Pig's Foot", "Melody's Hair", 'Shiny Yellow Rock', 'Campfire Initiate Badge', 'Cat Talisman', 'King Talisman', 'Red Claw Talisman', 'Spider Talisman', 'Vaccine Talisman', 'Farming Talisman', 'Talisman of Coins', 'Magnetic Talisman', 'Gravity Talisman', 'Speed Talisman', 'Potion Affinity Talisman']
 pet_list = ['Bingo', 'Grandma Wolf', 'Bee', 'Rock', 'Dolphin', 'Jerry', 'Rabbit', 'Pig', 'Silverfish', 'Armadillo', 'Enderman', 'An Oringo Pet']
 
@@ -297,7 +297,7 @@ def bingo():
 
             bingo_tasks = db.execute("SELECT * FROM bingo")
             # Adds personalized completion data, keeps proper order of tasks - used for bingo board
-            ordered_tasks = completion(ign, uuid, profile_data, profile_id, bingo_tasks, completed_tasks, latest, bingo_id)
+            ordered_tasks = completion(ign, uuid, profile_data, profile_id, bingo_tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list)
             # Calculates and sorts by ETA - used for list of tasks
             eta_tasks = sortbyeta(ordered_tasks)
 

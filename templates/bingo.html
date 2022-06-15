@@ -168,13 +168,13 @@
                                 {% elif dict.eta == "DONE"  or dict.percent_complete == 100 %}
                                     <span style="color:rgba(99, 255, 0, 0.7);">
                                 {% elif dict.percent_complete >= 80 %}
-                                    <span style="color:rgba(214, 255, 0, 0.9);">
+                                    <span style="color:rgba(214, 255, 0, 0.7);">
                                 {% elif dict.percent_complete >= 60 %}
-                                    <span style="color:rgba(255, 255, 0, 0.9);">  
+                                    <span style="color:rgba(255, 255, 0, 0.7);">  
                                 {% elif dict.percent_complete >= 40 %}
-                                    <span style="color:rgba(255, 193, 0, 0.9);">  
+                                    <span style="color:rgba(255, 193, 0, 0.7);">  
                                 {% else %}
-                                    <span style="color:rgba(255, 0, 0, 0.9);"> 
+                                    <span style="color:rgba(255, 0, 0, 0.7);"> 
                                 {% endif %}
                                 {{ dict.eta }}</span>
                             </div>
@@ -221,10 +221,14 @@
                                 <div id={{ dict.id }} class="grid-in-strat-content" style="float:left; padding-left: 0.5em; text-align:left; font-size:0.8em; font-weight:400; white-space:pre-line;">{{ dict.strat }}</div>
                             {% endif %}
                         {% elif dict.strat == "armor_list" %}
-                            <div id={{ dict.id }} class="grid-in-strat-objective" style="margin:0 auto; text-align:center; font-size:0.8em; font-weight:400;"><hr style="margin:2%;">Obtain <b>{{ dict.required_amount }}</b> of these armors!<hr style="margin:2%;"></div>
+                            <div id={{ dict.id }} class="grid-in-strat-objective" style="margin:0 auto; text-align:center; font-size:0.8em; font-weight:400;"><hr style="margin:2%;">Obtain <b>{{ dict.required_amount }}</b> of these!<hr style="margin:2%;"></div>
                             <div id={{ dict.id }} class="grid-in-strat-content" style="margin:0 auto; text-align:left; font-size:0.8em; font-weight:400; columns: auto 2;">
-                            {% for i in range(armor_list|length) %}
-                                <div style="white-space:pre;">- {{ armor_list[i] }}</div>
+                            {% for i in range(dict.completion_list|length) %}
+                                {% if dict.completion_list[i].has == "true" %}
+                                    <div style="white-space:pre; color:rgba(99, 255, 0, 1);">- {{ dict.completion_list[i].name }}</div>
+                                {% else %}
+                                    <div style="white-space:pre;">- {{ dict.completion_list[i].name }}</div>
+                                {% endif %}
                             {% endfor %}
                             </div>
                         {% elif dict.strat == "accessory_list" %}

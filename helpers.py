@@ -158,7 +158,7 @@ def shorten_number(number):
         return(0)
 
 # TODO: Add completion % for each task
-def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id):
+def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list):
 # TODO: Personalized Completion Data Here
     try: # In case API's down
         shiiyu_data = requests.get(f"https://sky.shiiyu.moe/api/v2/profile/{ign}").json() #NOTE: THIS IS SO SLOW!!!
@@ -255,16 +255,20 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
         elif "armor" in task["id"]:
             required_amount = task["required_amount"]
             armor_count = 0
+            progress_armors = []
             # Armor currently equipped
             try:
                 equipped_armor = shiiyu_data["profiles"][profile_id]["items"]["armor"]
-                armor_check = equipped_armor[0]["armor_name"]
+                armor_check = equipped_armor[0]["tag"]["ExtraAttributes"]["id"].split('_')[0]
                 c = 0 # I don't know how to do this better
                 for piece in equipped_armor:
-                    if piece["armor_name"] == armor_check:
+                    if armor_check in piece["tag"]["ExtraAttributes"]["id"]:
                         c += 1
                 if c == 4:
                     armor_count += 1
+                    armor_check = armor_check.split(' ')[0].upper()
+                    progress_armors.append(armor_check)
+
             except:
                 armor_count += 0
             
@@ -282,10 +286,25 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
                             break
                     if c == 4:
                         armor_count += 1
+                        progress_armors.append(armor_check)
             except:
                 armor_count += 0
             task["eta"] = f"{str(armor_count)} / {str(required_amount)}"
             task["percent_complete"] = round(((armor_count / required_amount) * 100), 1)
+
+            armor_completion = []
+            for armor in armor_list:
+                tmpdict = {}
+                tmpdict["name"] = armor["name"]
+
+                armor_check = armor["id"]
+                if armor_check in progress_armors:
+                    tmpdict["has"] = "true"
+                else:
+                    tmpdict["has"] = "false"
+                armor_completion.append(tmpdict)
+                
+            task["completion_list"] = armor_completion
 
         elif "bank" in task["id"]:
             required_amount = task["required_amount"]
