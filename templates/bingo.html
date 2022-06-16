@@ -127,13 +127,7 @@
                     <div id = {{loop.index}} class="task-button" onclick="show_method(this.id)" style="border-radius:5px;">
                     <div class="header-grid">
                         <div class="header"></div>
-                        <!--
-                        {% if dict.method == "COMMUNITY GOAL" %}
-                            <div class="header-progress-bar" style="background-color:rgba(48, 142, 218, 0.45);"></div>
-                        {% else %}
-                            <div class="header-progress-bar" style="background-color:rgba(0, 255, 0, 0.45); width:{{ dict.percent_complete }}%;"></div>
-                        {% endif %}
-                        -->
+
                         <div class="header-text">
                             {% if dict.method == "COMMUNITY GOAL" %}
                                 {{ dict.name }}
@@ -142,12 +136,7 @@
                             {% endif %}
                         </div>
                     </div>
-
-                    <!--<div class="header" style="z-index:2; background-color:rgba(40, 207, 40, 0.6); transform:translateY(-100%); position:relative;"></div>-->
-                        
-                    <!-- TODO: ADD PERCENTAGE BARS HERE -->
-                    <!--<div class="subheader grid-subheader-container" style="transform:translateY(-45.8%)">-->
-                        
+                    
                     <div class="subheader grid-subheader-container" style="padding-left:0.5em; padding-right:0.5em">
                         <div class="grid-tasks-item" style="overflow-y: scroll;">
                             <div style="font-size:1.4em; font-weight:700;">
@@ -207,22 +196,35 @@
                 <div id="strat-placeholder" class="grid-in-strat-text" style="text-align:center; font-size:1em; font-weight:500; padding:1.5em;"><em>Click on any task to view relevant information!</em></div>
                 {% for dict in eta_tasks %}
                     <div id={{ dict.id }} class="grid-in-strat-text" style="display:none;">
-                        <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; padding:0.25em;">{{ dict.name }} → {{ dict.percent_complete }}% </div>
+                        <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; line-height:90%;">{{ dict.name }} → {{ dict.percent_complete }}% </div>
                         <div id={{ dict.id }} class="grid-in-strat-objective" style="margin:0 auto; text-align:center; font-size:0.8em; font-weight:400;"><hr style="margin:2%;">Progress: <b>{{ dict.eta }}</b> | ({{ dict.percent_complete }}%) <hr style="margin:2%;"></div>
                         {% if "\n" in dict.strat %}
                             <div id={{ dict.id }} class="grid-in-strat-content" style="float:left; padding-left: 0.5em; text-align:left; font-size:0.8em; font-weight:400; white-space:pre-line;">{{ dict.strat }}</div>
                         {% elif dict.strat == "armor_list" or dict.strat == "accessory_list" or dict.strat == "pet_list" %}
-                            <div id={{ dict.id }} class="grid-in-strat-content" style="margin:0 auto; text-align:left; font-size:0.8em; font-weight:400; columns: auto 2;">
+                            <div id={{ dict.id }} class="grid-in-strat-content" style="font-size:0.75em; font-weight:400; display:grid; grid-template-columns:repeat(2, 1fr); padding-left:5%;">
                             {% for i in range(dict.completion_list|length) %}
                                 {% if dict.completion_list[i].has == "true" %}
-                                    <div style="white-space:pre; color:rgba(99, 255, 0, 1);">- {{ dict.completion_list[i].name }}</div>
+                                    <div style="white-space:pre; color:rgb(77, 201, 0);">- {{ dict.completion_list[i].name }}</div>
                                 {% else %}
                                     <div style="white-space:pre;">- {{ dict.completion_list[i].name }}</div>
                                 {% endif %}
                             {% endfor %}
                             </div>
                         {% elif dict.method == "MINION" %}
-                            <div style="text-align:center; font-size:0.6em;"><em>Assuming 5 Lvl 5 Minions w/ Medium Storages</em></div>
+                            <div style="font-weight:bolder; text-align:center; font-size:0.85em">USING MINIONS:</div>
+                            <hr style="margin:0 auto; width:60%;">
+                            <div style="display:grid; grid-template-columns: repeat(2, 1fr); text-align: center; margin: 0 auto; padding-left:15%; padding-right:15%;">
+                                <div>
+                                    <div style="font-size:0.8em; font-weight:bold;">Unloads</div>
+                                    <div style="font-size:0.8em; font-weight:bold;">{{ dict.unloads }}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size:0.8em; font-weight:bold;">Hours</div>
+                                    <div style="font-size:0.8em; font-weight:bold;">{{ dict.minion_hours_left }}</div>
+                                </div>
+                            </div>
+                            <hr style="margin:0 auto; width:60%;">
+                            <div style="text-align:center; font-size:0.7em; color:rgb(189, 189, 189);"><em>Assumes 5 Lvl 5 {{ dict.minion }} Minions w/ Medium Storages</em></div>
                         {% else %}
                             <div id={{ dict.id }} class="grid-in-strat-content" style="text-align:center; font-size:0.8em; font-weight:400;">{{ dict.strat }}</div>
                         {% endif %}

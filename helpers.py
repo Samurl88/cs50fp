@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import math
+import numpy
 
 def color(lore):
     lore = lore.replace("§1", "")
@@ -158,7 +159,7 @@ def shorten_number(number):
         return(0)
 
 # TODO: Add completion % for each task
-def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list):
+def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list, minion_info):
 # TODO: Personalized Completion Data Here
     try: # In case API's down
         load_shiiyu_page = requests.get(f"https://sky.shiiyu.moe/stats/{uuid}/{profile_id}") #API doesn't update otherwise...
@@ -179,11 +180,29 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
                     task["eta"] = f"{shorten_number(progress)} / {shorten_number(required_amount)}"
                     task["percent_complete"] = round(((progress / required_amount) * 100), 1)
                 except:
+                    progress = 0
                     task["eta"] = f"0 / {shorten_number(required_amount)}"
                     task["percent_complete"] = 0.0
             except:
                 task["eta"] = "Turn on Collection API!"
                 task["percent_complete"] = 0.0
+            try:
+                required_amount -= progress
+                if required_amount > 0:
+                    timePerItem = ((minion_info[0]["delay"]) * 2) / 3600
+                    storage = (minion_info[0]["storage"]) + 576 # Medium Storages (TODO: Calculate if user has more minion slots, use small storages)
+                    # Find time (in HOURS) WITH 5 MINIONS to get collection
+                    eta = round((required_amount * timePerItem) / 5)
+                    unloads = int(numpy.ceil(eta / (timePerItem * storage)))
+                    
+                    task["minion_hours_left"] = eta
+                    task["unloads"] = unloads
+                else:
+                    task["minion_hours_left"] = "--"
+                    task["unloads"] = "--"
+            except:
+                task["minion_hours_left"] = "--"
+                task["unloads"] = "--"
                 
         elif task["method"] == "COMMUNITY GOAL":
             task["eta"] = "---"
@@ -212,29 +231,29 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
         
         elif "pets" in task["id"]:
+            progress_pets = []
             try:
                 required_amount = task["required_amount"]
                 pets = profile_data["members"][uuid]["pets"]
                 progress = len(pets)
 
-                progress_pets = []
                 for pet in pets:
                     progress_pets.append(pet["type"])
-                
-                task["completion_list"] = []
-                for pet in pet_list:
-                    tmpdict = {}
-                    tmpdict["name"] = pet
-                    if pet.replace(" ", "_").upper() in progress_pets:
-                        tmpdict["has"] = "true"
-                    else:
-                        tmpdict["has"] = "false"
-                    task["completion_list"].append(tmpdict)
 
             except:
                 progress = 0
             task["eta"] = f"{str(progress)} / {str(required_amount)}"
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+
+            task["completion_list"] = []
+            for pet in pet_list:
+                tmpdict = {}
+                tmpdict["name"] = pet
+                if pet.replace(" ", "_").upper() in progress_pets:
+                    tmpdict["has"] = "true"
+                else:
+                    tmpdict["has"] = "false"
+                task["completion_list"].append(tmpdict)
 
         elif "accessories" in task["id"]:
             progress_accessories = []
@@ -242,11 +261,12 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             try:
                 accessories = talisman_data["profiles"][profile_id]["accessories"]
                 progress = len(accessories)
+
+                for accessory in accessories:
+                    progress_accessories.append(accessory["display_name"])
             except:
                 progress = 0
             # Get list of accessories that player has
-            for accessory in accessories:
-                progress_accessories.append(accessory["display_name"])
 
             task["eta"] = f"{str(progress)} / {str(required_amount)}"
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)

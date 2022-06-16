@@ -86,14 +86,15 @@ for dict in response["goals"]:
             
 
         # Find tier 4 stats
-        info = db.execute("SELECT delay, storage FROM miniondata WHERE tier=4 AND type=?", minion)
+        minion_info = db.execute("SELECT delay, storage FROM miniondata WHERE tier=4 AND type=?", minion)
+        """
         timePerItem = ((info[0]["delay"]) * 2) / 3600
         storage = (info[0]["storage"]) + 576 # Medium Storages (TODO: Calculate if user has more minion slots, use small storages)
         # Find time (in HOURS) WITH 5 MINIONS to get collection
         eta = round((requiredAmount * timePerItem) / 5)
         unloads = int(numpy.ceil(eta / (timePerItem * storage)))
         timePerUnload = eta / unloads
-
+        """
         strategy = "One second..."
 
     # TODO: Craft Goal, determine if worth minion, and how much minion.
@@ -297,7 +298,7 @@ def bingo():
 
             bingo_tasks = db.execute("SELECT * FROM bingo")
             # Adds personalized completion data, keeps proper order of tasks - used for bingo board
-            ordered_tasks = completion(ign, uuid, profile_data, profile_id, bingo_tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list)
+            ordered_tasks = completion(ign, uuid, profile_data, profile_id, bingo_tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list, minion_info)
             # Calculates and sorts by ETA - used for list of tasks
             eta_tasks = sortbyeta(ordered_tasks)
 

@@ -204,10 +204,6 @@ input[type="text"]:focus {
   display:grid;
 }
 
-.grid-in-strat-header {
-  margin:0.3rem 0rem 0.25rem 0rem;
-  line-height: 60%;
-}
 
 .grid-in-strat-objective {
   line-height: 100%;
