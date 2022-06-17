@@ -33,9 +33,9 @@ health_steps = [("Base", 100), ("Mushroom Armor", 165), ("Growth V", 900), ("Tit
 scc_steps = [("Base", 20), ("Angler V", 5), ("Beacon V (Friend's)", 5), ("Angler Armor", 4), ("Sea Emperor Century Cake", 1)]
 strength_steps = [("Base", 0), ("Bingo Pet (Lv. 50+)", 15), ("Strength VIII Potion (Friend's)", 75), ("Overflux Power Orb (Friend's)", 25), ("Raider Axe (Base, Reforged to Epic)", 105), ("Fierce (Armor Reforge, Rare+)", 24)]
 ferocity_steps = [("Base", 0), ("Dirty (Reforge, Uncommon+)", 3), ("Latest Update Century Cake", 2)]
-crit_damage_steps = [("Base", 50), ("Critical (Enchantment)", 50), ("Spicy (Meelee Reforge, Rare+)", 45), ("Fierce (Armor Reforge, Rare+)", 40), ("Critical IV Potion (Friend's)", 40), ("Beacon V (Friend's)", 10)]
+crit_damage_steps = [("Base", 50), ("Critical V (Enchantment)", 50), ("Spicy (Meelee Reforge, Rare+)", 45), ("Fierce (Armor Reforge, Rare+)", 40), ("Critical IV Potion (Friend's)", 40), ("Beacon V (Friend's)", 10)]
 crit_chance_steps = [("Base", 30), ("Odd (Meelee Reforge, Rare+)", 15), ("Clean (Armor Reforge, Rare+)", 24), ("Critical IV Potion (Friend's)", 25), ("Beacon V (Friend's)", 5), ("Fortuitous Power (Accessory)", 3)]
-speed_steps = [("Base", 100), ("Godsplash (#BongoBrewers)", 220), ("Farm Suit", 20), ("Rogue Sword", 30), ("Hunter Knife", 40), ("Haste Block (Friend's)", 100), ("Potato-Style Century Cake (Friend's)", 10)]
+speed_steps = [("Base", 100), ("Godsplash (#BongoBrewers)", 220), ("Farm Suit", 20), ("Rogue Sword (Ability 2x)", 30), ("Hunter Knife", 40), ("Haste Block (Friend's)", 100), ("Potato-Style Century Cake (Friend's)", 10)]
 
 health_steps_req = []
 scc_steps_req = []

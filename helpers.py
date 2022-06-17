@@ -229,38 +229,6 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
         elif task["method"] == "COMMUNITY GOAL":
             task["eta"] = "---"
             task["percent_complete"] = 100
-
-        elif "stat" in task["id"]:
-            try:
-                required_amount = task["required_amount"]
-                task_stat = task["id"].replace("stat_", "")
-
-                progress = shiiyu_data["profiles"][profile_id]["data"]["stats"][task_stat]
-
-                task["eta"] = f"{str(progress)} / {str(required_amount)}"
-                task["percent_complete"] = round(((progress / required_amount) * 100), 1)
-
-                # For List Explanation in Taskbox
-                if task_stat == "strength":
-                    for step in strength_steps_req:
-                        if "Bingo Pet" in step["step"]:
-                            pets = shiiyu_data["profiles"][profile_id]["data"]["pets"]
-                            for pet in pets:
-                                if pet["type"] == "BINGO":
-                                    print(pet["level"]["level"])
-                                    if int(pet["level"]["level"]) >= 50: 
-                                        step["has"] = "true"
-                                        break
-                        elif "Strength VIII" in step["step"]:
-                            effects = profile_data["members"][uuid]["fairy_souls_collected"]
-                print(strength_steps_req)
-                        
-
-            except:
-                task["eta"] = "API too slow..."
-                task["percent_complete"] = 0.0
-        
-            # 
             
         elif "fairy_souls" in task["id"]:
             try:
@@ -384,6 +352,7 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
                         progress_armors.append(armor_check)
             except:
                 armor_count += 0
+
             task["eta"] = f"{str(armor_count)} / {str(required_amount)}"
             task["percent_complete"] = round(((armor_count / required_amount) * 100), 1)
 
@@ -469,6 +438,36 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
                 progress = 0
             task["eta"] = f"{progress} / {required_amount}"
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+
+        elif "stat" in task["id"]:
+            try:
+                required_amount = task["required_amount"]
+                task_stat = task["id"].replace("stat_", "")
+
+                progress = shiiyu_data["profiles"][profile_id]["data"]["stats"][task_stat]
+
+                task["eta"] = f"{str(progress)} / {str(required_amount)}"
+                task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+
+                # For List Explanation in Taskbox
+                if task_stat == "strength":
+                    for step in strength_steps_req:
+                        if "Bingo Pet" in step["step"]:
+                            pets = shiiyu_data["profiles"][profile_id]["data"]["pets"]
+                            for pet in pets:
+                                if pet["type"] == "BINGO":
+                                    print(pet["level"]["level"])
+                                    if int(pet["level"]["level"]) >= 50: 
+                                        step["has"] = "true"
+                                        break
+                        elif "Strength VIII" in step["step"]:
+                            effects = profile_data["members"][uuid]["fairy_souls_collected"]
+                print(strength_steps_req)
+                        
+
+            except:
+                task["eta"] = "API too slow..."
+                task["percent_complete"] = 0.0
 
         else:
             task["percent_complete"] = 0.0
