@@ -40,7 +40,28 @@ def find_text(thing, word):
         para = header.find_next('p').get_text()
     return(str(para).strip())
 
+# Gets required steps for task.
+def stat_strat(steps, required_amount):
+    steps_req = []
+    stat_count = 0
+    i = 0
+    while stat_count < required_amount:
+        try:
+            tmpdict = {}
+            tmpdict["step"] = f"{steps[i][0]} → {steps[i][1]}"
+            if "Base" in tmpdict["step"]:
+                tmpdict["has"] = "true"
+            else:
+                tmpdict["has"] = "false"
+            stat_count += steps[i][1]
+            i += 1
+            steps_req.append(tmpdict)
+        except:
+            break
+    return(steps_req)
+"""
 def stat_strat(base_stat, requiredAmount, steps):
+    # Get Steps Required
     strategy = f"- Base → {base_stat}\n"
     i = 0
     while base_stat < requiredAmount:
@@ -53,6 +74,7 @@ def stat_strat(base_stat, requiredAmount, steps):
             # TODO: Add fairy soul suppport?
             break
     return strategy
+"""
 
 def get_skill_info(skill):
     para = ""
@@ -129,12 +151,12 @@ def attempt_search(key_words):
                 for para in soup.find_all('p'):
                     text = para.get_text()
                     if text != "\n" and text != "Content\n":
-                        return(text.strip())
+                        return(text.strip(), phrase)
 
             # Try Obtaining
             for header in soup.find_all(id='Obtaining'):
                 para = str(header.find_next('p').get_text())
-                return(para.strip())
+                return(para.strip(), phrase)
 
     return("I sure hope this task is self-explanatory because I didn't program for this to happen")
 
@@ -159,7 +181,7 @@ def shorten_number(number):
         return(0)
 
 # TODO: Add completion % for each task
-def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list, minion_info):
+def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list, minion_info, health_steps_req, scc_steps_req, strength_steps_req, ferocity_steps_req, crit_damage_steps_req, crit_chance_steps_req, speed_steps_req):
 # TODO: Personalized Completion Data Here
     try: # In case API's down
         load_shiiyu_page = requests.get(f"https://sky.shiiyu.moe/stats/{uuid}/{profile_id}") #API doesn't update otherwise...
@@ -217,9 +239,28 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
 
                 task["eta"] = f"{str(progress)} / {str(required_amount)}"
                 task["percent_complete"] = round(((progress / required_amount) * 100), 1)
+
+                # For List Explanation in Taskbox
+                if task_stat == "strength":
+                    for step in strength_steps_req:
+                        if "Bingo Pet" in step["step"]:
+                            pets = shiiyu_data["profiles"][profile_id]["data"]["pets"]
+                            for pet in pets:
+                                if pet["type"] == "BINGO":
+                                    print(pet["level"]["level"])
+                                    if int(pet["level"]["level"]) >= 50: 
+                                        step["has"] = "true"
+                                        break
+                        elif "Strength VIII" in step["step"]:
+                            effects = profile_data["members"][uuid]["fairy_souls_collected"]
+                print(strength_steps_req)
+                        
+
             except:
                 task["eta"] = "API too slow..."
                 task["percent_complete"] = 0.0
+        
+            # 
             
         elif "fairy_souls" in task["id"]:
             try:

@@ -196,7 +196,7 @@
                 <div id="strat-placeholder" class="grid-in-strat-text" style="text-align:center; font-size:1em; font-weight:500; padding:1.5em;"><em>Click on any task to view relevant information!</em></div>
                 {% for dict in eta_tasks %}
                     <div id={{ dict.id }} class="grid-in-strat-text" style="display:none;">
-                        <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; line-height:90%;">{{ dict.name }} → {{ dict.percent_complete }}% </div>
+                        <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; line-height:90%;">{{ dict.name }}</div>
                         <div id={{ dict.id }} class="grid-in-strat-objective" style="margin:0 auto; text-align:center; font-size:0.8em; font-weight:400;"><hr style="margin:2%;">Progress: <b>{{ dict.eta }}</b> | ({{ dict.percent_complete }}%) <hr style="margin:2%;"></div>
                         {% if "\n" in dict.strat %}
                             <div id={{ dict.id }} class="grid-in-strat-content" style="float:left; padding-left: 0.5em; text-align:left; font-size:0.8em; font-weight:400; white-space:pre-line;">{{ dict.strat }}</div>
@@ -224,9 +224,19 @@
                                 </div>
                             </div>
                             <hr style="margin:0 auto; width:60%;">
-                            <div style="text-align:center; font-size:0.7em; color:rgb(189, 189, 189);"><em>Assumes 5 Lvl 5 {{ dict.minion }} Minions w/ Medium Storages</em></div>
+                            <div style="text-align:center; font-size:0.7em; color:rgb(189, 189, 189);"><em>Assumes 5 Tier 4 {{ dict.minion }} Minions w/ Medium Storages</em></div>
+                            <div style="font-weight:bolder; text-align:center; font-size:0.85em; padding-top:0.4em;">ADDITIONALLY:</div>
+                            <div style="text-align:center; font-size:0.7em; font-weight:400;">{{ dict.strat }}</div>
                         {% else %}
+                            {% if dict.method != "COMMUNITY GOAL" %}
+                                <div style="font-weight:bolder; text-align:center; font-size:0.85em;">FROM THE WIKI:</div>
+                            {% endif %}
                             <div id={{ dict.id }} class="grid-in-strat-content" style="text-align:center; font-size:0.8em; font-weight:400;">{{ dict.strat }}</div>
+                        {% endif %}
+                        {% if dict.method != "COMMUNITY GOAL" %}
+                            <hr style="margin-top:0.4em; margin-bottom:0.4em;">
+                            <div style="font-weight:bolder; text-align:center; font-size:0.85em;">FOR YOUR RESEARCH:</div>
+                            <div style="text-align:center; font-size:0.7em; font-weight:400;"><a href="{{ dict.link }}" style="color:rgb(101, 198, 255);">{{ dict.link_title }} - Official Hypixel Skyblock Wiki</a></div>
                         {% endif %}
                     </div>
                 {% endfor %}

@@ -29,13 +29,21 @@ armor_list = [{"name":'Leather Armor', "id":'LEATHER'}, {"name":'Golden Armor', 
 accessory_list = ['Zombie Talisman', 'Skeleton Talisman', 'Village Affinity Talisman', 'Mine Affinity Talisman', 'Intimidation Talisman', 'Scavenger Talisman', 'Wolf Paw', "Pig's Foot", "Melody's Hair", 'Shiny Yellow Rock', 'Campfire Initiate Badge', 'Cat Talisman', 'King Talisman', 'Red Claw Talisman', 'Spider Talisman', 'Vaccine Talisman', 'Farming Talisman', 'Talisman of Coins', 'Magnetic Talisman', 'Gravity Talisman', 'Speed Talisman', 'Potion Affinity Talisman']
 pet_list = ['Bingo', 'Grandma Wolf', 'Bee', 'Rock', 'Dolphin', 'Jerry', 'Rabbit', 'Pig', 'Silverfish', 'Armadillo', 'Enderman', 'Blue Whale', 'Lion', 'Tiger', 'Giraffe', 'Elephant', 'Monkey']
 
-health_steps = [("Mushroom Armor", 165), ("Growth V", 900), ("Titanic (Armor Reforge, Uncommon)", 120), ("Crab-Colored Century Cake", 10)]
-scc_steps = [("Angler V", 5), ("Beacon V (Friend's)", 5), ("Angler Armor", 4), ("Sea Emperor Century Cake", 1)]
-strength_steps = [("Bingo Pet (Lv. 50+)", 15), ("Strength VIII Potion (Friend's)", 75), ("Overflux Power Orb (Friend's)", 25), ("Raider Axe (Base, Reforged to Epic)", 105), ("Fierce (Armor Reforge, Rare+)", 24)]
-ferocity_steps = [("Dirty (Reforge, Uncommon+)", 3), ("Latest Update Century Cake", 2)]
-crit_damage_steps = [("Critical (Enchantment)", 50), ("Spicy (Meelee Reforge, Rare+)", 45), ("Fierce (Armor Reforge, Rare+)", 40), ("Critical IV Potion (Friend's)", 40), ("Beacon V (Friend's)", 10)]
-crit_chance_steps = [("Odd (Meelee Reforge, Rare+)", 15), ("Clean (Armor Reforge, Rare+)", 24), ("Critical IV Potion (Friend's)", 25), ("Beacon V (Friend's)", 5), ("Fortuitous Power (Accessory)", 3)]
-speed_steps = [("Godsplash (#BongoBrewers)", 220), ("Farm Suit", 20), ("Rogue Sword", 30), ("Hunter Knife", 40), ("Haste Block (Friend's)", 100), ("Potato-Style Century Cake (Friend's", 10)]
+health_steps = [("Base", 100), ("Mushroom Armor", 165), ("Growth V", 900), ("Titanic (Armor Reforge, Uncommon)", 120), ("Crab-Colored Century Cake", 10)]
+scc_steps = [("Base", 20), ("Angler V", 5), ("Beacon V (Friend's)", 5), ("Angler Armor", 4), ("Sea Emperor Century Cake", 1)]
+strength_steps = [("Base", 0), ("Bingo Pet (Lv. 50+)", 15), ("Strength VIII Potion (Friend's)", 75), ("Overflux Power Orb (Friend's)", 25), ("Raider Axe (Base, Reforged to Epic)", 105), ("Fierce (Armor Reforge, Rare+)", 24)]
+ferocity_steps = [("Base", 0), ("Dirty (Reforge, Uncommon+)", 3), ("Latest Update Century Cake", 2)]
+crit_damage_steps = [("Base", 50), ("Critical (Enchantment)", 50), ("Spicy (Meelee Reforge, Rare+)", 45), ("Fierce (Armor Reforge, Rare+)", 40), ("Critical IV Potion (Friend's)", 40), ("Beacon V (Friend's)", 10)]
+crit_chance_steps = [("Base", 30), ("Odd (Meelee Reforge, Rare+)", 15), ("Clean (Armor Reforge, Rare+)", 24), ("Critical IV Potion (Friend's)", 25), ("Beacon V (Friend's)", 5), ("Fortuitous Power (Accessory)", 3)]
+speed_steps = [("Base", 100), ("Godsplash (#BongoBrewers)", 220), ("Farm Suit", 20), ("Rogue Sword", 30), ("Hunter Knife", 40), ("Haste Block (Friend's)", 100), ("Potato-Style Century Cake (Friend's)", 10)]
+
+health_steps_req = []
+scc_steps_req = []
+strength_steps_req = []
+ferocity_steps_req = []
+crit_damage_steps_req = []
+crit_chance_steps_req = []
+speed_steps_req = []
 
 money_steps = [("Spider Relics", 310000), ("Kill Goblins/Farm Wheat/Other Money Making Method", 100000000)]
 
@@ -53,6 +61,8 @@ for dict in response["goals"]:
     eta = 0
     minion = ""
     strategy = ""
+    link = ""
+    link_title = ""
 
     id = dict["id"].lower()
     name = dict["name"]
@@ -73,29 +83,23 @@ for dict in response["goals"]:
         # Parse item to query
         try:
             item = id.replace('collection_', '')
-
             # Select minion from item (sometimes minion name is different from item)
             minion = (db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item))[0]["type"]
 
         except:
             # In case weird name (Eg. 'ender stone' entered as opposed to 'end stone')
             item = name.replace(' Collector', '')
-
             minion = db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item)[0]["type"]
-        
-            
 
         # Find tier 4 stats
         minion_info = db.execute("SELECT delay, storage FROM miniondata WHERE tier=4 AND type=?", minion)
-        """
-        timePerItem = ((info[0]["delay"]) * 2) / 3600
-        storage = (info[0]["storage"]) + 576 # Medium Storages (TODO: Calculate if user has more minion slots, use small storages)
-        # Find time (in HOURS) WITH 5 MINIONS to get collection
-        eta = round((requiredAmount * timePerItem) / 5)
-        unloads = int(numpy.ceil(eta / (timePerItem * storage)))
-        timePerUnload = eta / unloads
-        """
-        strategy = "One second..."
+        item = item.replace("_", " ").title()
+        item = item.replace(" ", "_")
+        strategy = str(find_text(item, "Obtaining"))
+
+        link = f"https://wiki.hypixel.net/index.php?title={item}&redirect=yes"
+        link_title = item.replace("_", " ")
+
 
     # TODO: Craft Goal, determine if worth minion, and how much minion.
     # TODO: For crafting: take into account 
@@ -116,18 +120,18 @@ for dict in response["goals"]:
         if "kill" in id and "skill" not in id:
             mob = search_term(id.replace('kill_', ''))
             strategy = find_text(mob, "Location")
+            link = f"https://wiki.hypixel.net/index.php?title={mob}&redirect=yes"
+            link_title = mob.replace("_", " ").title()
 
         # IF WEARING SOMETHING
         elif "unique_armor" in id:
             strategy = "armor_list"
-            #strategy = f"Obtain {requiredAmount} of these: \n"
-            #for armor in armor_list:
-            #    strategy += f"- {armor}\n"
+            link = "https://wiki.hypixel.net/Armor"
+            link_title = "Armor"
         elif "accessories" in id:
             strategy = "accessory_list"
-            #strategy = f"Obtain {requiredAmount} of these: \n"
-            #for accessory in accessory_list:
-            #    strategy += f"- {accessory}\n"
+            link = "https://wiki.hypixel.net/Accessories"
+            link_title = "Accessories"
 
         # IF OBTAINING SOMETHING
         elif "obtain_item" in id:
@@ -136,12 +140,14 @@ for dict in response["goals"]:
             item = item.replace(' ', '_')
             item = item.replace('.', '')
             strategy = str(find_text(item, "Obtaining"))
+            link = f"https://wiki.hypixel.net/index.php?title={item}&redirect=yes"
+            link_title = item.replace("_", " ").title()
         
         elif "obtain_pets" in id:
             strategy = "pet_list"
-            #strategy = f"Obtain {requiredAmount} of these: \n"
-            #for pet in pet_list:
-            #    strategy += f"- {pet}\n"
+            link = "https://wiki.hypixel.net/Pets"
+            link_title = "Pets"
+
         elif "obtain_t1" in id:
             number = ""
             for char in lore:
@@ -151,30 +157,65 @@ for dict in response["goals"]:
                 strategy = "Upgrade a Wheat Minion to Tier 11. Use the hub to farm wheat."
             elif number == "12":
                 strategy = "Upgrade a Wheat Minion to Tier 12. Use the hub to farm wheat, and upgrade to Tier 12 using Tony's Shop in the Mushroom Desert."
+            link = "https://wiki.hypixel.net/Minion"
+            link_title = "Minion"
         
         # Edge cases :( - no (useful) wiki page...
         elif "obtain_ultimate_enchanted_book" in id:
             strategy = "Play Floor 1 of Dungeons. You'll likely get Bank I from the Free Chest."
+            link = "https://wiki.hypixel.net/Enchanted_Book"
+            link_title = "Enchanted Book"
         
         elif "Esteemed Enchanter" == name:
             strategy = "Play Floor 1 of Dungeons. You'll likely get Feather Falling VI or Infinite Quiver VI from the Free Chest."
+            link = "https://wiki.hypixel.net/Enchanted_Book"
+            link_title = "Enchanted Book"
 
         # IF STAT TASK
+        # NOTE: Don't forget about BANK TASK
         elif "stat" in id:
             if "health" in id:
-                strategy = stat_strat(100, requiredAmount, health_steps)
+                strategy = "health_steps"
+                health_steps_req = stat_strat(health_steps, requiredAmount)
+                #strategy = "stat_strat(100, requiredAmount, health_steps)"
+                link = "https://wiki.hypixel.net/Health"
+                link_title = "Health"
             elif "sea_creature_chance" in id:
-                strategy = stat_strat(20, requiredAmount, scc_steps)
+                #strategy = stat_strat(20, requiredAmount, scc_steps)
+                strategy = "scc_steps"
+                scc_steps_req = stat_strat(scc_steps, requiredAmount)
+                link = "https://wiki.hypixel.net/Sea_Creature_Chance"
+                link_title = "Sea Creature Chance"
             elif "strength" in id:
-                strategy = stat_strat(0, requiredAmount, strength_steps)
+                #strategy = stat_strat(0, requiredAmount, strength_steps)
+                strategy = "strength_steps"
+                strength_steps_req = stat_strat(strength_steps, requiredAmount)
+                link = "https://wiki.hypixel.net/Strength"
+                link_title = "Strength"
             elif "ferocity" in id:
-                strategy = stat_strat(0, requiredAmount, ferocity_steps)
+                #strategy = stat_strat(0, requiredAmount, ferocity_steps)
+                strategy = "ferocity_steps"
+                ferocity_steps_req = stat_strat(ferocity_steps, requiredAmount)
+                link = "https://wiki.hypixel.net/Ferocity"
+                link_title = "Ferocity"
             elif "critical_damage" in id:
-                strategy = stat_strat(50, requiredAmount, crit_damage_steps)
+                #strategy = stat_strat(50, requiredAmount, crit_damage_steps)
+                strategy = "crit_damage_steps"
+                crit_damage_steps_req = stat_strat(crit_damage_steps, requiredAmount)
+                link = "https://wiki.hypixel.net/Critical_Damage"
+                link_title = "Critical Damage"
             elif "critical_chance" in id:
-                strategy = stat_strat(30, requiredAmount, crit_chance_steps)
+                #strategy = stat_strat(30, requiredAmount, crit_chance_steps)
+                strategy = "crit_chance_steps"
+                crit_chance_steps_req = stat_strat(crit_chance_steps, requiredAmount)
+                link = "https://wiki.hypixel.net/Critical_Chance"
+                link_title = "Critical Chance"
             elif "speed" in id:
-                strategy = stat_strat(100, requiredAmount, speed_steps)
+                #strategy = stat_strat(100, requiredAmount, speed_steps)
+                strategy = "speed_steps"
+                speed_steps_req = stat_strat(speed_steps, requiredAmount)
+                link = "https://wiki.hypixel.net/Speed"
+                link_title = "Speed"
             else:
                 strategy = "Oops I didn't plan for this"
             
@@ -188,17 +229,27 @@ for dict in response["goals"]:
             skill = ("".join(skill)).strip()
             skill = skill.title()
             strategy = get_skill_info(skill)
-                    
+            link = f"https://wiki.hypixel.net/index.php?title={skill}&redirect=yes"
+            link_title = skill
+
         # IF REFORGE TASK
         elif "reforge" in id:
             reforge = (id.replace("reforge_", "")).title()
-            strategy = attempt_search(reforge)
+            strategy, useless = attempt_search(reforge)
             if strategy == "I sure hope this task is self-explanatory because I didn't program for this to happen":
                 strategy = f"Basic reforges (like {reforge}) can be applied to an item at the Blacksmith."
+                link = "https://wiki.hypixel.net/Reforging"
+                link_title = "Reforging"
+
+            else:
+                link = f"https://wiki.hypixel.net/index.php?title={reforge}&redirect=yes"
+                link_title = reforge
 
         # IF BANK TASK
         elif "bank" in id:
             strategy = stat_strat(0, requiredAmount, money_steps)
+            link = "https://wiki.hypixel.net/Coins"
+            link_title = "Coins"
 
         # IF DUNGEON CHEST TASK
         elif "dungeon_chest" in id:
@@ -208,12 +259,16 @@ for dict in response["goals"]:
                     if chest[0] == tier:
                         amount = chest[1]
                 strategy = f"Play Floor 1. A {tier} chest costs {amount} coins."
+                link = "https://wiki.hypixel.net/Dungeon_Reward_Chest"
+                link_title = "Dungeon Reward Chest"
             except:
                 strategy = "Error..."
 
         # IF SKILL AVERAGE
         elif "skill_average" in id:
             strategy = "Play the game. If neccessary, Farming tends to be the easiest skill to level up."
+            link = "https://wiki.hypixel.net/Skills"
+            link_title = "Skills"
 
         # IF POTION
         elif "brew_potion" in id:
@@ -221,23 +276,30 @@ for dict in response["goals"]:
                 strategy = "Speed IV: Enchanted Sugar + Glowstone Dust"
             if requiredAmount == 6:
                 strategy = "Speed VI: Enchanted Sugar + Enchanted Redstone Lamp"
+            link = "https://wiki.hypixel.net/Potions"
+            link_title = "Potions"
 
         # IF MINION COLLECTION
         elif "craft_minions" in id:
             strategy = find_next_minions(requiredAmount, unique_minions)
+            link = "https://wiki.hypixel.net/Minion"
+            link_title = "Minion"
         
         # IF SLAYER LEVEL
         elif "slayer_level" in id:
             strategy = "Level up Spider Slayer."
-
+            link = "https://wiki.hypixel.net/Slayer"
+            link_title = "Slayer"
 
         # IF NOTHING ELSE
         else:
             key_words = []
             key_words = find_key_words(dict["lore"])
-            strategy = attempt_search(key_words)
+            strategy, link_title = attempt_search(key_words)
+            link = f"https://wiki.hypixel.net/index.php?title={link_title}&redirect=yes"
+            link_title = link_title.replace("_", " ").title()
                 
-    db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta, unloads, minion, strategy)
+    db.execute("INSERT INTO bingo VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", id, name, lore, requiredAmount, method, eta, unloads, minion, strategy, link, link_title)
 
 
 
@@ -298,7 +360,7 @@ def bingo():
 
             bingo_tasks = db.execute("SELECT * FROM bingo")
             # Adds personalized completion data, keeps proper order of tasks - used for bingo board
-            ordered_tasks = completion(ign, uuid, profile_data, profile_id, bingo_tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list, minion_info)
+            ordered_tasks = completion(ign, uuid, profile_data, profile_id, bingo_tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list, minion_info, health_steps_req, scc_steps_req, strength_steps_req, ferocity_steps_req, crit_damage_steps_req, crit_chance_steps_req, speed_steps_req)
             # Calculates and sorts by ETA - used for list of tasks
             eta_tasks = sortbyeta(ordered_tasks)
 
