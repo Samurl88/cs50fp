@@ -200,11 +200,17 @@
                         <div id={{ dict.id }} class="grid-in-strat-objective" style="margin:0 auto; text-align:center; font-size:0.8em; font-weight:400;"><hr style="margin:2%;">Progress: <b>{{ dict.eta }}</b> | ({{ dict.percent_complete }}%) <hr style="margin:2%;"></div>
                         {% if "\n" in dict.strat %}
                             <div id={{ dict.id }} class="grid-in-strat-content" style="float:left; padding-left: 0.5em; text-align:left; font-size:0.8em; font-weight:400; white-space:pre-line;">{{ dict.strat }}</div>
-                        {% elif dict.strat == "armor_list" or dict.strat == "accessory_list" or dict.strat == "pet_list" %}
-                            <div id={{ dict.id }} class="grid-in-strat-content" style="font-size:0.75em; font-weight:400; display:grid; grid-template-columns:repeat(2, 1fr); padding-left:5%;">
-                            {% for i in range(dict.completion_list|length) %}
+                        {% elif dict.has_list == "true" %}
+                            {% if "Base" in dict.completion_list[0].name %}
+                                <div id={{ dict.id }} class="grid-in-strat-content" style="padding-left: 0.5em; text-align:left; font-size:0.85em; font-weight:400;">
+                            {% else %}
+                                <div id={{ dict.id }} class="grid-in-strat-content" style="font-size:0.75em; font-weight:400; display:grid; grid-template-columns:repeat(2, 1fr); padding-left:5%;">
+                            {% endif %}
+                                {% for i in range(dict.completion_list|length) %}
                                 {% if dict.completion_list[i].has == "true" %}
                                     <div style="white-space:pre; color:rgb(77, 201, 0);">- {{ dict.completion_list[i].name }}</div>
+                                {% elif dict.completion_list[i].has == "maybe" %}
+                                    <div style="white-space:pre; color:rgb(231, 231, 85);">- {{ dict.completion_list[i].name }}</div>
                                 {% else %}
                                     <div style="white-space:pre;">- {{ dict.completion_list[i].name }}</div>
                                 {% endif %}

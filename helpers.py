@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import math
+import time
 import numpy
 
 def color(lore):
@@ -48,8 +49,8 @@ def stat_strat(steps, required_amount):
     while stat_count < required_amount:
         try:
             tmpdict = {}
-            tmpdict["step"] = f"{steps[i][0]} → {steps[i][1]}"
-            if "Base" in tmpdict["step"]:
+            tmpdict["name"] = f"{steps[i][0]} → {steps[i][1]}"
+            if "Base" in tmpdict["name"]:
                 tmpdict["has"] = "true"
             else:
                 tmpdict["has"] = "false"
@@ -180,6 +181,8 @@ def shorten_number(number):
     except:
         return(0)
 
+
+
 # TODO: Add completion % for each task
 def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list, minion_info, health_steps_req, scc_steps_req, strength_steps_req, ferocity_steps_req, crit_damage_steps_req, crit_chance_steps_req, speed_steps_req):
 # TODO: Personalized Completion Data Here
@@ -191,7 +194,84 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
         shiiyu_data = []
         talisman_data = []
 
+    def cake_check(key):
+        current_time = time.time() * 1000
+        try:
+            cake_buffs = profile_data["members"][uuid]["temp_stat_buffs"]
+            for buff in cake_buffs:
+                if buff["key"] == key:
+                    if buff["expire_at"] > current_time:
+                        step["has"] = "true"
+                        return("true")
+                    else:
+                        return("false")
+            return("false")
+        except:
+            return("false")
+
+    def reforge_check(items, reforge, rarity=[""], count=1):
+        c = 0 
+        try:
+            for item in items:
+                try:
+                    if item["extra"]["reforge"] == reforge and item["rarity"] not in rarity:
+                        c += 1
+                        if c == count:
+                            return("true")
+                except:
+                    c += 0
+            return("false")
+        except:
+            return("false")
+
+    def enchant_check(items, enchantment, level, count=1):
+        c = 0
+        try:
+            for item in items:
+                try:
+                    if item["tag"]["ExtraAttributes"]["enchantments"][enchantment] >= level:
+                        c += 1
+                        if c == count:
+                            return("true")
+                except:
+                    c += 0
+            return("false")
+        except:
+            return("false")
+
+    def effect_check(potion, level):
+        try:
+            effects = profile_data["members"][uuid]["active_effects"]
+            for effect in effects:
+                if effect["effect"] == potion:
+                    if int(effect["level"]) == level:
+                        return("true")
+                    else:
+                        return("false")
+            return("false")
+        except:
+            return("false")
+
+    def item_check(item):
+        try:
+            items = shiiyu_data["profiles"][profile_id]["items"]
+            if item in str(items):
+                return("true")
+            else:
+                return("false")
+        except:
+            return("false") 
+        """
+            NOTE: not sure if above is inefficient. If so, here's what would go instead:
+            weapons = shiiyu_data["profiles"][profile_id]["items"]["weapons"]
+            for weapon in weapons:
+                if item in weapon["display_name"]:
+        """
+
+
+
     for task in tasks:
+        task["has_list"] = "false"
         if task["method"] == "MINION":
             required_amount = task["required_amount"]
             item = (task["id"].replace("collection_", "")).upper()
@@ -240,6 +320,7 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
         
         elif "pets" in task["id"]:
+            task["has_list"] = "true"
             progress_pets = []
             try:
                 required_amount = task["required_amount"]
@@ -265,6 +346,7 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
                 task["completion_list"].append(tmpdict)
 
         elif "accessories" in task["id"]:
+            task["has_list"] = "true"
             progress_accessories = []
             required_amount = task["required_amount"]
             try:
@@ -316,6 +398,7 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
         
         # NOTE: Only checks equipped armor and armor stored in wardrobe
         elif "armor" in task["id"]:
+            task["has_list"] = "true"
             required_amount = task["required_amount"]
             armor_count = 0
             progress_armors = []
@@ -440,38 +523,267 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
 
         elif "stat" in task["id"]:
+            task["has_list"] = "true"
+            required_amount = task["required_amount"]
+            task_stat = task["id"].replace("stat_", "")
+            if task_stat == "critical_damage":
+                task_stat = "crit_damage"
+            elif task_stat == "critical_chance":
+                task_stat = "crit_chance"
             try:
-                required_amount = task["required_amount"]
-                task_stat = task["id"].replace("stat_", "")
-
                 progress = shiiyu_data["profiles"][profile_id]["data"]["stats"][task_stat]
 
                 task["eta"] = f"{str(progress)} / {str(required_amount)}"
                 task["percent_complete"] = round(((progress / required_amount) * 100), 1)
 
-                # For List Explanation in Taskbox
-                if task_stat == "strength":
-                    for step in strength_steps_req:
-                        if "Bingo Pet" in step["step"]:
-                            pets = shiiyu_data["profiles"][profile_id]["data"]["pets"]
-                            for pet in pets:
-                                if pet["type"] == "BINGO":
-                                    print(pet["level"]["level"])
-                                    if int(pet["level"]["level"]) >= 50: 
-                                        step["has"] = "true"
-                                        break
-                        elif "Strength VIII" in step["step"]:
-                            effects = profile_data["members"][uuid]["fairy_souls_collected"]
-                print(strength_steps_req)
-                        
-
             except:
                 task["eta"] = "API too slow..."
                 task["percent_complete"] = 0.0
+                task["completion_list"] = [{'step': "Error :(", "has":"false"}]
+            
+            # For List Explanation in Taskbox
+            if task_stat == "health":
+                for step in health_steps_req:
+                    try:
+                        # Checking for growth v and titanic reforge, too!
+                        if "Mushroom Armor" in step["name"]:
+                            growth_v = "false"
+                            titanic = "false"
+                            try:
+                                # First check equipped armor
+                                equipped_armor = shiiyu_data["profiles"][profile_id]["items"]["armor"]
+
+                                # Attempt to save time if player doesn't have set
+                                if "MUSHROOM" in progress_armors:
+                                    # Check for Mushroom Armor in equipped armor
+                                    c = 0
+                                    for piece in equipped_armor:
+                                        try:
+                                            if "MUSHROOM" in piece["tag"]["ExtraAttributes"]["id"]:
+                                                c += 1
+                                        except:
+                                            break
+                                    if c == 4: # that's a set, check growth enchant and titanic reforge with this set!
+                                        step["has"] = "true"
+                                        growth_v = enchant_check(equipped_armor, "growth", 5, 4)
+                                        titanic = reforge_check(equipped_armor, "titanic", ["common"], 4)
+                                    else:
+                                        # If not equipped, try armor stored in wardrobe
+                                        try:
+                                            wardrobe = shiiyu_data["profiles"][profile_id]["items"]["wardrobe"]
+                                            for armor_set in wardrobe:
+                                                c = 0
+                                                for piece in armor_set:
+                                                    try:
+                                                        if "MUSHROOM" in piece["tag"]["ExtraAttributes"]["id"]:
+                                                            c += 1
+                                                    except:
+                                                        break
+                                                if c == 4:
+                                                    step["has"] = "true"
+                                                    growth_v = enchant_check(equipped_armor, "growth", 5, 4)
+                                                    titanic = reforge_check(equipped_armor, "titanic", ["common"], 4)
+                                        except:
+                                            step["has"] = "false"
+                                            growth_v = "false"
+                                            titanic = "false"
+                            except:
+                                step["has"] = "false"
+                                growth_v = "false"
+                                titanic = "false"
+                                
+                        elif "Growth V" in step["name"]:
+                            if growth_v == "true":
+                                step["has"] = "true"
+                        
+                        elif "Titanic" in step["name"]:
+                            if titanic == "true":
+                                step["has"] = "true"
+
+                        elif "Century Cake" in step["name"]:
+                            step["has"] = cake_check("cake_health")
+                        
+                    except:
+                        step["has"] = "false"
+                task["completion_list"] = health_steps_req
+
+            elif task_stat == "sea_creature_chance":
+                for step in scc_steps_req:
+                    try:
+                        if "Angler V" in step["name"]:
+                            fishing_tools = shiiyu_data["profiles"][profile_id]["items"]["fishing_tools"]
+                            step["has"] = enchant_check(fishing_tools, "angler", 5)
+
+                        elif "Beacon V" in step["name"]:
+                            step["has"] = "maybe"
+
+                        elif "Angler Armor" in step["name"]:
+                            if "ANGLER" in progress_armors:
+                                step["has"] = "true"
+
+                        elif "Century Cake" in step["name"]:
+                            step["has"] = cake_check("cake_sea_creature_chance")
+                    except:
+                        step["has"] = "false"
+                task["completion_list"] = scc_steps_req
+
+            elif task_stat == "strength":
+                for step in strength_steps_req:
+                    try:
+                        if "Bingo Pet" in step["name"]:
+                            pets = shiiyu_data["profiles"][profile_id]["data"]["pets"]
+                            for pet in pets:
+                                if pet["type"] == "BINGO":
+                                    if int(pet["level"]["level"]) >= 50: 
+                                        step["has"] = "true"
+                                    break
+
+                        elif "Strength VIII" in step["name"]:
+                            step["has"] = effect_check("strength", 8)
+
+                        elif "Overflux" in step["name"]:
+                            step["has"] = "maybe"
+
+                        elif "Raider Axe" in step["name"]:
+                            step["has"] = item_check("Raider Axe")
+
+                        elif "Fierce" in step["name"]:
+                            # First check equipped armor
+                            equipped_armor = shiiyu_data["profiles"][profile_id]["items"]["armor"]
+                            step["has"] = reforge_check(equipped_armor, "fierce", ["common", "uncommon"], 4)
+                            if step["has"] == "false":
+                                # Then check armor in wardrobe
+                                try:
+                                    wardrobe = shiiyu_data["profiles"][profile_id]["items"]["wardrobe"]
+                                    for armor_set in wardrobe:
+                                        step["has"] = reforge_check(armor_set, "fierce", ["common", "uncommon"], 4)
+                                except:
+                                    step["has"] = "false"
+
+                    except:
+                        step["has"] = "false"
+                task["completion_list"] = strength_steps_req
+                            
+            elif task_stat == "ferocity":
+                for step in ferocity_steps_req:
+                    try:    
+                        if "Dirty" in step["name"]:
+                            weapons = shiiyu_data["profiles"][profile_id]["items"]["weapons"]
+                            step["has"] = reforge_check(weapons, "dirty", ["common"])
+
+                        elif "Century Cake" in step["name"]:
+                            step["has"] = cake_check("cake_ferocity")
+                    except:
+                        step["has"] = "false"
+                task["completion_list"] = ferocity_steps_req
+
+            elif task_stat == "crit_damage":
+                for step in crit_damage_steps_req:
+                    try:
+                        if "Critical V (Enchantment)" in step["name"]:
+                            weapons = shiiyu_data["profiles"][profile_id]["items"]["weapons"]
+                            step["has"] = enchant_check(weapons, "critical", 5)
+
+                        elif "Spicy" in step["name"]:
+                            weapons = shiiyu_data["profiles"][profile_id]["items"]["weapons"]
+                            step["has"] = reforge_check(weapons, "spicy", ["common", "uncommon"])
+                        
+                        elif "Fierce" in step["name"]:
+                            # First check equipped armor
+                            equipped_armor = shiiyu_data["profiles"][profile_id]["items"]["armor"]
+                            step["has"] = reforge_check(equipped_armor, "fierce", ["common", "uncommon"], 4)
+                            if step["has"] == "false":
+                                # Then check armor in wardrobe
+                                try:
+                                    wardrobe = shiiyu_data["profiles"][profile_id]["items"]["wardrobe"]
+                                    for armor_set in wardrobe:
+                                        step["has"] = reforge_check(armor_set, "fierce", ["common", "uncommon"], 4)
+                                except:
+                                    step["has"] = "false"
+
+                        elif "Critical IV" in step["name"]:
+                            step["has"] = effect_check("critical", 4)
+                        
+                        elif "Beacon V" in step["name"]:
+                            step["has"] = "maybe"
+
+                    except:
+                        step["has"] = "false"
+                task["completion_list"] = crit_damage_steps_req
+                
+            elif task_stat == "crit_chance":
+                for step in crit_chance_steps_req:
+                    try:
+                        if "Odd" in step["name"]:
+                            weapons = shiiyu_data["profiles"][profile_id]["items"]["weapons"]
+                            step["has"] = reforge_check(weapons, "odd", ["common", "uncommon"])
+                        
+                        elif "Clean" in step["name"]:
+                            # First check equipped armor
+                            equipped_armor = shiiyu_data["profiles"][profile_id]["items"]["armor"]
+                            step["has"] = reforge_check(equipped_armor, "clean", ["common", "uncommon"], 4)
+                            if step["has"] == "false":
+                                # Then check armor in wardrobe
+                                try:
+                                    wardrobe = shiiyu_data["profiles"][profile_id]["items"]["wardrobe"]
+                                    for armor_set in wardrobe:
+                                        step["has"] = reforge_check(armor_set, "clean", ["common", "uncommon"], 4)
+                                except:
+                                    step["has"] = "false"
+
+                        elif "Critical IV Potion" in step["name"]:
+                            step["has"] = effect_check("critical", 4)
+                        
+                        elif "Beacon V" in step["name"]:
+                            step["has"] = "maybe"
+                        
+                        elif "Fortuitous" in step["name"]:
+                            if profile_data["members"][uuid]["accessory_bag_storage"]["selected_power"] == "fortuitous":
+                                step["has"] = "true"
+
+                    except:
+                        step["has"] = "false"
+                task["completion_list"] = crit_chance_steps_req
+
+            elif task_stat == "speed":
+                for step in speed_steps_req:
+                    try:
+                        if "Godsplash" in step["name"]:
+                            rabbit = effect_check("rabbit", 6)
+                            agility = effect_check("agility", 4)
+                            spirit = effect_check("spirit", 4)
+                            speed = effect_check("speed", 8)
+                            adrenaline = effect_check("adrenaline", 8)
+                            if rabbit == "true" and agility == "true" and spirit == "true" and speed == "true" and adrenaline == "true":
+                                step["has"] = "true"
+
+                        elif "Farm Suit" in step["name"]:
+                            if "FARM" in progress_armors:
+                                step["has"] = "true"
+                        
+                        elif "Rogue Sword" in step["name"]:
+                            step["has"] = item_check("Rogue Sword")
+                        
+                        elif "Hunter Knife" in step["name"]:
+                            step["has"] = item_check("Hunter Knife")
+
+                        elif "Haste Block" in step["name"]:
+                            step["has"] = "maybe"
+
+                        elif "Century Cake" in step["name"]:
+                            step["has"] = cake_check("cake_walk_speed")
+
+                    except:
+                        step["has"] = "false"
+                task["completion_list"] = speed_steps_req
+            
+            else:
+                task["completion_list"] = [{'step': "Error :(", "has":"false"}]
 
         else:
             task["percent_complete"] = 0.0
             task["eta"] = "NOT DONE"
+
 
     if latest == bingo_id:
         for task in tasks:
