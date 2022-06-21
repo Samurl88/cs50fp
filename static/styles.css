@@ -218,6 +218,7 @@ input[type="text"]:focus {
 /* This is just for the actual page's scroll bar */
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -239,6 +240,10 @@ input[type="text"]:focus {
 /* Handle on hover */
 .grid-container ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.65);
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(0,0,0,0);
 }
 
 /* Resizing For Mobile */

@@ -204,15 +204,17 @@
                             {% if "Base" in dict.completion_list[0].name %}
                                 <div id={{ dict.id }} class="grid-in-strat-content" style="padding-left: 0.5em; text-align:left; font-size:0.85em; font-weight:400;">
                             {% else %}
-                                <div id={{ dict.id }} class="grid-in-strat-content" style="font-size:0.75em; font-weight:400; display:grid; grid-template-columns:repeat(2, 1fr); padding-left:5%;">
+                                <div id={{ dict.id }} class="grid-in-strat-content" style="font-size:0.75em; font-weight:400; display:grid; grid-template-columns:repeat(2, 1fr); margin-left:3%;">
                             {% endif %}
+                                {% set h = namespace(value=0) %}
                                 {% for i in range(dict.completion_list|length) %}
                                 {% if dict.completion_list[i].has == "true" %}
-                                    <div style="white-space:pre; color:rgb(77, 201, 0);">- {{ dict.completion_list[i].name }}</div>
+                                    {% set h.value = h.value + 1 %}
+                                    <div style="white-space:pre; color:rgb(104, 225, 28); grid-column:2; grid-row:{{ h.value }};">- {{ dict.completion_list[i].name }}</div>
                                 {% elif dict.completion_list[i].has == "maybe" %}
                                     <div style="white-space:pre; color:rgb(231, 231, 85);">- {{ dict.completion_list[i].name }}</div>
                                 {% else %}
-                                    <div style="white-space:pre;">- {{ dict.completion_list[i].name }}</div>
+                                    <div style="white-space:pre; grid-column:1">- {{ dict.completion_list[i].name }}</div>
                                 {% endif %}
                             {% endfor %}
                             </div>

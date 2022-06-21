@@ -159,7 +159,7 @@ def attempt_search(key_words):
                 para = str(header.find_next('p').get_text())
                 return(para.strip(), phrase)
 
-    return("I sure hope this task is self-explanatory because I didn't program for this to happen")
+    return("I sure hope this task is self-explanatory because I didn't program for this to happen", "ERROR")
 
     
 
@@ -184,7 +184,7 @@ def shorten_number(number):
 
 
 # TODO: Add completion % for each task
-def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list, minion_info, health_steps_req, scc_steps_req, strength_steps_req, ferocity_steps_req, crit_damage_steps_req, crit_chance_steps_req, speed_steps_req):
+def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list, minion_info, health_steps_req, scc_steps_req, strength_steps_req, ferocity_steps_req, crit_damage_steps_req, crit_chance_steps_req, speed_steps_req, unique_minions, money_steps_req):
 # TODO: Personalized Completion Data Here
     try: # In case API's down
         load_shiiyu_page = requests.get(f"https://sky.shiiyu.moe/stats/{uuid}/{profile_id}") #API doesn't update otherwise...
@@ -522,6 +522,25 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             task["eta"] = f"{progress} / {required_amount}"
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
 
+            task["has_list"] = "true"
+            task["completion_list"] = []
+            generator_data = profile_data["members"][uuid]["crafted_generators"]
+            t = 0
+            for minion in unique_minions:
+                c = 0
+                for generator in generator_data:
+                    if re.sub(r'[0-9]', '', generator).replace("_", "") == minion.replace(" ", "_").upper():
+                        c += 1
+                        t += 1
+                tmpdict = {"name":f"{minion} → {c}"}
+                if c >= 5:
+                    tmpdict["has"] = "true"
+                else:
+                    tmpdict["has"] = "false"
+                task["completion_list"].append(tmpdict)
+
+            task["completion_list"].insert(0, {"name": f"Other → {len(generator_data) - t}", "has": "true"})
+
         elif "stat" in task["id"]:
             task["has_list"] = "true"
             required_amount = task["required_amount"]
@@ -780,6 +799,17 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             else:
                 task["completion_list"] = [{'step': "Error :(", "has":"false"}]
 
+        elif "bank" in task["id"]:
+            task["has_list"] = "true"
+            for step in money_steps_req:
+                try:
+                    if "Spider" in step["step"]:
+                        if profile_data["members"][uuid]["objectives"]["find_relics"]["progress"] == 28:
+                            step["has"] == "true"
+                except:
+                    step["has"] = "false"
+            task["completion_list"] = money_steps_req
+            
         else:
             task["percent_complete"] = 0.0
             task["eta"] = "NOT DONE"

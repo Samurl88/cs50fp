@@ -31,10 +31,10 @@ pet_list = ['Bingo', 'Grandma Wolf', 'Bee', 'Rock', 'Dolphin', 'Jerry', 'Rabbit'
 
 health_steps = [("Base", 100), ("Mushroom Armor", 165), ("Growth V", 900), ("Titanic (Armor Reforge, Uncommon)", 120), ("Crab-Colored Century Cake", 10)]
 scc_steps = [("Base", 20), ("Angler V", 5), ("Beacon V (Friend's)", 5), ("Angler Armor", 4), ("Sea Emperor Century Cake", 1)]
-strength_steps = [("Base", 0), ("Bingo Pet (Lv. 50+)", 15), ("Strength VIII Potion (#BongoBrewers)", 75), ("Overflux Power Orb (Friend's)", 25), ("Raider Axe (Base, Reforged to Epic)", 105), ("Fierce (Armor Reforge, Rare+)", 24)]
+strength_steps = [("Base", 0), ("Bingo Pet (Lv. 50+)", 15), ("Strength VIII (#BongoBrewers)", 75), ("Overflux Power Orb (Friend's)", 25), ("Raider Axe (Base, Reforged to Epic)", 105), ("Fierce (Armor Reforge, Rare+)", 24)]
 ferocity_steps = [("Base", 0), ("Dirty (Reforge, Uncommon+)", 3), ("Latest Update Century Cake", 2)]
-crit_damage_steps = [("Base", 50), ("Critical V (Enchantment)", 50), ("Spicy (Meelee Reforge, Rare+)", 45), ("Fierce (Armor Reforge, Rare+)", 40), ("Critical IV Potion (#BongoBrewers)", 40), ("Beacon V (Friend's)", 10)]
-crit_chance_steps = [("Base", 30), ("Odd (Meelee Reforge, Rare+)", 15), ("Clean (Armor Reforge, Rare+)", 24), ("Critical IV Potion (#BongoBrewers)", 25), ("Beacon V (Friend's)", 5), ("Fortuitous Power (Accessory)", 3)]
+crit_damage_steps = [("Base", 50), ("Critical V (Enchantment)", 50), ("Spicy (Meelee Reforge, Rare+)", 45), ("Fierce (Armor Reforge, Rare+)", 40), ("Critical IV (#BongoBrewers)", 40), ("Beacon V (Friend's)", 10)]
+crit_chance_steps = [("Base", 30), ("Odd (Meelee Reforge, Rare+)", 15), ("Clean (Armor Reforge, Rare+)", 24), ("Critical IV (#BongoBrewers)", 25), ("Beacon V (Friend's)", 5), ("Fortuitous Power (Accessory)", 3)]
 speed_steps = [("Base", 100), ("Godsplash (#BongoBrewers)", 220), ("Farm Suit", 20), ("Rogue Sword (Ability 2x)", 30), ("Hunter Knife", 40), ("Haste Block (Friend's)", 100), ("Potato-Style Century Cake (Friend's)", 10)]
 
 health_steps_req = []
@@ -45,7 +45,7 @@ crit_damage_steps_req = []
 crit_chance_steps_req = []
 speed_steps_req = []
 
-money_steps = [("Spider Relics", 310000), ("Kill Goblins/Farm Wheat/Other Money Making Method", 100000000)]
+money_steps = [("Base", 0), ("Spider Relics", 310000), ("Kill Goblins/Farm Wheat/Other Money Making Method", 100000000)]
 
 dchest_prices = [("Wood", 0), ("Gold", 25000), ("Diamond", 50000), ("Emerald", 100000), ("Obsidian", 250000)]
 
@@ -247,7 +247,8 @@ for dict in response["goals"]:
 
         # IF BANK TASK
         elif "bank" in id:
-            strategy = stat_strat(0, requiredAmount, money_steps)
+            strategy = "money_steps"
+            money_steps_req = stat_strat(money_steps, requiredAmount)
             link = "https://wiki.hypixel.net/Coins"
             link_title = "Coins"
 
@@ -280,11 +281,13 @@ for dict in response["goals"]:
             link_title = "Potions"
 
         # IF MINION COLLECTION
+        
         elif "craft_minions" in id:
             strategy = find_next_minions(requiredAmount, unique_minions)
             link = "https://wiki.hypixel.net/Minion"
             link_title = "Minion"
         
+
         # IF SLAYER LEVEL
         elif "slayer_level" in id:
             strategy = "Level up Spider Slayer."
@@ -360,7 +363,7 @@ def bingo():
 
             bingo_tasks = db.execute("SELECT * FROM bingo")
             # Adds personalized completion data, keeps proper order of tasks - used for bingo board
-            ordered_tasks = completion(ign, uuid, profile_data, profile_id, bingo_tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list, minion_info, health_steps_req, scc_steps_req, strength_steps_req, ferocity_steps_req, crit_damage_steps_req, crit_chance_steps_req, speed_steps_req)
+            ordered_tasks = completion(ign, uuid, profile_data, profile_id, bingo_tasks, completed_tasks, latest, bingo_id, armor_list, accessory_list, pet_list, minion_info, health_steps_req, scc_steps_req, strength_steps_req, ferocity_steps_req, crit_damage_steps_req, crit_chance_steps_req, speed_steps_req, unique_minions, money_steps_req)
             # Calculates and sorts by ETA - used for list of tasks
             eta_tasks = sortbyeta(ordered_tasks)
 
