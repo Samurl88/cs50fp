@@ -18,7 +18,7 @@ app = Flask(__name__)
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
-# API Key - might use pset 9's way of hiding API key (os.environ.get("API_KEY"))
+# PSET9 had a good way of hiding the API key (os.environ.get("API_KEY")). If I were to actually deploy this with a public github and all, I'd probably do that
 key = "5a0827f1-cf40-4ea6-9891-5a5a323b5f35"
 
 # Get Bingo Card API Data from Hypixel - id, name, lore, required amount
@@ -44,6 +44,7 @@ ferocity_steps_req = []
 crit_damage_steps_req = []
 crit_chance_steps_req = []
 speed_steps_req = []
+money_steps_req = []
 
 money_steps = [("Base", 0), ("Spider Relics", 310000), ("Kill Goblins/Farm Wheat/Other Money Making Method", 100000000)]
 
@@ -54,7 +55,7 @@ unique_minions = ["Cobblestone", "Sand", "Coal", "Iron", "Gold", "Diamond", "Lap
 # Loads data into database
 db = SQL("sqlite:///bingo.db")
 
-# TODO: ALTER DATABASE WHEN NECESSARY
+# NOTE: If I were to actually run this as a website, I'd figure out how to update the database with the new Bingo only when necessary (so once a month).
 db.execute("DELETE FROM bingo")
 for dict in response["goals"]:
     unloads = ""
@@ -77,7 +78,6 @@ for dict in response["goals"]:
     else:
         requiredAmount = ""
 
-    # TODO: Collection Goal, use minion.
     if "collection" in id:
         method = "MINION"
         # Parse item to query
@@ -101,12 +101,14 @@ for dict in response["goals"]:
         link_title = item.replace("_", " ")
 
 
-    # TODO: Craft Goal, determine if worth minion, and how much minion.
-    # TODO: For crafting: take into account 
-    # Couldn't do "craft" in id b/c craft_minions is a goal but it's crafting 40 unique minions
-    elif "Craft a" in lore:
+    # NOTE: At some point in the future, I might add a more comprehensive guide - minion support (and a determiner if worth manually grinding...)
+    elif "craft_item_" in id:
         method = "CRAFT"
-        strategy = "WIP"
+        item = id.replace("craft_item_", "")
+        search_term(item)
+        strategy = find_text(item, "Obtaining")
+        link = f"https://wiki.hypixel.net/index.php?title={item}&redirect=yes"
+        link_title = item.replace("_", " ").title()
 
     elif lore == "Community Goal!":
         method = "COMMUNITY GOAL"
@@ -371,8 +373,5 @@ def bingo():
     return redirect("/")
     
 
-# TODO: bingo_tasks: Send list of dictionaries, each a task containing keys: name, lore (?), method, eta, completion (percentage)
 
-# TODO: Query per user, add percentage bars (?) for each task, https://api.hypixel.net/skyblock/bingo?key=5a0827f1-cf40-4ea6-9891-5a5a323b5f35&uuid=5e22209b-e586-4a08-8761-aa6bde56a090
-# TODO: Make tasks change color based on completion % (?) - g l o w
-# TODO: Add interactable to-do list
+# Bingo tasks ex. https://api.hypixel.net/skyblock/bingo?key=5a0827f1-cf40-4ea6-9891-5a5a323b5f35&uuid=5e22209b-e586-4a08-8761-aa6bde56a090

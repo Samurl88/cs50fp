@@ -524,22 +524,28 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
 
             task["has_list"] = "true"
             task["completion_list"] = []
-            generator_data = profile_data["members"][uuid]["crafted_generators"]
-            t = 0
-            for minion in unique_minions:
-                c = 0
-                for generator in generator_data:
-                    if re.sub(r'[0-9]', '', generator).replace("_", "") == minion.replace(" ", "_").upper():
-                        c += 1
-                        t += 1
-                tmpdict = {"name":f"{minion} → {c}"}
-                if c >= 5:
-                    tmpdict["has"] = "true"
-                else:
-                    tmpdict["has"] = "false"
-                task["completion_list"].append(tmpdict)
-
-            task["completion_list"].insert(0, {"name": f"Other → {len(generator_data) - t}", "has": "true"})
+            try:
+                generator_data = profile_data["members"][uuid]["crafted_generators"]
+                t = 0
+                for minion in unique_minions:
+                    c = 0
+                    for generator in generator_data:
+                        if re.sub(r'[0-9]', '', generator).replace("_", "") == minion.replace(" ", "_").upper():
+                            c += 1
+                            t += 1
+                    tmpdict = {"name":f"{minion} → {c}"}
+                    if c >= 5:
+                        tmpdict["has"] = "true"
+                    elif c >= 1:
+                        tmpdict["has"] = "maybe"
+                    else:
+                        tmpdict["has"] = "false"
+                    task["completion_list"].append(tmpdict)
+                task["completion_list"].insert(0, {"name": f"Other → {len(generator_data) - t}", "has": "true"})
+            except:
+                for minion in unique_minions:
+                    tmpdict = {"name":f"{minion} → 0", "has": "false"}
+                    task["completion_list"].append(tmpdict)
 
         elif "stat" in task["id"]:
             task["has_list"] = "true"
@@ -828,7 +834,9 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
     return(tasks)
 
 def sortbyeta(init_tasks):
-# TODO: Order: BY ETA
+# NOTE: OK so when I initially began this project, I figured it might be useful to organize the tasks by ETA. 
+# This could be a feature, but then I'd have to find a place on the website for another options bar...
+
     #sorted_tasks = sorted(init_tasks, key = lambda item: item["percent_complete"])
     sorted_tasks = init_tasks
     return(sorted_tasks)

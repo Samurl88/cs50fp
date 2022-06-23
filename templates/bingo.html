@@ -198,23 +198,23 @@
                     <div id={{ dict.id }} class="grid-in-strat-text" style="display:none;">
                         <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; line-height:90%;">{{ dict.name }}</div>
                         <div id={{ dict.id }} class="grid-in-strat-objective" style="margin:0 auto; text-align:center; font-size:0.8em; font-weight:400;"><hr style="margin:2%;">Progress: <b>{{ dict.eta }}</b> | ({{ dict.percent_complete }}%) <hr style="margin:2%;"></div>
-                        {% if "\n" in dict.strat %}
-                            <div id={{ dict.id }} class="grid-in-strat-content" style="float:left; padding-left: 0.5em; text-align:left; font-size:0.8em; font-weight:400; white-space:pre-line;">{{ dict.strat }}</div>
-                        {% elif dict.has_list == "true" %}
+                        {% if dict.has_list == "true" %}
                             {% if "Base" in dict.completion_list[0].name %}
                                 <div id={{ dict.id }} class="grid-in-strat-content" style="padding-left: 0.5em; text-align:left; font-size:0.85em; font-weight:400;">
                             {% else %}
-                                <div id={{ dict.id }} class="grid-in-strat-content" style="font-size:0.75em; font-weight:400; display:grid; grid-template-columns:repeat(2, 1fr); margin-left:3%;">
+                                <div id={{ dict.id }} class="grid-in-strat-content" style="font-size:0.75em; font-weight:400; display:grid; grid-template-columns:repeat(2, 1fr); text-align:center;">
+                                <div style="font-size:1.3em; grid-row:1; grid-column:1; font-weight:bold; text-align:center;">TO GET</div>
+                                <div style="font-size:1.3em; grid-row:1; grid-column:2; font-weight:bold; text-align:center;">HAVE</div>
                             {% endif %}
-                                {% set h = namespace(value=0) %}
+                                {% set h = namespace(value=1) %}
                                 {% for i in range(dict.completion_list|length) %}
                                 {% if dict.completion_list[i].has == "true" %}
                                     {% set h.value = h.value + 1 %}
-                                    <div style="white-space:pre; color:rgb(104, 225, 28); grid-column:2; grid-row:{{ h.value }};">- {{ dict.completion_list[i].name }}</div>
+                                    <div style="white-space:pre; color:rgb(104, 225, 28); grid-column:2; grid-row:{{ h.value }};">{{ dict.completion_list[i].name }}</div>
                                 {% elif dict.completion_list[i].has == "maybe" %}
-                                    <div style="white-space:pre; color:rgb(231, 231, 85);">- {{ dict.completion_list[i].name }}</div>
+                                    <div style="white-space:pre; color:rgb(231, 231, 85); grid-column:1">{{ dict.completion_list[i].name }}</div>
                                 {% else %}
-                                    <div style="white-space:pre; grid-column:1">- {{ dict.completion_list[i].name }}</div>
+                                    <div style="white-space:pre; grid-column:1">{{ dict.completion_list[i].name }}</div>
                                 {% endif %}
                             {% endfor %}
                             </div>
