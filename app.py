@@ -261,7 +261,7 @@ for dict in response["goals"]:
                 for chest in dchest_prices:
                     if chest[0] == tier:
                         amount = chest[1]
-                strategy = f"Play Floor 1. A {tier} chest costs {amount} coins."
+                strategy = f"Play Floor 1. The {tier} Chest costs {amount} coins."
                 link = "https://wiki.hypixel.net/Dungeon_Reward_Chest"
                 link_title = "Dungeon Reward Chest"
             except:

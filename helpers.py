@@ -60,22 +60,6 @@ def stat_strat(steps, required_amount):
         except:
             break
     return(steps_req)
-"""
-def stat_strat(base_stat, requiredAmount, steps):
-    # Get Steps Required
-    strategy = f"- Base → {base_stat}\n"
-    i = 0
-    while base_stat < requiredAmount:
-        try:
-            
-            strategy += f"- {steps[i][0]} → {steps[i][1]}\n"
-            base_stat += steps[i][1]
-            i += 1
-        except:
-            # TODO: Add fairy soul suppport?
-            break
-    return strategy
-"""
 
 def get_skill_info(skill):
     para = ""
@@ -90,8 +74,6 @@ def find_next_minions(requiredAmount, minion_list):
     return(str(minion_list))
 
 def find_key_words(lore):
-    #print(lore)
-
     # Remove useless coloring and periods
     lore = (lore).replace(".", "")
     lore = (lore).replace("§7", "", 1)
