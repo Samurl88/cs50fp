@@ -1,5 +1,5 @@
 # cs50fp
-#### Video Demo:  <URL HERE>
+#### Video Demo: https://www.youtube.com/watch?v=6jFvN45Hw1M
 #### Description:
 
 Here's my CS50 Final Project, months in the making! I've created a essentially a helper for a game in a game in a game in a game -- that is, a "solver" (I'll get to those quotation marks later) for the Minecraft server Hypixel's game mode Skyblock's monthly event of Bingo, in which a player must complete certain tasks ranging in difficulty within a week. At a broad level, this website reads data from Hypixel's Public API, finds certain keywords & phrases, and gives some solution or relevant information for each Bingo task.
