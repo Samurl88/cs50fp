@@ -165,7 +165,7 @@
                                 {% else %}
                                     <span style="color:rgba(255, 0, 0, 0.7);"> 
                                 {% endif %}
-                                {{ dict.eta }}</span>
+                                {{ dict.eta }} {{ dict.unit }}</span>
                             </div>
                         </div>
                     </div>
@@ -197,7 +197,7 @@
                 {% for dict in eta_tasks %}
                     <div id={{ dict.id }} class="grid-in-strat-text" style="display:none;">
                         <div id={{ dict.id }} class="grid-in-strat-header" style="text-align:center; font-size:1.2em; font-weight:700; line-height:90%;">{{ dict.name }}</div>
-                        <div id={{ dict.id }} class="grid-in-strat-objective" style="margin:0 auto; text-align:center; font-size:0.8em; font-weight:400;"><hr style="margin:2%;">Progress: <b>{{ dict.eta }}</b> | ({{ dict.percent_complete }}%) <hr style="margin:2%;"></div>
+                        <div id={{ dict.id }} class="grid-in-strat-objective" style="margin:0 auto; text-align:center; font-size:0.8em; font-weight:400;"><hr style="margin:2%;">Progress: <b>{{ dict.eta }} {{ dict.unit }}</b> | ({{ dict.percent_complete }}%) <hr style="margin:2%;"></div>
                         {% if dict.has_list == "true" %}
                             {% if "Base" in dict.completion_list[0].name %}
                                 <div id={{ dict.id }} class="grid-in-strat-content" style="padding-left: 0.5em; text-align:left; font-size:0.85em; font-weight:400;">
@@ -219,6 +219,7 @@
                             {% endfor %}
                             </div>
                         {% elif dict.method == "MINION" %}
+                            {% if dict.minion_hours_left != "none" %}
                             <div style="font-weight:bolder; text-align:center; font-size:0.85em">USING MINIONS:</div>
                             <hr style="margin:0 auto; width:60%;">
                             <div style="display:grid; grid-template-columns: repeat(2, 1fr); text-align: center; margin: 0 auto; padding-left:15%; padding-right:15%;">
@@ -233,6 +234,9 @@
                             </div>
                             <hr style="margin:0 auto; width:60%;">
                             <div style="text-align:center; font-size:0.7em; color:rgb(189, 189, 189);"><em>Assumes 5 Tier 4 {{ dict.minion }} Minions w/ Medium Storages</em></div>
+                            {% else %}
+                            <div style="font-weight:bolder; text-align:center; font-size:0.85em">NO MINION TO USE!</div>
+                            {% endif %}
                             <div style="font-weight:bolder; text-align:center; font-size:0.85em; padding-top:0.4em;">ADDITIONALLY:</div>
                             <div style="text-align:center; font-size:0.7em; font-weight:400;">{{ dict.strat }}</div>
                         {% else %}

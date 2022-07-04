@@ -45,10 +45,11 @@ crit_damage_steps_req = []
 crit_chance_steps_req = []
 speed_steps_req = []
 money_steps_req = []
+minion_info = {}
 
 money_steps = [("Base", 0), ("Spider Relics", 310000), ("Kill Goblins/Farm Wheat/Other Money Making Method", 100000000)]
 
-dchest_prices = [("Wood", 0), ("Gold", 25000), ("Diamond", 50000), ("Emerald", 100000), ("Obsidian", 250000)]
+dchest_prices = [("wood", "no"), ("gold", "25,000"), ("diamond", "50,000"), ("emerald", "100,000"), ("obsidian", "250,000")]
 
 unique_minions = ["Cobblestone", "Sand", "Coal", "Iron", "Gold", "Diamond", "Lapis Lazuli", "Redstone", "Emerald", "Oak", "Spruce", "Birch", "Dark Oak", "Acacia", "Jungle", "Wheat", "Melon", "Pumpkin", "Carrot", "Potato", "Mushroom", "Cactus", "Cocoa Beans", "Sugar Cane", "Cow", "Pig", "Chicken", "Sheep", "Rabbit"]
 
@@ -78,8 +79,9 @@ for dict in response["goals"]:
     else:
         requiredAmount = ""
 
-    if "collection" in id:
+    if "collection" in id and "unique_collections" not in id:
         method = "MINION"
+        exists = "true"
         # Parse item to query
         try:
             item = id.replace('collection_', '')
@@ -87,12 +89,18 @@ for dict in response["goals"]:
             minion = (db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item))[0]["type"]
 
         except:
-            # In case weird name (Eg. 'ender stone' entered as opposed to 'end stone')
-            item = name.replace(' Collector', '')
-            minion = db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item)[0]["type"]
+                # In case weird name (Eg. 'ender stone' entered as opposed to 'end stone')
+                item = name.replace(' Collector', '')
+                try:
+                    minion = db.execute("SELECT type FROM miniondata WHERE tier=1 AND ugMaterial LIKE ?", item)[0]["type"]
+                except:
+                    minion_info[(id.replace("collection_", "")).upper()] = "none"
+                    exists = "false"
 
         # Find tier 4 stats
-        minion_info = db.execute("SELECT delay, storage FROM miniondata WHERE tier=4 AND type=?", minion)
+        if exists == "true":
+            info = db.execute("SELECT delay, storage FROM miniondata WHERE tier=4 AND type=?", minion)
+            minion_info[(id.replace("collection_", "")).upper()] = info
         item = item.replace("_", " ").title()
         item = item.replace(" ", "_")
         strategy = str(find_text(item, "Obtaining"))
@@ -100,12 +108,11 @@ for dict in response["goals"]:
         link = f"https://wiki.hypixel.net/index.php?title={item}&redirect=yes"
         link_title = item.replace("_", " ")
 
-
     # NOTE: At some point in the future, I might add a more comprehensive guide - minion support (and a determiner if worth manually grinding...)
     elif "craft_item_" in id:
         method = "CRAFT"
         item = id.replace("craft_item_", "")
-        search_term(item)
+        item = search_term(item)
         strategy = find_text(item, "Obtaining")
         link = f"https://wiki.hypixel.net/index.php?title={item}&redirect=yes"
         link_title = item.replace("_", " ").title()
@@ -173,6 +180,12 @@ for dict in response["goals"]:
             link = "https://wiki.hypixel.net/Enchanted_Book"
             link_title = "Enchanted Book"
 
+        elif "obtain_crystal" in id:
+            crystal = name.replace(" Crystal", "")
+            strategy = find_text(name, crystal)
+            link = f"https://wiki.hypixel.net/index.php?title={name}&redirect=yes"
+            link_title = name
+
         # IF STAT TASK
         # NOTE: Don't forget about BANK TASK
         elif "stat" in id:
@@ -236,7 +249,7 @@ for dict in response["goals"]:
 
         # IF REFORGE TASK
         elif "reforge" in id:
-            reforge = (id.replace("reforge_", "")).title()
+            reforge = [(id.replace("reforge_", "")).title()]
             strategy, useless = attempt_search(reforge)
             if strategy == "I sure hope this task is self-explanatory because I didn't program for this to happen":
                 strategy = f"Basic reforges (like {reforge}) can be applied to an item at the Blacksmith."
@@ -244,7 +257,7 @@ for dict in response["goals"]:
                 link_title = "Reforging"
 
             else:
-                link = f"https://wiki.hypixel.net/index.php?title={reforge}&redirect=yes"
+                link = f"https://wiki.hypixel.net/index.php?title={reforge[0]}&redirect=yes"
                 link_title = reforge
 
         # IF BANK TASK
@@ -261,7 +274,7 @@ for dict in response["goals"]:
                 for chest in dchest_prices:
                     if chest[0] == tier:
                         amount = chest[1]
-                strategy = f"Play Floor 1. The {tier} Chest costs {amount} coins."
+                strategy = f"Play Floor 1. The {tier.title()} Chest costs {amount} coins."
                 link = "https://wiki.hypixel.net/Dungeon_Reward_Chest"
                 link_title = "Dungeon Reward Chest"
             except:
@@ -292,6 +305,7 @@ for dict in response["goals"]:
 
         # IF SLAYER LEVEL
         elif "slayer_level" in id:
+            requiredAmount = re.sub('[^0-9]', '', lore)
             strategy = "Level up Spider Slayer."
             link = "https://wiki.hypixel.net/Slayer"
             link_title = "Slayer"

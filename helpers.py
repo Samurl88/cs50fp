@@ -24,6 +24,7 @@ def color(lore):
     return lore
 
 def search_term(query):
+    query = query.replace(" ", "_")
     query = list(query)
     for count, char in enumerate(query):
         if char == '_':
@@ -65,6 +66,10 @@ def get_skill_info(skill):
     para = ""
     r = requests.get(f'https://wiki.hypixel.net/index.php?title={skill}&redirect=yes')
     soup = BeautifulSoup(r.content, 'html.parser')
+    if not soup.find_all(id=f"{skill}_XP_Gain"):
+        for header in soup.find_all(id=f"Levelling"):
+            para = header.find_next('p').get_text()
+            return(str(para).strip())
     for header in soup.find_all(id=f"{skill}_XP_Gain"):
         para = header.find_next('p').get_text()
     return(str(para).strip())
@@ -123,6 +128,7 @@ def find_key_words(lore):
 
 def attempt_search(key_words):
     for phrase in key_words:
+        phrase = search_term(phrase)
         para = ""
         r = requests.get(f'https://wiki.hypixel.net/index.php?title={phrase}&redirect=yes')
         if r.status_code == 200:
@@ -130,7 +136,6 @@ def attempt_search(key_words):
 
             # If not Obtaining, try first para of page
             if not soup.find_all(id="Obtaining"):
-                i = 0
                 for para in soup.find_all('p'):
                     text = para.get_text()
                     if text != "\n" and text != "Content\n":
@@ -172,6 +177,7 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
         load_shiiyu_page = requests.get(f"https://sky.shiiyu.moe/stats/{uuid}/{profile_id}") #API doesn't update otherwise...
         shiiyu_data = requests.get(f"https://sky.shiiyu.moe/api/v2/profile/{ign}").json() #NOTE: THIS IS SO SLOW!!!
         talisman_data = requests.get(f"https://sky.shiiyu.moe/api/v2/talismans/{ign}").json()
+        sloth_data = requests.get("https://api.slothpixel.me/api/skyblock/profile/logicalresponse/kiwi").json()
     except:
         shiiyu_data = []
         talisman_data = []
@@ -270,23 +276,28 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             except:
                 task["eta"] = "Turn on Collection API!"
                 task["percent_complete"] = 0.0
-            try:
-                required_amount -= progress
-                if required_amount > 0:
-                    timePerItem = ((minion_info[0]["delay"]) * 2) / 3600
-                    storage = (minion_info[0]["storage"]) + 576 # Medium Storages (TODO: Calculate if user has more minion slots, use small storages)
-                    # Find time (in HOURS) WITH 5 MINIONS to get collection
-                    eta = round((required_amount * timePerItem) / 5)
-                    unloads = int(numpy.ceil(eta / (timePerItem * storage)))
-                    
-                    task["minion_hours_left"] = eta
-                    task["unloads"] = unloads
-                else:
+
+            if minion_info[item] != "none":
+                try:
+                    required_amount -= progress
+                    if required_amount > 0:
+                        timePerItem = ((minion_info[item][0]["delay"]) * 2) / 3600
+                        storage = (minion_info[item][0]["storage"]) + 576 # Medium Storages (TODO: Calculate if user has more minion slots, use small storages)
+                        # Find time (in HOURS) WITH 5 MINIONS to get collection
+                        eta = round((required_amount * timePerItem) / 5)
+                        unloads = int(numpy.ceil(eta / (timePerItem * storage)))
+
+                        task["minion_hours_left"] = eta
+                        task["unloads"] = unloads
+                    else:
+                        task["minion_hours_left"] = "--"
+                        task["unloads"] = "--"
+                except:
                     task["minion_hours_left"] = "--"
                     task["unloads"] = "--"
-            except:
-                task["minion_hours_left"] = "--"
-                task["unloads"] = "--"
+            else:
+                task["minion_hours_left"] = "none"
+                task["unloads"] = "none"
                 
         elif task["method"] == "COMMUNITY GOAL":
             task["eta"] = "---"
@@ -373,6 +384,7 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             required_amount = int((re.sub('[^0-9]','', task["id"])).strip())
             try:
                 progress = shiiyu_data["profiles"][profile_id]["data"]["levels"][skill]["level"]
+                print(progress)
             except:
                 progress = 0
             task["eta"] = f"{str(progress)} / {str(required_amount)}"
@@ -436,6 +448,7 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             task["completion_list"] = armor_completion
 
         elif "bank" in task["id"]:
+            task["has_list"] = "true"
             required_amount = task["required_amount"]
             try:
                 str_required_amount = shorten_number(required_amount)
@@ -447,6 +460,15 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             except:
                 task["eta"] = "Turn on Banking API!"
                 task["percent_complete"] = 0.0
+
+            for step in money_steps_req:
+                try:
+                    if "Spider" in step["name"]:
+                        if profile_data["members"][uuid]["objectives"]["find_relics"]["progress"] == 28:
+                            step["has"] == "true"
+                except:
+                    step["has"] = "false"
+            task["completion_list"] = money_steps_req
 
         elif "powder_mithril" in task["id"]:
             required_amount = task["required_amount"]
@@ -483,8 +505,9 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             task["percent_complete"] = round(((progress / required_amount) * 100), 1)
 
         elif "slayer_level" in task["id"]:
+            task["unit"] = "XP"
             required_amount = task["required_amount"]
-            xp_list = {1:5, 2:25, 3:200, 4:1000, 5:5000, 6:20000, 7:100000, 8:400000, 9:1000000}
+            xp_list = {0:1, 1:5, 2:25, 3:200, 4:1000, 5:5000, 6:20000, 7:100000, 8:400000, 9:1000000}
             xp_needed = xp_list[required_amount]
             try:
                 # NOTE: possibly add code to determine highest slayer level and go off of that...
@@ -538,13 +561,25 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             elif task_stat == "critical_chance":
                 task_stat = "crit_chance"
             try:
-                progress = shiiyu_data["profiles"][profile_id]["data"]["stats"][task_stat]
+                # Shiiyu API updated... now you need to manually calculate stats :(
+                # Base Stat
+                progress = sloth_data["members"][uuid]["attributes"][task_stat]
+
+                # Pet
+                for pet in shiiyu_data["profiles"][profile_id]["data"]["pets"]:
+                    if pet["active"] == True:
+                        try:
+                            pet_stat = pet["stats"][task_stat]
+                            progress += round(pet_stat)
+                            break
+                        except:
+                            break
 
                 task["eta"] = f"{str(progress)} / {str(required_amount)}"
                 task["percent_complete"] = round(((progress / required_amount) * 100), 1)
 
             except:
-                task["eta"] = "API too slow..."
+                task["eta"] = "API Error"
                 task["percent_complete"] = 0.0
                 task["completion_list"] = [{'step': "Error :(", "has":"false"}]
             
@@ -786,17 +821,6 @@ def completion(ign, uuid, profile_data, profile_id, tasks, completed_tasks, late
             
             else:
                 task["completion_list"] = [{'step': "Error :(", "has":"false"}]
-
-        elif "bank" in task["id"]:
-            task["has_list"] = "true"
-            for step in money_steps_req:
-                try:
-                    if "Spider" in step["step"]:
-                        if profile_data["members"][uuid]["objectives"]["find_relics"]["progress"] == 28:
-                            step["has"] == "true"
-                except:
-                    step["has"] = "false"
-            task["completion_list"] = money_steps_req
             
         else:
             task["percent_complete"] = 0.0
